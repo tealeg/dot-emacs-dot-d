@@ -1,0 +1,10 @@
+.org-id-locations
+elpa
+games
+*.elc
+*~
+network-security.data
+session.*
+eshell/history
+eshell/lastdir
+tramp
