@@ -13,10 +13,10 @@ find in these files.
   plain text on my machine.
 
 ** How to install
-1. Exit Emacs
-2. Execute the following in a terminal:
+- Exit Emacs
+- Execute the following in a terminal:
 #+BEGIN_SRC sh
   mv ~/.emacs.d ~/.emacs.d-old
   git clone https://github.com/tealeg/dot-emacs-dot-d.git ~/.emacs.d
 #+END_SRC
-3. Start Emacs.
+- Start Emacs.
