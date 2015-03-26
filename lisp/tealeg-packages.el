@@ -4,6 +4,7 @@
 ;;;     Packages setup
 
 ;;; Code:
+(require 'cl-lib)
 (require 'package)
 (add-to-list 'package-archives
   '("melpa" . "http://melpa.milkbox.net/packages/") t)
@@ -15,6 +16,26 @@
              '("elpy" . "http://jorgenschaefer.github.io/packages/"))
 
 (package-initialize)
+
+(defvar tealeg/packages/depencies
+  '(minimal-theme flycheck flycheck-pyflakes git-gutter go-mode org org-page column-enforce-mode)
+  "A list of package required for my emacs setup.")
+
+(defun tealeg/packages/installed-p ()
+  (cl-reduce (lambda (a b) (and a b))
+	     (mapcar 'package-installed-p tealeg/packages/depencies)))
+
+(defun tealeg/packages/install-dependencies ()
+  (unless (tealeg/packages/installed-p)
+    (message "%s" "Now refershing package database...")
+    (package-refresh-contents)
+    (message "%s" " done.")
+    (dolist (p tealeg/packages/depencies)
+      (when (not (package-installed-p p))
+	(package-install p)))))
+
+
+ (tealeg/packages/install-dependencies)
 
 
 (provide 'tealeg-packages)

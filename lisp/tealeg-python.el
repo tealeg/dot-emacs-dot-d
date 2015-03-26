@@ -7,8 +7,6 @@
 
 (require 'column-enforce-mode)
 (require 'python)
-;; (require 'hideshow)
-(require 'yafolding)
 (require 'flycheck)
 
 (require 'flycheck-pyflakes)
@@ -20,9 +18,7 @@
 (defun python-helper ()
 	"Setup parameters and minor-modes for python coding."
 	(setq python-fill-docstring-style 'pep-257-nn)
-	;; (hs-minor-mode 1)
 	(flycheck-mode 1)
-	(yafolding-mode 1)
 	(column-enforce-mode 1))
 
 (add-hook 'python-mode-hook 'python-helper)
