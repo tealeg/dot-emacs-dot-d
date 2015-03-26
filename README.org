@@ -1,0 +1,22 @@
+* tealeg’s personal Emacs configuration
+** You probably don’t want this
+... at least not all of it, some of it is very specific to me.  Still,
+you might be interested in how I do certain things, and that you can
+find in these files.
+
+** Prerequisites
+- You need a Linux machine, I’ve not tested on OS X or Windows, who
+  uses that crap?
+- You need an ~/.authinfo.gpg file with IRC log-in details, Disqus
+  details and Google Analytics details.  I don’t include these things
+  in the lisp so I’m not exposing passwords, or indeed storing them in
+  plain text on my machine.
+
+** How to install
+1. Exit Emacs
+2. Execute the following in a terminal:
+#+BEGIN_SRC sh
+  mv ~/.emacs.d ~/.emacs.d-old
+  git clone https://github.com/tealeg/dot-emacs-dot-d.git ~/.emacs.d
+#+END_SRC
+3. Start Emacs.
