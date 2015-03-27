@@ -18,6 +18,7 @@
 (require 'tealeg-font)
 (require 'tealeg-theme)
 (require 'tealeg-file)
+(require 'tealeg-gnus)
 (require 'tealeg-unicode)
 (require 'tealeg-spelling)
 (require 'tealeg-shell)
