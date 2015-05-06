@@ -18,14 +18,16 @@
 (package-initialize)
 
 (defvar tealeg/packages/depencies
-  '(minimal-theme flycheck flycheck-pyflakes git-gutter go-mode org org-page column-enforce-mode)
-  "A list of package required for my emacs setup.")
+  '(minimal-theme flycheck flycheck-pyflakes git-gutter go-mode org org-page column-enforce-mode powerline)
+  "A list of package required for my Emacs setup.")
 
 (defun tealeg/packages/installed-p ()
+	"Return t if all required packages are installed."
   (cl-reduce (lambda (a b) (and a b))
 	     (mapcar 'package-installed-p tealeg/packages/depencies)))
 
 (defun tealeg/packages/install-dependencies ()
+	"Install all package dependencies required by my configuration."
   (unless (tealeg/packages/installed-p)
     (message "%s" "Now refershing package database...")
     (package-refresh-contents)
