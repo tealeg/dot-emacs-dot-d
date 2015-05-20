@@ -67,7 +67,7 @@ static char *gnus-pointer[] = {
 \"###########.######\" };")) t)
  '(package-selected-packages
 	 (quote
-		(paredit svg-mode-line-themes 2048-game hemisu-theme heroku-theme greymatters-theme gratuitous-dark-theme powerline alect-themes column-enforce-mode org-page go-mode git-gutter flycheck-pyflakes flycheck minimal-theme)))
+		(smartparens paredit svg-mode-line-themes 2048-game hemisu-theme heroku-theme greymatters-theme gratuitous-dark-theme powerline alect-themes column-enforce-mode org-page go-mode git-gutter flycheck-pyflakes flycheck minimal-theme)))
  '(vc-annotate-background "#404040")
  '(vc-annotate-color-map
 	 (quote
