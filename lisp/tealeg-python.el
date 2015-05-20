@@ -8,6 +8,7 @@
 (require 'column-enforce-mode)
 (require 'python)
 (require 'flycheck)
+(require 'paredit)
 
 (require 'flycheck-pyflakes)
 
@@ -19,6 +20,7 @@
 	"Setup parameters and minor-modes for python coding."
 	(setq python-fill-docstring-style 'pep-257-nn)
 	(flycheck-mode 1)
+	(paredit-mode 1)
 	(column-enforce-mode 1))
 
 (add-hook 'python-mode-hook 'python-helper)
