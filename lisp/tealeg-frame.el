@@ -11,6 +11,7 @@
 (line-number-mode 1)
 (column-number-mode 1)
 (put 'suspend-frame 'disabled t)
+(setq-default indent-tabs-mode nil)
 
 (provide 'tealeg-frame)
 ;;; tealeg-frame.el ends here
