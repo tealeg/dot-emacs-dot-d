@@ -14,6 +14,7 @@
 	(smartparens-mode 1)
 	(eldoc-mode 1)
 	(show-smartparens-mode t)
+	(sp-pair "'" nil :actions :rem)
   (set-fill-column 79)
   (visual-line-mode 1))
 

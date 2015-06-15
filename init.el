@@ -38,3 +38,4 @@
 
 (provide 'init)
 ;;; init.el ends here
+(put 'upcase-region 'disabled nil)
