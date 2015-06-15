@@ -6,15 +6,13 @@
 ;;; Code:
 (require 'go-mode)
 
-;; (load-file "/home/tealeg/go/src/code.google.com/p/go.tools/cmd/oracle/oracle.el")
+(load-file "/home/tealeg/go/src/golang.org/x/tools/cmd/oracle/oracle.el")
 
 (setq gofmt-command "goimports")
 
 (defun golang-helpers ()
   "Things to do when loading go-mode."
   (show-paren-mode 1)
-  ;; Go oracle
-  ;; (go-oracle-mode)
   ;; Customize compile command to run go build
   (if (not (string-match "go" compile-command))
       (set (make-local-variable 'compile-command)
