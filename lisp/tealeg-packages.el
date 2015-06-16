@@ -18,7 +18,7 @@
 (package-initialize)
 
 (defvar tealeg/packages/depencies
-  '(minimal-theme flycheck flycheck-pyflakes git-gutter go-mode org org-page column-enforce-mode powerline smartparens plan9-theme)
+  '(minimal-theme flycheck flycheck-pyflakes git-gutter go-mode org org-page column-enforce-mode powerline smartparens plan9-theme fontawesome)
   "A list of package required for my Emacs setup.")
 
 (defun tealeg/packages/installed-p ()
