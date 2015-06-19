@@ -35,6 +35,8 @@
 (require 'tealeg-automode)
 (require 'tealeg-keybindings)
 (require 'tealeg-theme)
+(require 'tealeg-mouse)
+;; (require 'tealeg-modeline)
 
 (provide 'init)
 ;;; init.el ends here
