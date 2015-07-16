@@ -5,8 +5,13 @@ games
 *~
 network-security.data
 session.*
+*/#*
+\.#*
+*/\.#*
 eshell/history
 eshell/lastdir
 tramp
 emacs-custom.el
 Gnus
+url
+xkcd
