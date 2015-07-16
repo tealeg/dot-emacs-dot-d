@@ -60,11 +60,34 @@
 	(erc-send-message "sweetie: alias merge-back build merge-back now MERGE_BACK_COMMIT=True")
 	(erc-send-message "sweetie: alias test-patch build sanitized-db-test now"))
 
-(defun erc-cmd-SPARKLE (line)
+(defun erc-cmd-SPARKLE (&rest line)
   "Make the 'LINE' sparkle."
-  (erc-send-message (concat "✨" line "✨")))
+  (erc-send-message (concat "✨sparkiegeek✨: " (string-join line " "))))
+
+(defun erc-cmd-GAMMA (&rest line)
+  "Send a LINE to gamma squad."
+  (erc-send-message (concat "𝝲(✨sparkiegeek✨, ack): " (string-join line " "))))
+
+(defun erc-cmd-BETA (&rest line)
+  "Send a LINE to beta squad."
+  (erc-send-message (concat "𝝱(free, BjornT, cglass, danilo): " (string-join line " "))))
+
+(defun erc-cmd-ALPHA (&rest line)
+  "Send a LINE to alpha squad."
+  (erc-send-message (concat "𝝰(blackboxsw, fcorrea, benji): " (string-join line " "))))
+
+(defun erc-cmd-QA (&rest line)
+  "Send a LINE to QA squad."
+  (erc-send-message (concat "ቀ(andreas, dpb): " (string-join line " "))))
 
 
+(defun erc-cmd-HANDBAG (recipient &rest line)
+  "Handbags the RECIPIENT, then sends them LINE."
+  (erc-send-message (concat (erc-compute-nick) " 👜→😱 " recipient " " (string-join line " "))))
+
+(defun erc-cmd-SLAP (recipient &rest line)
+  "Slaps the RECIPIENT, then sends then LINE."
+  (erc-send-message (concat "🖑→😱 " recipient " " (string-join line " "))))
 
 (provide 'tealeg-irc)
 ;;; tealeg-irc.el ends here

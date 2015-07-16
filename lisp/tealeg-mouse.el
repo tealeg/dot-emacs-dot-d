@@ -36,7 +36,8 @@ You can find this by looking at the output of 'xinput --list'."
 
 (add-hook 'focus-in-hook #'tealeg-mouse-turn-off-on-focus-in)
 (add-hook 'focus-out-hook #'tealeg-mouse-turn-on-on-focus-out)
-(add-hook 'delete-frame-functions #'turn-on-mouse)
+(add-hook 'delete-frame-functions #'tealeg-mouse-turn-on-on-focus-out)
+(setq-default mouse-avoidance-mode 'banish)
 
 (provide 'tealeg-mouse)
 ;;; tealeg-mouse.el ends here

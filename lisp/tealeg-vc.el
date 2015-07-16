@@ -14,6 +14,12 @@
 
 (require 'git-gutter)
 
+(set-face-attribute 'git-gutter:added nil :inherit 'fringe)
+(set-face-attribute 'git-gutter:deleted nil :inherit 'fringe)
+(set-face-attribute 'git-gutter:modified nil :inherit 'fringe)
+(set-face-attribute 'git-gutter:separator nil :inherit 'fringe)
+(set-face-attribute 'git-gutter:unchanged nil :inherit 'fringe)
+
 ;; If you enable global minor mode
 (global-git-gutter-mode t)
 

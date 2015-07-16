@@ -10,16 +10,18 @@
 (require 'auth-source)
 
 (setq op/repository-directory "/home/tealeg/org")
-(setq op/site-domain "http://www.teeale.de")
+(setq op/site-domain "http://www.teale.de")
 (let ((secret (plist-get (car (auth-source-search :host "www.disqus.com")) :secret)))
 	(setq op/personal-disqus-shortname (funcall secret)))
 (setq op/site-main-title "Geoffrey J. Teale")
 (setq op/site-sub-title "Tealeg's mind welcomes careful drivers...")
 (setq op/personal-github-link "https://github.com/tealeg")
+(setq op/theme-root-directory "/home/tealeg/op-themes/")
 (setq op/theme 'tealeg)
 (let ((secret (plist-get (car (auth-source-search :host "analytics.google.com")) :secret)))
 	(setq op/personal-google-analytics-id (funcall secret)))
 (setq op/personal-avatar nil)
+
 
 ;; I have to override this, because of localisation of the message it checks -
 ;; D'oh!

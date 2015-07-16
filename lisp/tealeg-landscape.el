@@ -11,8 +11,20 @@
 (require 'esh-util)
 (require 'esh-mode)
 (require 'eshell)
+(require 'ansi-color)
 
 (defvar eshell-temp "temp")
+
+
+(setq-default compilation-environment '("TERM=xterm-256color"))
+
+(ignore-errors
+  (require 'ansi-color)
+  (defun ls-colorize-compilation-buffer ()
+    (when (eq major-mode 'compilation-mode)
+      (ansi-color-apply-on-region compilation-filter-start (point-max))))
+(add-hook 'compilation-filter-hook 'ls-colorize-compilation-buffer))
+
 
 (defcustom ls-code-root
   (file-name-as-directory

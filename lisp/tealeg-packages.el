@@ -6,6 +6,25 @@
 ;;; Code:
 (require 'cl-lib)
 (require 'package)
+
+(defvar tealeg/packages/depencies
+  '(ample-theme
+    column-enforce-mode
+    flycheck
+    flycheck-pyflakes
+    git-gutter
+    go-mode
+    magit
+    minimal-theme
+    org
+    org-page
+    ;; powerline
+    slime
+    smartparens
+    )
+  "A list of package required for my Emacs setup.")
+
+
 (add-to-list 'package-archives
   '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
@@ -17,9 +36,6 @@
 
 (package-initialize)
 
-(defvar tealeg/packages/depencies
-  '(minimal-theme flycheck flycheck-pyflakes git-gutter go-mode org org-page column-enforce-mode powerline smartparens plan9-theme fontawesome)
-  "A list of package required for my Emacs setup.")
 
 (defun tealeg/packages/installed-p ()
 	"Return t if all required packages are installed."

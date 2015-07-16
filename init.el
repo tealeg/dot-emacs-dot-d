@@ -27,6 +27,7 @@
 (require 'tealeg-vc)
 (require 'tealeg-calendar)
 (require 'tealeg-elisp)
+(require 'tealeg-lisp)
 (require 'tealeg-go) ;; Needs go-mode
 (require 'tealeg-xml)
 (require 'tealeg-org) ;; Needs org-page
