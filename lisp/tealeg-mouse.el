@@ -33,10 +33,10 @@ You can find this by looking at the output of 'xinput --list'."
   (turn-on-mouse))
 
 
-
-(add-hook 'focus-in-hook #'tealeg-mouse-turn-off-on-focus-in)
-(add-hook 'focus-out-hook #'tealeg-mouse-turn-on-on-focus-out)
-(add-hook 'delete-frame-functions #'tealeg-mouse-turn-on-on-focus-out)
+;; Uncomment these lines to disable the trackpad when emacs is focused.
+;; (add-hook 'focus-in-hook #'tealeg-mouse-turn-off-on-focus-in)
+;; (add-hook 'focus-out-hook #'tealeg-mouse-turn-on-on-focus-out)
+;; (add-hook 'delete-frame-functions #'tealeg-mouse-turn-on-on-focus-out)
 (setq-default mouse-avoidance-mode 'banish)
 
 (provide 'tealeg-mouse)

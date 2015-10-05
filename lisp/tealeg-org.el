@@ -1,4 +1,4 @@
-;;; tealeg-org.el  --- Custom org setup for producing www.teale.de.
+>;;; tealeg-org.el  --- Custom org setup for producing www.teale.de.
 ;;;
 ;;; Commentary:
 ;;;		This file sets up org-mode and org-page ot publish www.teale.de.
@@ -8,6 +8,7 @@
 (require 'org)
 (require 'org-page)
 (require 'auth-source)
+(require 'ob-plantuml)
 
 (setq op/repository-directory "/home/tealeg/org")
 (setq op/site-domain "http://www.teale.de")
@@ -120,6 +121,14 @@ Inside a code-block, just call `self-insert-command'."
                ("\\subsection{%s}" . "\\subsection*{%s}")
                ("\\paragraph{%s}" . "\\paragraph*{%s}")
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+
+(setq org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (plantuml . t)))
 
 
 (provide 'tealeg-org)

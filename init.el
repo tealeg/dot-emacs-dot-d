@@ -30,7 +30,7 @@
 (require 'tealeg-lisp)
 (require 'tealeg-go) ;; Needs go-mode
 (require 'tealeg-xml)
-(require 'tealeg-org) ;; Needs org-page
+;; (require 'tealeg-org) ;; Needs org-page
 (require 'tealeg-irc)
 (require 'tealeg-python)
 (require 'tealeg-automode)
@@ -38,7 +38,7 @@
 (require 'tealeg-theme)
 (require 'tealeg-mouse)
 ;; (require 'tealeg-modeline)
-
+(server-start)
 (provide 'init)
 ;;; init.el ends here
-(put 'upcase-region 'disabled nil)
+

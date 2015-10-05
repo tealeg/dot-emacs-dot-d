@@ -43,7 +43,8 @@
 
 (defun ls-lxc-container-ip ()
 	"Return the IP address of the lxc-container we use for testing."
-	(shell-command-to-string (concat "lxc-ip " ls-lxc-container-name)))
+  (replace-regexp-in-string
+   "\n" ""  (shell-command-to-string (concat "lxc-ip " ls-lxc-container-name))))
 
 
 (defmacro parent-dir (path)

@@ -18,7 +18,6 @@
     minimal-theme
     org
     org-page
-    ;; powerline
     slime
     smartparens
     )
@@ -53,7 +52,7 @@
 	(package-install p)))))
 
 
- (tealeg/packages/install-dependencies)
+(tealeg/packages/install-dependencies)
 
 
 (provide 'tealeg-packages)

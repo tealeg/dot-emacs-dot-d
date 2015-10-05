@@ -15,6 +15,7 @@
   (visual-line-mode 1))
 
 (add-hook 'js-mode-hook 'js-helpers)
+(add-hook 'javascript-mode-hook 'js-helpers)
 
 (provide 'tealeg-js)
 ;;; tealeg-js.el ends here

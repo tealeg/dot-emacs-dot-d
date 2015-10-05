@@ -6,7 +6,7 @@
 ;;; Code:
 (require 'go-mode)
 
-(load-file "/home/tealeg/go/src/golang.org/x/tools/cmd/oracle/oracle.el")
+(load-file "/home/tealeg/go1.5/src/golang.org/x/tools/cmd/oracle/oracle.el")
 
 (setq gofmt-command "goimports")
 

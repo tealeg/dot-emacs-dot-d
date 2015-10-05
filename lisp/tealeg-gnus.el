@@ -54,6 +54,12 @@
       smtpmail-smtp-service 587
       gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]")
 
+(defun message-mode-helpers ()
+  "Setup for 'message-mode'."
+  (flyspell-mode 1))
+
+(add-hook 'message-mode-hook 'message-mode-helpers)
+
 
 
 (provide 'tealeg-gnus)

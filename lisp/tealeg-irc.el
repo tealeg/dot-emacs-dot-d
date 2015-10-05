@@ -30,6 +30,25 @@
                            (erc-log-mode 1)
                            (variable-pitch-mode 1)))
 
+
+;; (defun tealeg-log-url ()
+;;   ""
+;;   (interactive)
+;;   (save-excursion
+;;     (with-syntax-table erc-button-syntax-table
+;;       (let ((inhibit-point-motion-hooks t)
+;;             (inhibit-field-text-motion t)
+;;             (alist erc-button-alist))
+;;         (dolist (entry alist)
+;;           (message entry)
+;;           )
+;;         )
+;;       )
+;;     )
+;;   )
+
+;; (add-hook 'erc-insert-modify-hook 'tealeg-log-url 'append)
+
 (defun start-irc ()
   "Connect to IRC."
   (interactive)
@@ -46,7 +65,10 @@
                                        "#landscape-pvt"
                                        "#canonical"
                                        "#berlin"
-                                       "#tech"))))
+                                       "#tech"
+                                       "#server"
+                                       "#juju"
+                                       "#maas"))))
 
 (defun erc-cmd-INITSWEETIE ()
   "Initialise sweetie aliases."
@@ -66,28 +88,43 @@
 
 (defun erc-cmd-GAMMA (&rest line)
   "Send a LINE to gamma squad."
-  (erc-send-message (concat "𝝲(✨sparkiegeek✨, ack): " (string-join line " "))))
+  (erc-send-message (concat "𝝲(✨sparkiegeek✨, ack‍): " (string-join line " "))))
 
 (defun erc-cmd-BETA (&rest line)
   "Send a LINE to beta squad."
-  (erc-send-message (concat "𝝱(free, BjornT, cglass, danilo): " (string-join line " "))))
+  (erc-send-message (concat "𝝱(‍free, BjornT, tribaal, danilo‍): " (string-join line " "))))
 
 (defun erc-cmd-ALPHA (&rest line)
   "Send a LINE to alpha squad."
-  (erc-send-message (concat "𝝰(blackboxsw, fcorrea, benji): " (string-join line " "))))
+  (erc-send-message (concat "𝝰(‍blackboxsw, fcorrea, benji‍): " (string-join line " "))))
 
 (defun erc-cmd-QA (&rest line)
   "Send a LINE to QA squad."
-  (erc-send-message (concat "ቀ(andreas, dpb): " (string-join line " "))))
+  (erc-send-message (concat "ቀ(‍andreas, dpb‍): " (string-join line " "))))
 
 
 (defun erc-cmd-HANDBAG (recipient &rest line)
   "Handbags the RECIPIENT, then sends them LINE."
   (erc-send-message (concat (erc-compute-nick) " 👜→😱 " recipient " " (string-join line " "))))
 
+(defun erc-cmd-PISTOL (recipient &rest line)
+  "Pistol whips the RECIPIENT, then sends them LINE."
+  (erc-send-message (concat (erc-compute-nick) " 🔫→😱 " recipient " " (string-join line " "))))
+
+
 (defun erc-cmd-SLAP (recipient &rest line)
   "Slaps the RECIPIENT, then sends then LINE."
   (erc-send-message (concat "🖑→😱 " recipient " " (string-join line " "))))
+
+(defun erc-cmd-RUSSIANPLUSONE (recipient)
+  "Say +1 to RECIPIENT in Russian."
+  (erc-send-message (concat recipient ": плюс адын.")))
+
+
+(defun erc-cmd-PARK (branch &rest line)
+  "Parks the BRANCH, then sends then LINE."
+  (erc-send-message (concat "[" branch "] 🚗 ⇥ 🄿 " (string-join line " "))))
+
 
 (provide 'tealeg-irc)
 ;;; tealeg-irc.el ends here
