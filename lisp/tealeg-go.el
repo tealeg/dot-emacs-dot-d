@@ -5,6 +5,8 @@
 
 ;;; Code:
 (require 'go-mode)
+(require 'go-complete)
+(require 'go-eldoc)
 
 (load-file "/home/tealeg/go1.5/src/golang.org/x/tools/cmd/oracle/oracle.el")
 
@@ -17,6 +19,7 @@
   (if (not (string-match "go" compile-command))
       (set (make-local-variable 'compile-command)
            "go build -v && go test -v && go vet"))
+
   ;; Godef jump key binding
   (local-set-key (kbd "M-.") 'godef-jump))
 
@@ -26,6 +29,8 @@
 
 (add-hook 'go-mode-hook 'golang-helpers)
 (add-hook 'before-save-hook 'golang-save-helpers)
+(add-hook 'completion-at-point-functions 'go-complete-at-point)
+(add-hook 'go-mode-hook 'go-eldoc-setup)
 
 (provide 'tealeg-go)
 ;;; tealeg-go.el ends here

@@ -9,7 +9,6 @@
 ;;; Code:
 (add-to-list 'load-path "/home/tealeg/.emacs.d/lisp")
 (load-file "/home/tealeg/.emacs.d/lisp/tealeg-packages.el")
-
 (require 'tealeg-packages)
 (require 'tealeg-customize)
 (require 'tealeg-autocompile)

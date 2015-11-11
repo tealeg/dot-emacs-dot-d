@@ -8,7 +8,7 @@
 (require 'column-enforce-mode)
 (require 'python)
 (require 'flycheck)
-(require 'smartparens)
+(require 'highlight-parentheses)
 
 (require 'flycheck-pyflakes)
 
@@ -20,8 +20,8 @@
 	"Setup parameters and minor-modes for python coding."
 	(setq python-fill-docstring-style 'pep-257-nn)
 	(flycheck-mode 1)
-	(smartparens-mode 1)
-	(show-smartparens-mode 1)
+	(highlight-parentheses-mode 1)
+	(show-paren-mode 1)
 	(column-enforce-mode 1))
 
 (add-hook 'python-mode-hook 'python-helper)

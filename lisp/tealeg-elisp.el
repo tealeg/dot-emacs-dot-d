@@ -4,17 +4,16 @@
 ;;;     Elisp setup
 
 ;;; Code:
-(require 'smartparens)
+(require 'highlight-parentheses)
 
 (defun e-lisp-helpers ()
   "Setup 'emacs-lisp-mode'."
   (setq truncate-lines t)
   (setq tab-width 2)
   (setq show-trailing-whitespace t)
-	(smartparens-mode 1)
+	(highlight-parentheses-mode 1)
 	(eldoc-mode 1)
-	(show-smartparens-mode t)
-	(sp-pair "'" nil :actions :rem)
+	(show-paren-mode t)
   (set-fill-column 79)
   (visual-line-mode 1))
 

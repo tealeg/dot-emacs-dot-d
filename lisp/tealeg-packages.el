@@ -14,12 +14,14 @@
     flycheck-pyflakes
     git-gutter
     go-mode
+    go-complete
     magit
     minimal-theme
     org
     org-page
     slime
-    smartparens
+    highlight-parentheses
+    js2-mode
     )
   "A list of package required for my Emacs setup.")
 

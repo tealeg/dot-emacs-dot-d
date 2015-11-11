@@ -19,8 +19,8 @@
                  (if time-zone " (") time-zone (if time-zone ")")))
 
 (setq calendar-location-name "Hannover, Germany")
-(setq calendar-latitude 48.1284)
-(setq calendar-longitude 11.4428)
+(setq calendar-latitude 52.388227)
+(setq calendar-longitude  9.655909)
 
 (provide 'tealeg-calendar)
 ;;; tealeg-calendar.el ends here

@@ -88,7 +88,7 @@
 
 (defun erc-cmd-GAMMA (&rest line)
   "Send a LINE to gamma squad."
-  (erc-send-message (concat "𝝲(✨sparkiegeek✨, ack‍): " (string-join line " "))))
+  (erc-send-message (concat "𝝲(ack, free🆓, ✨sparkiegeek✨‍): " (string-join line " "))))
 
 (defun erc-cmd-BETA (&rest line)
   "Send a LINE to beta squad."
@@ -100,7 +100,7 @@
 
 (defun erc-cmd-QA (&rest line)
   "Send a LINE to QA squad."
-  (erc-send-message (concat "ቀ(‍andreas, dpb‍): " (string-join line " "))))
+  (erc-send-message (concat "ቀ(‍andreas‍): " (string-join line " "))))
 
 
 (defun erc-cmd-HANDBAG (recipient &rest line)
