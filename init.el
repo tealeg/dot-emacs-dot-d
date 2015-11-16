@@ -29,7 +29,7 @@
 (require 'tealeg-lisp)
 (require 'tealeg-go) ;; Needs go-mode
 (require 'tealeg-xml)
-;; (require 'tealeg-org) ;; Needs org-page
+(require 'tealeg-org)
 (require 'tealeg-irc)
 (require 'tealeg-python)
 (require 'tealeg-automode)

@@ -8,7 +8,7 @@
 (defvar tealeg-global-day-theme 'minimal-light
 	"The theme to apply to new frames during daylight hours.")
 
-(defvar tealeg-global-night-theme 'peacock
+(defvar tealeg-global-night-theme 'minimal-light
   "The theme to apply to new frames during nighttime hours.")
 
 (defun tealeg-load-theme ()

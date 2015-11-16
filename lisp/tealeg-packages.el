@@ -18,7 +18,7 @@
     magit
     minimal-theme
     org
-    org-page
+    org-plus-contrib
     slime
     highlight-parentheses
     js2-mode

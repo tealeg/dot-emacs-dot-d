@@ -17,7 +17,7 @@
 
 ;; Use upcase-initials instead of capitalize-word
 (global-unset-key (kbd "M-c"))
-(global-set-key (kbd "M-c") capitalize-first-char)
+(global-set-key (kbd "M-c") 'capitalize-first-char)
 
 (provide 'tealeg-keybindings)
 ;;; tealeg-keybindings.el ends here

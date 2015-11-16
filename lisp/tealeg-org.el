@@ -1,134 +1,108 @@
->;;; tealeg-org.el  --- Custom org setup for producing www.teale.de.
+;;; tealeg-org.el --- Custom org setup for producing www.teale.de.
 ;;;
 ;;; Commentary:
-;;;		This file sets up org-mode and org-page ot publish www.teale.de.
+;;;		This file sets up org-mode to publish www.teale.de.
 ;;;
 ;;; Code:
 
 (require 'org)
-(require 'org-page)
-(require 'auth-source)
-(require 'ob-plantuml)
-
-(setq op/repository-directory "/home/tealeg/org")
-(setq op/site-domain "http://www.teale.de")
-(let ((secret (plist-get (car (auth-source-search :host "www.disqus.com")) :secret)))
-	(setq op/personal-disqus-shortname (funcall secret)))
-(setq op/site-main-title "Geoffrey J. Teale")
-(setq op/site-sub-title "Tealeg's mind welcomes careful drivers...")
-(setq op/personal-github-link "https://github.com/tealeg")
-(setq op/theme-root-directory "/home/tealeg/op-themes/")
-(setq op/theme 'tealeg)
-(let ((secret (plist-get (car (auth-source-search :host "analytics.google.com")) :secret)))
-	(setq op/personal-google-analytics-id (funcall secret)))
-(setq op/personal-avatar nil)
+(require 'ox-rss)
 
 
-;; I have to override this, because of localisation of the message it checks -
-;; D'oh!
-(defun op/git-init-repo (repo-dir)
-  "This function will initialize a new empty git repository.  REPO-DIR is the directory where repository will be initialized."
-  (unless (file-directory-p repo-dir)
-    (mkdir repo-dir t))
-	(let ((result (op/shell-command repo-dir "git init" nil)))
-		(unless (or (string-prefix-p "Initialised empty Git repository" result)
-								(string-prefix-p "Initialized empty Git repository" result))
-			(error "Fatal: Failed to initialise new git repository '%s'" repo-dir))))
+(defvar tealeg-website-html-head
+  "<link rel='stylesheet' href='css/site.css' type='text/css'/>
+<link rel='stylesheet' href='css/octicons/octicons.css' type='text/css'/>
+<link rel='alternate' type='application/rss+xml' href='http://www.teale.de/blog/index.xml' title='RSS feed for mydomain.org'/>")
 
-(define-key org-mode-map "\"" #'endless/round-quotes)
+(defvar tealeg-website-html-blog-head "<link rel='stylesheet' href='../css/site.css' type='text/css'/>
+<link rel='stylesheet' href='../css/octicons/octicons.css' type='text/css'/>
+<link rel='alternate' type='application/rss+xml' href='http://www.teale.de/blog/index.xml' title='RSS feed for mydomain.org'/>")
 
-(defun endless/round-quotes (italicize)
-  "Insert “” and leave point in the middle.
-With prefix argument ITALICIZE, insert /“”/ instead
-\(meant for org-mode).
-Inside a code-block, just call `self-insert-command'."
-  (interactive "P")
-  (if (and (derived-mode-p 'org-mode)
-           (org-in-block-p '("src" "latex" "html")))
-      (call-interactively #'self-insert-command)
-    (if (looking-at "”[/=_\\*]?")
-        (goto-char (match-end 0))
-      (when italicize
-				(insert "//")
-        (forward-char -1))
-      (insert "“”")
-      (forward-char -1))))
+(defvar tealeg-website-html-preamble
 
-(define-key org-mode-map "'" #'endless/apostrophe)
+  "
+<div class='heading'>Geoffrey J. Teale</div>
+<div class='nav'>
+<ul>
+<li class='nav-item'><a href='/'><span class='octicon octicon-home'></span>&nbsp;Home</a></li>
+<li class='nav-item'><a href='/blog/index.html'><span class='octicon octicon-megaphone'></span>&nbsp;Blog</a></li>
+<li class='nav-item'><a href='http://github.com/tealeg'><span class='octicon octicon-mark-github'></span>&nbsp;GitHub</a></li>
+<li class='nav-item'><a href='/about.html'><span class='octicon octicon-person'></span>&nbsp;About</a></li>
+</ul>
+</div>")
 
-(defun endless/apostrophe (opening)
-  "Insert ’ in prose or `self-insert-command' in code.
-With prefix argument OPENING, insert ‘’ instead and
-leave point in the middle.
-Inside a code-block, just call `self-insert-command'."
-  (interactive "P")
-  (if (and (derived-mode-p 'org-mode)
-           (org-in-block-p '("src" "latex" "html")))
-      (call-interactively #'self-insert-command)
-    (if (looking-at "['’][=_/\\*]?")
-        (goto-char (match-end 0))
-      (if (null opening)
-          (insert "’")
-        (insert "‘’")
-        (forward-char -1)))))
-
-(defun publish-website ()
-	"Automate the steps for publishing a new version of www.teale.de."
-	(interactive)
-	(let ((tempdir (make-temp-file "teale-de" t)))
-		(op/do-publication t nil tempdir)
-		(compile (concat "rsync -avz " tempdir "/* www.teale.de:/var/www/ && scp " tempdir "rss.xml www.teale.de:/var/www/rss.xml"))))
+(defvar tealeg-website-html-postamble
+  "<div class='footer'>
+Copyright 2015 %a (%v HTML).<br>
+Last updated %C. <br>
+Built with %c.
+</div>")
 
 
-(defun publish-css ()
-	"Automate the steps for publishing a new css on www.teale.de."
-	(interactive)
-	(let ((tempdir (make-temp-file "teale-de" t)))
-		(op/do-publication t nil tempdir)
-		(compile (concat "scp -r " tempdir "/media/css/* www.teale.de:/var/www/media/css/"))))
+(setq org-publish-project-alist
+      `(("org"
+         :base-directory "~/org/website/"
+         :base-extension "org"
+         :publishing-directory "~/Public/www.teale.de/"
+         :publishing-function org-html-publish-to-html
+         :section-numbers nil
+         :with-toc nil
+         :html-head ,tealeg-website-html-head
+         :html-preamble ,tealeg-website-html-preamble
+         :html-postamble ,tealeg-website-html-postamble)
 
-(require 'ox-latex)
-(setq org-export-latex-listings t)
+        ("blog"
+         :base-directory "~/org/website/blog"
+         :base-extension "org"
+         :publishing-directory "~/Public/www.teale.de/blog/"
+         :publishing-function org-html-publish-to-html
+         :section-numbers nil
+         :with-toc nil
+         :html-head ,tealeg-website-html-blog-head
+         :html-head-extra
+         "<link rel=\"alternate\" type=\"application/rss+xml\"
+                href=\"http://www.teale.de/blog/blog.xml\"
+                title=\"RSS feed\">"
+         :html-preamble ,tealeg-website-html-preamble
+         :html-postamble ,tealeg-website-html-postamble)
 
-(add-to-list 'org-latex-classes
-             '("elsarticle"
-               "\\documentclass{elsarticle}
-                 [NO-DEFAULT-PACKAGES]
-                 [EXTRA]"
-               ("\\section{%s}" . "\\section*{%s}")
-               ("\\subsection{%s}" . "\\subsection*{%s}")
-               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-               ("\\paragraph{%s}" . "\\paragraph*{%s}")
-               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+        ("images"
+         :base-directory "~/org/website/images/"
+         :base-extension "jpg\\|gif\\|png"
+         :publishing-directory "~/Public/www.teale.de/images/"
+         :publishing-function org-publish-attachment)
 
-(add-to-list 'org-latex-classes
-             '("tufte-book"
-               "\\documentclass{tufte-book}
-                 [NO-DEFAULT-PACKAGES]
-                 [EXTRA]"
-               ("\\section{%s}" . "\\section*{%s}")
-               ("\\subsection{%s}" . "\\subsection*{%s}")
-               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-               ("\\paragraph{%s}" . "\\paragraph*{%s}")
-               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+        ("js"
+         :base-directory "~/org/website/js/"
+         :base-extension "js"
+         :publishing-directory "~/Public/www.teale.de/js/"
+         :publishing-function org-publish-attachment)
 
-(add-to-list 'org-latex-classes
-             '("tufte-handout"
-               "\\documentclass{tufte-handout}
-                 [NO-DEFAULT-PACKAGES]
-                 [EXTRA]"
-               ("\\section{%s}" . "\\section*{%s}")
-               ("\\subsection{%s}" . "\\subsection*{%s}")
-               ("\\paragraph{%s}" . "\\paragraph*{%s}")
-               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+        ("css"
+         :base-directory "~/org/website/css/"
+         :base-extension "css"
+         :publishing-directory "~/Public/www.teale.de/css/"
+         :exclude "octicons"
+         :publishing-function org-publish-attachment)
 
+        ("octicons"
+         :base-directory "~/org/website/css/octicons/"
+         :publishing-directory "~/Public/www.teale.de/css/octicons/"
+         :base-extension "css\\|eot\\|less\\|ttf\\|scss\\|svg\\|woff"
+         :publishing-function org-publish-attachment)
 
-(setq org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
-
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((emacs-lisp . t)
-   (plantuml . t)))
+        ("rss"
+         :base-directory "~/org/website/blog"
+         :base-extension "org"
+         :publishing-directory "~/Public/www.teale.de/blog"
+         :publishing-function (org-rss-publish-to-rss)
+         :html-link-home "http://www.teale.de/blog/"
+         :html-link-use-abs-url t
+         :with-toc nil
+         :section-numbers nil
+         :title "tealeg's brain welcomes careful drivers.")
+        
+        ("website" :components ("org" "blog" "images" "js" "css" "octicons" "rss"))))
 
 
 (provide 'tealeg-org)
