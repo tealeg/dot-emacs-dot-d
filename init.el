@@ -7,6 +7,13 @@
 ;;; Everything I need to make Emacs feel like home!
 
 ;;; Code:
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (add-to-list 'load-path "/home/tealeg/.emacs.d/lisp")
 (load-file "/home/tealeg/.emacs.d/lisp/tealeg-packages.el")
 (require 'tealeg-packages)
@@ -28,6 +35,7 @@
 (require 'tealeg-elisp)
 (require 'tealeg-lisp)
 (require 'tealeg-go) ;; Needs go-mode
+(require 'tealeg-js)
 (require 'tealeg-xml)
 (require 'tealeg-org)
 (require 'tealeg-irc)

@@ -15,6 +15,7 @@
     git-gutter
     go-mode
     go-complete
+    go-eldoc
     magit
     minimal-theme
     org

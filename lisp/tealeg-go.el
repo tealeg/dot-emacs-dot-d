@@ -8,7 +8,23 @@
 (require 'go-complete)
 (require 'go-eldoc)
 
-(load-file "/home/tealeg/go1.5/src/golang.org/x/tools/cmd/oracle/oracle.el")
+(defvar go-oracle-path
+  "/src/golang.org/x/tools/cmd/oracle/oracle.el"
+  "Path below GOROOT or GOPATH where oracle.el lives.")
+
+(defun load-from-go-path (sub-path)
+  "Load an Emacs Lisp file from a Go directory, searching all possible locations for the SUB-PATH, starting with GOROOT and then iterating through the list of values for GOPATH."
+  (let ((GOROOT (getenv "GOROOT"))
+        (GOPATH (getenv "GOPATH")))
+    (if (null GOPATH) (error "GOPATH not set"))
+    (let ((go-load-path (if (null GOROOT) (split-string GOPATH ":")
+                          (cons GOROOT (split-string GOPATH ";")))))
+      (dolist (path go-load-path)
+        (if (load (concat path sub-path) t)
+            (return))
+        (error (concat sub-path " not found below GOROOT or any GOPATH"))))))
+
+(load-from-go-path go-oracle-path)
 
 (setq gofmt-command "goimports")
 
