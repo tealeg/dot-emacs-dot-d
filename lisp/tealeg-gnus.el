@@ -15,6 +15,9 @@
 (require 'nnml)
 (require 'nnimap)
 
+(setq gnus-use-correct-string-widths nil) ;; For speed!
+(setq nnimap-fetch-partial-articles t) ;; Don't fetch all MIME parts
+                                       ;; completely, for speed.
 (setq gnus-default-directory "~/.emacs.d/Gnus/")
 (setq gnus-directory (concat gnus-default-directory "News/")
 			message-directory (concat gnus-default-directory "Mail/")
