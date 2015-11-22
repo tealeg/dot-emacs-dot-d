@@ -101,8 +101,15 @@ Built with %c.
          :with-toc nil
          :section-numbers nil
          :title "tealeg's brain welcomes careful drivers.")
-        
-        ("website" :components ("org" "blog" "images" "js" "css" "octicons" "rss"))))
+
+        ("english4kids"
+         :base-directory "~/org/website/english4kids"
+         :publishing-directory "~/Public/www.teale.de/english4kids"
+         :base-extension "css\\|jpg\\|html"
+         :recursive t
+         :publishing-function org-publish-attachment)
+
+        ("website" :components ("org" "blog" "images" "js" "css" "octicons" "rss" "english4kids"))))
 
 
 (provide 'tealeg-org)
