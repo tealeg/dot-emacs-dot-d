@@ -20,9 +20,11 @@
     minimal-theme
     org
     org-plus-contrib
-    slime
+    ;; slime -- grab this with quicklisp instead.
     highlight-parentheses
     js2-mode
+    ;;highlight-tail-mode
+    ace-jump-mode
     )
   "A list of package required for my Emacs setup.")
 

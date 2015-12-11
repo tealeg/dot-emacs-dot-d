@@ -14,6 +14,7 @@
 (setq erc-hide-list '("JOIN" "PART" "QUIT"))
 
 (add-to-list 'erc-modules 'notifications)
+
 (erc-services-mode 1)
 (setq erc-join-buffer (quote bury))
 (setq erc-prompt-for-nickserv-password nil)

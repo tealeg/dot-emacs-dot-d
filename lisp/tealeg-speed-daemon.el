@@ -19,11 +19,11 @@
 ;; Note that as of Emacs 24.5 this is no longer required.
 ;;(setq redisplay-dont-pause t)
 
-(setq font-lock-support-mode 'jit-lock-mode)
-(setq jit-lock-stealth-time 16
-      jit-lock-defer-contextually t
-      jit-lock-stealth-nice 0.5)
-(setq-default font-lock-multiline t)
+;; (setq font-lock-support-mode 'jit-lock-mode)
+;; (setq jit-lock-stealth-time 16
+;;       jit-lock-defer-contextually t
+;;       jit-lock-stealth-nice 0.5)
+;; (setq-default font-lock-multiline t)
 
 (provide 'tealeg-speed-daemon)
 ;;; tealeg-speed-daemon.el ends here

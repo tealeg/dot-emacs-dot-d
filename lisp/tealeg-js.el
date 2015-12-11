@@ -52,7 +52,7 @@
   (yui-mode 1)
   (define-key js-mode-map [remap fill-paragraph] 'wrap-and-break-string)
   )
- 
+
 (add-hook 'js-mode-hook 'js-helpers)
 (add-hook 'javascript-mode-hook 'js-helpers)
 (add-hook 'js2-mode-hook 'js-helpers)

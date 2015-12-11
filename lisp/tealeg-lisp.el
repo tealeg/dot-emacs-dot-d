@@ -4,15 +4,13 @@
 ;;;        Some essential CL setup, including SLIME
 ;;;
 ;;; Code:
-
-(require 'slime)
-
+(load (expand-file-name "~/quicklisp/slime-helper.el"))
 (setq inferior-lisp-program "/usr/bin/sbcl")
 
-;;(load "/home/tealeg/stumpwm-contrib/util/swm-emacs/stumpwm-mode.el")
-;;(load "/home/tealeg/stumpwm-contrib/util/swm-emacs/stumpwm-utils.el")
+(setq common-lisp-hyperspec-root "/usr/share/doc/hyperspec/")
+(setq common-lisp-hyperspec-symbol-table
+      (concat common-lisp-hyperspec-root "Data/Map_Sym.txt"))
 
-;;(setq-default stumpwm-shell-program ;; "/home/tealeg/stumpwm-contrib/util/stumpish/stumpish")
 
 (provide 'tealeg-lisp)
 ;;; tealeg-lisp.el ends here
