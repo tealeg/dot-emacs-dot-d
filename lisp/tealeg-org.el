@@ -33,7 +33,7 @@
 
 (defvar tealeg-website-html-postamble
   "<div class='footer'>
-Copyright 2015 %a (%v HTML).<br>
+Copyright 2015 %a<br>
 Last updated %C. <br>
 Built with %c.
 </div>")

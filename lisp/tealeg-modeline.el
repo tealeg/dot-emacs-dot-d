@@ -1,7 +1,7 @@
 ;;; tealeg-modeline -- Custom formatting of the mode and header lines.
 ;;;
 ;;; Commentary:
-;;;     Creates a header line and spreads the indicators betwwen the header and mode line.
+;;;     Creates a header line and spreads the indicators between the header and mode line.
 ;;;
 ;;; Code:
 ;;;
@@ -15,6 +15,7 @@
               (list
                " "
                '(:eval (propertize " " 'face '((:family "Ubuntu" :height 160 :foreground "#dd4814"))))
+               
                ;; the buffer name; the file name as a tool tip
                '(:eval (propertize "%b" 'face 'font-lock-keyword-face
                                    'help-echo (buffer-file-name)))
@@ -36,10 +37,10 @@
                ;; was this buffer modified since the last save?
                '(:eval (if (buffer-modified-p)
 
-                           (propertize "ණ"
-                                       'face 'font-lock-warning-face
+                           (propertize "🖪"
+                                       'face 'font-lock-keyword-face
                                        'help-echo "Buffer has been modified")
-                         (propertize "_"
+                         (propertize "🖫"
                                      'face 'font-lock-type-face
                                      'help-echo "Buffer unmodified")
                          ))
@@ -66,14 +67,14 @@
                                            (emacs-uptime "Uptime:%hh"))))
                ))
 
-(setq-default  mode-line-format
-               (list
-                erc-modified-channels-object
+;; (setq-default  mode-line-format
+;;                (list
+;;                 erc-modified-channels-object
 
-                " - "
-                minor-mode-alist  ;; list of minor modes
+;;                 " - "
+;;                 minor-mode-alist  ;; list of minor modes
 
-                ))
+;;                 ))
 
 (provide 'tealeg-modeline)
 ;;; tealeg-modeline.el ends here

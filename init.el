@@ -33,7 +33,7 @@
   (require 'tealeg-spelling)
   (require 'tealeg-shell)
   (require 'tealeg-check) ;; Needs flycheck
-  (require 'tealeg-landscape)
+  (require 'landscape)
   (require 'tealeg-vc)
   (require 'tealeg-calendar)
   (require 'tealeg-elisp)
@@ -48,7 +48,7 @@
   (require 'tealeg-keybindings)
   (require 'tealeg-theme)
   (require 'tealeg-mouse)
-  ;; (require 'tealeg-modeline)
+  (require 'tealeg-modeline)
   )
 
 (server-start)
