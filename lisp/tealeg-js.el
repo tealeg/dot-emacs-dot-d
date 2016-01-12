@@ -6,7 +6,7 @@
 ;;; Code:
 (require 'highlight-parentheses)
 (require 'js2-mode)
-(require 'yui-mode)
+;;(require 'yui-mode)
 
 
 (defun find-js-files-below-root (root)
@@ -49,7 +49,7 @@
 	(show-paren-mode t)
   (set-fill-column 79)
   (visual-line-mode 1)
-  (yui-mode 1)
+;;  (yui-mode 1)
   (define-key js-mode-map [remap fill-paragraph] 'wrap-and-break-string)
   )
 

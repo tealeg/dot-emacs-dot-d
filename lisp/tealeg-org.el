@@ -8,6 +8,23 @@
 (require 'org)
 (require 'ox-rss)
 
+;; Global
+;; ======
+
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+
+
+;; TODO
+;; ====
+(setq org-agenda-files (list "~/org/work.org"
+                             "~/org/projects.org"
+                             "~/org/home.org"
+                             "~/org/CanonicalTealeg.org"))
+
+
+;; www.teale.de
+;;=============
 
 (defvar tealeg-website-html-head
   "<link rel='stylesheet' href='css/site.css' type='text/css'/>
@@ -111,6 +128,7 @@ Built with %c.
 
         ("website" :components ("org" "blog" "images" "js" "css" "octicons" "rss" "english4kids"))))
 
+(setq org-log-done t)
 
 (provide 'tealeg-org)
 ;;; tealeg-org.el ends here

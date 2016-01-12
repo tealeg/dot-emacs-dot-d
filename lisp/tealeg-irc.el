@@ -117,6 +117,11 @@
   "Slaps the RECIPIENT, then sends then LINE."
   (erc-send-message (concat "🖑→😱 " recipient " " (string-join line " "))))
 
+(defun erc-cmd-FISTBUMP (recipient &rest line)
+  "Slaps the RECIPIENT, then sends then LINE."
+  (erc-send-message (concat "👊→👊 " recipient " " (string-join line " "))))
+
+
 (defun erc-cmd-RUSSIANPLUSONE (recipient)
   "Say +1 to RECIPIENT in Russian."
   (erc-send-message (concat recipient ": плюс адын.")))

@@ -25,6 +25,7 @@
     js2-mode
     ;;highlight-tail-mode
     ace-jump-mode
+    web-mode
     )
   "A list of package required for my Emacs setup.")
 

@@ -3,6 +3,7 @@
 ;;; Commentary:
 ;;;     Vc setup
 
+
 ;;; Code:
 (let ((git-el-dir "/usr/share/git-core/emacs"))
 	(if (file-exists-p git-el-dir)
@@ -11,6 +12,8 @@
 				(require 'git)
 				(require 'git-blame)
 				(global-set-key (kbd "C-x v =") 'git-status))))
+
+(require 'magit)
 
 (require 'git-gutter)
 
@@ -44,6 +47,10 @@
 
 ;; Revert current hunk
 (global-set-key (kbd "C-x v r") 'git-gutter:revert-hunk)
+
+(global-set-key (kbd "C-x g") 'magit-status)
+
+
 
 (provide 'tealeg-vc)
 ;;; tealeg-vc.el ends here

@@ -41,6 +41,7 @@
   (require 'tealeg-go) ;; Needs go-mode
   (require 'tealeg-js)
   (require 'tealeg-xml)
+  (require 'tealeg-html)
   (require 'tealeg-org)
   (require 'tealeg-irc)
   (require 'tealeg-python)
@@ -49,6 +50,7 @@
   (require 'tealeg-theme)
   (require 'tealeg-mouse)
   (require 'tealeg-modeline)
+;;  (require 'tealeg-helm)
   )
 
 (server-start)

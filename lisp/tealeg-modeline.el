@@ -9,63 +9,56 @@
 (require 'erc-track)
 
 
-
 ;; use setq-default to set it for /all/ modes
 (setq-default header-line-format
               (list
-               " "
-               '(:eval (propertize " " 'face '((:family "Ubuntu" :height 160 :foreground "#dd4814"))))
-               
+               '(2 (:eval (propertize ""
+                                      'face '((:family "Ubuntu" :height 160 :foreground "#dd4814")))))
                ;; the buffer name; the file name as a tool tip
-               '(:eval (propertize "%b" 'face 'font-lock-keyword-face
-                                   'help-echo (buffer-file-name)))
-
-
-               " ("
-               ;; line and column
-                                        ; '%02' to set to 2 chars at least; prevents flickering
-               (propertize "%02l" 'face 'font-lock-type-face) ","
-               (propertize "%02c" 'face 'font-lock-type-face)
-
-               ") "
-
-               ;; the current major mode for the buffer.
-               '(:eval (propertize "%m" 'face 'font-lock-type-face
-                                   'help-echo buffer-file-coding-system))
-
-               " - "
-               ;; was this buffer modified since the last save?
-               '(:eval (if (buffer-modified-p)
-
-                           (propertize "🖪"
-                                       'face 'font-lock-keyword-face
-                                       'help-echo "Buffer has been modified")
-                         (propertize "🖫"
-                                     'face 'font-lock-type-face
-                                     'help-echo "Buffer unmodified")
-                         ))
-               " "
+               '(25 (:eval (propertize "%b" 'face 'font-lock-keyword-face
+                                       'help-echo (buffer-file-name))))
                ;; is this buffer read-only?
-               '(:eval (if buffer-read-only
+               '(1 (:eval (if buffer-read-only
+                              (propertize "❌"
+                                          'face font-lock-warning-face
+                                          'help-echo "Buffer is read-only")
+                            (propertize "✓"
+                                        'face font-lock-type-face
+                                        'help-echo "Buffer is writable")
+                            )))
+               ;; was this buffer modified since the last save?
+               '(1 (:eval (if (buffer-modified-p)
+                              (propertize "🖪"
+                                          'face 'font-lock-keyword-face
+                                          'help-echo "Buffer has been modified")
+                            (propertize "🖫"
+                                        'face 'font-lock-type-face
+                                        'help-echo "Buffer unmodified")
+                            )))
 
-                           (propertize "❌"
-                                       'face font-lock-warning-face
-                                       'help-echo "Buffer is read-only")
-                         (propertize "✓"
-                                     'face font-lock-type-face
-                                     'help-echo "Buffer is writable")
-                         ))
+               '(15 (:propertize " (%02l,%02c) " 'face 'font-lock-type-face))
+
+              ;; the current major mode for the buffer.
+               '(15 (:eval (propertize "%m" 'face 'font-lock-type-face
+                                       'help-echo buffer-file-coding-system)))
+
+               '(:eval (format (format "%%%ss" (- (window-width) 90)) " "))
+               
+               '(26 (:eval (format-time-string "%%e %B %Y - %H:%M")))
+
+               '(:eval (propertize "◉"
+                             'face '((:family "Ubuntu"
+                                              :height 160
+                                              :foreground "#5E2750"))))
+               
+              ))
 
 
 
-               " - "
-               ;; add the time, with the date and the emacs uptime in the tooltip
-               '(:eval (propertize (format-time-string "%H:%M - %A %e %B %Y")
-                                   'help-echo
-                                   :face 'font-lock-type-face
-                                   (concat (format-time-string "%c; ")
-                                           (emacs-uptime "Uptime:%hh"))))
-               ))
+
+               ;; " - "
+
+               ;; ))
 
 ;; (setq-default  mode-line-format
 ;;                (list
