@@ -21,6 +21,7 @@
   (load-file "/home/tealeg/.emacs.d/lisp/tealeg-packages.el")
   (require 'tealeg-speed-daemon)
   (require 'tealeg-packages)
+  (require 'sauron)
   (require 'tealeg-customize)
   (require 'tealeg-autocompile)
   (require 'tealeg-backups)
@@ -47,13 +48,15 @@
   (require 'tealeg-python)
   (require 'tealeg-automode)
   (require 'tealeg-keybindings)
-  (require 'tealeg-theme)
+  (require 'tealeg-theme-setup)
   (require 'tealeg-mouse)
   (require 'tealeg-modeline)
-;;  (require 'tealeg-helm)
+  (require 'tealeg-ido)
+  (require 'tealeg-project)
   )
 
 (server-start)
+(sauron-start)
 (provide 'init)
 ;;; init.el ends here
 

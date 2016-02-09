@@ -6,6 +6,7 @@
 ;;; Code:
 
 (require 'org)
+(require 'org-agenda)
 (require 'ox-rss)
 
 ;; Global
@@ -17,6 +18,7 @@
 
 ;; TODO
 ;; ====
+(setq org-agenda-include-diary t)
 (setq org-agenda-files (list "~/org/work.org"
                              "~/org/projects.org"
                              "~/org/home.org"

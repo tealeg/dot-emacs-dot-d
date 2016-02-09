@@ -26,6 +26,7 @@
     ;;highlight-tail-mode
     ace-jump-mode
     web-mode
+    sauron
     )
   "A list of package required for my Emacs setup.")
 

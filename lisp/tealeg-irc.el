@@ -9,15 +9,24 @@
 (require 'erc-match)
 (require 'erc-services)
 (require 'erc-notify)
+(require 'erc-social-graph)
+(require 'erc-image)
 (require 'auth-source)
+(require 'sauron)
 
 (setq erc-hide-list '("JOIN" "PART" "QUIT"))
 
 (add-to-list 'erc-modules 'notifications)
+(add-to-list 'erc-modules 'social-graph)
+(add-to-list 'erc-modules 'image)
+(erc-update-modules)
 
 (erc-services-mode 1)
 (setq erc-join-buffer (quote bury))
 (setq erc-prompt-for-nickserv-password nil)
+(let ((secret (plist-get (car (auth-source-search :host "nickserv.canonical.com")) :secret)))
+      (setq erc-nickserv-passwords (list (cons "Canonical" (funcall secret)))))
+
 
 (setq erc-keywords '(("landscape-crew" (:foreground "green"))
                      ("away-regexp" (:foreground "red"))))
@@ -30,25 +39,6 @@
                            (erc-truncate-mode 1)
                            (erc-log-mode 1)
                            (variable-pitch-mode 1)))
-
-
-;; (defun tealeg-log-url ()
-;;   ""
-;;   (interactive)
-;;   (save-excursion
-;;     (with-syntax-table erc-button-syntax-table
-;;       (let ((inhibit-point-motion-hooks t)
-;;             (inhibit-field-text-motion t)
-;;             (alist erc-button-alist))
-;;         (dolist (entry alist)
-;;           (message entry)
-;;           )
-;;         )
-;;       )
-;;     )
-;;   )
-
-;; (add-hook 'erc-insert-modify-hook 'tealeg-log-url 'append)
 
 (defun start-irc ()
   "Connect to IRC."
@@ -124,13 +114,64 @@
 
 (defun erc-cmd-RUSSIANPLUSONE (recipient)
   "Say +1 to RECIPIENT in Russian."
-  (erc-send-message (concat recipient ": плюс адын.")))
+  (erc-send-message (concat recipient ": плюс один.")))
 
 
 (defun erc-cmd-PARK (branch &rest line)
   "Parks the BRANCH, then sends then LINE."
   (erc-send-message (concat "[" branch "] 🚗 ⇥ 🄿 " (string-join line " "))))
 
+
+(setq sauron-hide-mode-line t)
+(setq sauron-watch-nicks '("tealeg" "landscape-crew"))
+(setq sauron-separate-frame nil)
+
+;; (defun saruon-speak-erc (origin prio msg &optional props)
+;;   (when (eq origin 'erc)
+;;     (call-process-shell-command
+;;      (concat "espeak " "\"ERC alert: "
+;;              (replace-regexp-in-string "\\(tealeg\\)?@tealeg:" "" msg) "\"&")
+;;      nil 0)))
+
+
+;; (add-hook 'sauron-event-added-functions 'saruon-speak-erc)
+
+;; Clears out annoying erc-track-mode stuff for when we don't care.
+;; Useful for when ChanServ restarts :P
+(defun reset-erc-track-mode ()
+  (interactive)
+  (setq erc-modified-channels-alist nil)
+  (erc-modified-channels-update))
+
+(defadvice erc-track-find-face (around erc-track-find-face-promote-query activate)
+  (if (erc-query-buffer-p) 
+      (setq ad-return-value (intern "erc-current-nick-face"))
+    ad-do-it))
+
+(defadvice erc-track-modified-channels (around erc-track-modified-channels-promote-query activate)
+  (if (erc-query-buffer-p) (setq erc-track-priority-faces-only 'nil))
+  ad-do-it
+  (if (erc-query-buffer-p) (setq erc-track-priority-faces-only 'all)))
+
+(setq erc-format-query-as-channel-p t
+      erc-track-priority-faces-only 'all
+      erc-track-faces-priority-list '(erc-error-face
+                                      erc-current-nick-face
+                                      erc-keyword-face
+                                      erc-nick-msg-face
+                                      erc-direct-msg-face
+                                      erc-dangerous-host-face
+                                      erc-notice-face
+                                      erc-prompt-face))
+(setq erc-current-nick-highlight-type 'nick)
+(setq erc-keywords '("landscape-crew"))
+ 
+(setq erc-track-exclude-types '("JOIN" "PART" "QUIT" "NICK"
+                                "MODE"))
+(setq erc-track-use-faces t)
+(setq erc-track-faces-priority-list
+      '(erc-current-nick-face erc-keyword-face))
+(setq erc-track-priority-faces-only 'all)
 
 (provide 'tealeg-irc)
 ;;; tealeg-irc.el ends here

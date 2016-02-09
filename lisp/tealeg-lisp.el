@@ -4,6 +4,7 @@
 ;;;        Some essential CL setup, including SLIME
 ;;;
 ;;; Code:
+;;(require 'parinferlib)
 (load (expand-file-name "~/quicklisp/slime-helper.el"))
 (setq inferior-lisp-program "/usr/bin/sbcl")
 
