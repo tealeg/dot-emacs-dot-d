@@ -9,23 +9,17 @@
 (require 'erc-match)
 (require 'erc-services)
 (require 'erc-notify)
-(require 'erc-social-graph)
-(require 'erc-image)
 (require 'auth-source)
 (require 'sauron)
 
 (setq erc-hide-list '("JOIN" "PART" "QUIT"))
 
 (add-to-list 'erc-modules 'notifications)
-(add-to-list 'erc-modules 'social-graph)
-(add-to-list 'erc-modules 'image)
 (erc-update-modules)
 
 (erc-services-mode 1)
 (setq erc-join-buffer (quote bury))
 (setq erc-prompt-for-nickserv-password nil)
-(let ((secret (plist-get (car (auth-source-search :host "nickserv.canonical.com")) :secret)))
-      (setq erc-nickserv-passwords (list (cons "Canonical" (funcall secret)))))
 
 
 (setq erc-keywords '(("landscape-crew" (:foreground "green"))
@@ -43,7 +37,9 @@
 (defun start-irc ()
   "Connect to IRC."
   (interactive)
-	(let ((secret (plist-get (car (auth-source-search :host "irc.canonical.com")) :secret)))
+	(let ((secret (plist-get (car (auth-source-search :host "irc.canonical.com")) :secret))
+        (nick-secret (plist-get (car (auth-source-search :host "nickserv.canonical.com")) :secret)))
+    (setq erc-nickserv-passwords (list (cons "Canonical" (funcall nick-secret))))
 		(erc-tls :server "irc.canonical.com"
 						 :port 6697
 						 :nick "tealeg"

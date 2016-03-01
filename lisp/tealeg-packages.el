@@ -10,8 +10,10 @@
 (defvar tealeg/packages/depencies
   '(ample-theme
     column-enforce-mode
+    company
     flycheck
     flycheck-pyflakes
+    geiser
     git-gutter
     go-mode
     go-complete
