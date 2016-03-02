@@ -59,15 +59,15 @@
 
 (defun erc-cmd-INITSWEETIE ()
   "Initialise sweetie aliases."
-	(erc-send-message "sweetie: alias land build tarmac now")
-	(erc-send-message "sweetie: alias pie build tarmac now")
-	(erc-send-message "sweetie: alias yunowork sl -nLines 10 tarmac-lander")
-	(erc-send-message "sweetie: alias wassup status tarmac-lander")
-	(erc-send-message "sweetie: alias hitit build tarmac now")
-	(erc-send-message "sweetie: alias production-merge build landscape-hosted-production-merge now COMMIT=True TAG=")
-	(erc-send-message "sweetie: alias staging-merge build landscape-hosted-staging-merge now COMMIT=True")
-	(erc-send-message "sweetie: alias merge-back build merge-back now MERGE_BACK_COMMIT=True")
-	(erc-send-message "sweetie: alias test-patch build sanitized-db-test now"))
+  (erc-send-message "sweetie: alias land build tarmac now")
+  (erc-send-message "sweetie: alias pie build tarmac now")
+  (erc-send-message "sweetie: alias hitit build tarmac now")
+  (erc-send-message "sweetie: alias yunowork sl -nLines 10 tarmac-precise-lander")
+  (erc-send-message "sweetie: alias wassup status tarmac-precise-lander")
+  (erc-send-message "sweetie: alias production-merge build landscape-hosted-production-merge now COMMIT=True TAG=")
+  (erc-send-message "sweetie: alias staging-merge build landscape-hosted-staging-merge now COMMIT=True")
+  (erc-send-message "sweetie: alias merge-back build merge-back now MERGE_BACK_COMMIT=True")
+  (erc-send-message "sweetie: alias test-patch build sanitized-db-test now"))
 
 (defun erc-cmd-SPARKLE (&rest line)
   "Make the 'LINE' sparkle."
