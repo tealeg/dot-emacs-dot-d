@@ -8,17 +8,25 @@
 
 ;;; Code:
 
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
-;(package-initialize)
+
+;; This has to come first
+(package-initialize)
 
 ;; This let speeds start up by avoiding some regexps against file names whilst
 ;; loading.
 (let ((file-name-handler-alist nil))
   (add-to-list 'load-path "/home/tealeg/.emacs.d/lisp")
 
+  (setq package-enable-at-startup nil)
+
+  ;; Put emacs generated customisations somewhere other than this file.
+  (setq custom-file "~/.emacs.d/emacs-custom.el")
+  (load custom-file t)
+
+  ;; Ensure we have use-package.
+  (unless (package-installed-p 'use-package)
+    (package-install 'use-package))
+  
   (eval-when-compile
     (require 'use-package))
   ;;(require 'diminish)                ;; if you use :diminish
