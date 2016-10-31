@@ -37,6 +37,8 @@
     (require 'use-package))
   (require 'diminish)                ;; if you use :diminish
   (require 'bind-key)
+  (require 'tealeg-speed-daemon
+	   "~/.emacs.d/lisp/tealeg-speed-daemon.el")
   (require 'tealeg-packages
 	   "~/.emacs.d/lisp/tealeg-packages.el")
   (require 'tealeg-backups
@@ -46,7 +48,7 @@
 
   )
 ;;  (load-file "/home/tealeg/.emacs.d/lisp/tealeg-packages.el"))
-;;   (require 'tealeg-speed-daemon)
+
 ;;   (require 'tealeg-packages)
 ;;   (require 'sauron)
 ;;   (require 'tealeg-customize)
