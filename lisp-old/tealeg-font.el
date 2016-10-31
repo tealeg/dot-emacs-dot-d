@@ -1,3 +1,4 @@
+
 ;;; tealeg-font --- my font settings.
 ;;;
 ;;; Commentary:
@@ -20,10 +21,9 @@
        (tealeg-set-base-fonts ,frame ,variable-pitch)
        ,@body))
 
-
+(tealeg-deffs tealeg-gooogle-fonts "Cousine-12" "Arimo-12")
 (tealeg-deffs tealeg-fs-arial "Arial Monospaced MT Std-7" "Arial-7")
 (tealeg-deffs tealeg-fs-nk57 "NK57Monospace-7" "NK57Monospace-7")
-
 
 
 
@@ -32,7 +32,7 @@
               (lambda (frame)
                 (with-selected-frame frame
                   (setq font-use-system-font nil)
-                  (tealeg-fs-nk57)
+                  (tealeg-google-fonts)
                   ))))
 
 (provide 'tealeg-font)
