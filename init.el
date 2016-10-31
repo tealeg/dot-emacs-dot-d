@@ -41,6 +41,8 @@
 	   "~/.emacs.d/lisp/tealeg-packages.el")
   (require 'tealeg-backups
 	   "~/.emacs.d/lisp/tealeg-backups.el")
+  (require 'tealeg-font
+	   "~/.emacs.d/lisp/tealeg-font.el")
 
   )
 ;;  (load-file "/home/tealeg/.emacs.d/lisp/tealeg-packages.el"))
