@@ -19,6 +19,12 @@
 
   (setq package-enable-at-startup nil)
 
+  (unless (assoc-default "melpa" package-archives)
+    (add-to-list 'package-archives
+		 '("melpa" . "http://melpa.org/packages/") t)
+    ;; (package-refresh-contents)
+    )
+
   ;; Put emacs generated customisations somewhere other than this file.
   (setq custom-file "~/.emacs.d/emacs-custom.el")
   (load custom-file t)
@@ -29,8 +35,11 @@
   
   (eval-when-compile
     (require 'use-package))
-  ;;(require 'diminish)                ;; if you use :diminish
-  (require 'bind-key))
+  (require 'diminish)                ;; if you use :diminish
+  (require 'bind-key)
+  (use-package tealeg-packages)
+
+  )
 ;;  (load-file "/home/tealeg/.emacs.d/lisp/tealeg-packages.el"))
 ;;   (require 'tealeg-speed-daemon)
 ;;   (require 'tealeg-packages)
