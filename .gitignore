@@ -16,3 +16,5 @@ Gnus
 url
 xkcd
 lisp/yui-mode/*
+auto-save-list
+backups
