@@ -37,7 +37,10 @@
     (require 'use-package))
   (require 'diminish)                ;; if you use :diminish
   (require 'bind-key)
-  (use-package tealeg-packages)
+  (require 'tealeg-packages
+	   "~/.emacs.d/lisp/tealeg-packages.el")
+  (require 'tealeg-backups
+	   "~/.emacs.d/lisp/tealeg-backups.el")
 
   )
 ;;  (load-file "/home/tealeg/.emacs.d/lisp/tealeg-packages.el"))
