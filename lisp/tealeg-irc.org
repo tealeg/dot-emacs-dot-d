@@ -1,0 +1,185 @@
+* IRC setup
+** Overview
+I use the znc IRC bouncer hosted on the Intah-web, to proxy my IRC
+sessions, fortunately a znc mode for emacs exists. The setup for that
+is here.  ERC is the actual IRC client within emacs, and I'll also
+configure that here.
+
+** Do it!
+#+BEGIN_SRC emacs-lisp
+
+(use-package znc)
+(use-package erc)
+(require 'erc-match)
+(require 'erc-services)
+(require 'erc-notify)
+(require 'erc-log)
+(require 'auth-source)
+(require 'erc-spelling)
+(require 'subr-x)
+(require 'secrets)
+
+(add-to-list 'erc-modules 'notifications)
+(erc-update-modules)
+
+(defun erc-mode-helpers ()
+  "Setup erc-mode."
+  (flyspell-mode 1)
+  (erc-match-enable)
+  (erc-truncate-mode 1)
+  (erc-log-mode 1)
+  (variable-pitch-mode 1))
+
+
+(add-hook 'erc-mode-hook 'erc-mode-helpers)
+
+
+(let ((password (secrets-get-secret "login" "www.teale.de")))
+  (setq znc-servers (list
+		     (list "www.teale.de"
+			   9999
+			   t
+			   (list
+			    (list 'tealeg/Canonical
+				  "tealeg/Canonical"
+				  password)
+			    (list 'tealeg/freenode
+				  "tealeg/freenode"  
+				  password))))))
+
+(setq erc-interpret-mirc-color t)
+(setq erc-kill-buffer-on-part t)
+(setq erc-kill-queries-on-quit t)
+(setq erc-query-display 'buffer)
+(erc-track-mode t)
+(setq erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
+				"324" "329" "333" "353" "477"))
+(setq erc-log-channels-directory "~/.erc/logs/")
+(if (not (file-exists-p erc-log-channels-directory))
+    (mkdir erc-log-channels-directory t))
+(setq erc-save-buffer-on-part t)
+
+
+(defadvice save-buffers-kill-emacs (before save-logs (arg) activate)
+  "Wrapper for savle-logs."
+  (save-some-buffers t (lambda () (when (eq major-mode 'erc-mode) t))))
+
+(setq erc-server-auto-reconnect t)
+(setq erc-server-reconnect-timeout 5)
+
+(defun erc-cmd-INITSWEETIE ()
+  "Initialise sweetie aliases."
+  (erc-send-message "sweetie: alias land build tarmac now")
+  (erc-send-message "sweetie: alias pie build tarmac now")
+  (erc-send-message "sweetie: alias hitit build tarmac now")
+  (erc-send-message "sweetie: alias yunowork sl -nLines 10 tarmac-precise-lander")
+  (erc-send-message "sweetie: alias wassup status tarmac-precise-lander")
+  (erc-send-message "sweetie: alias production-merge build landscape-hosted-production-merge now COMMIT=True TAG=")
+  (erc-send-message "sweetie: alias staging-merge build landscape-hosted-staging-merge now COMMIT=True")
+  (erc-send-message "sweetie: alias merge-back build merge-back now MERGE_BACK_COMMIT=True")
+  (erc-send-message "sweetie: alias test-patch build sanitized-db-test now"))
+
+(defun erc-cmd-SPARKLE (&rest line)
+  "Make the 'LINE' sparkle."
+  (erc-send-message (concat "✨sparkiegeek✨: " (string-join line " ") " \n")))
+
+(defun erc-cmd-EPISLON (&rest line)
+  "Send a LINE to epsilon squad."
+  (erc-send-message (concat "ɛ(ack, free🆓‍): " (string-join line " ") " \n")))
+
+
+(defun erc-cmd-GAMMA (&rest line)
+  "Send a LINE to gamma squad."
+  (erc-send-message (concat "𝝲(ack, free🆓, ✨sparkiegeek✨‍): " (string-join line " ") " \n")))
+
+(defun erc-cmd-BETA (&rest line)
+  "Send a LINE to beta squad."
+  (erc-send-message (concat "𝝱(‍free, BjornT, tribaal, danilo‍): " (string-join line " ") " \n")))
+
+(defun erc-cmd-ALPHA (&rest line)
+  "Send a LINE to alpha squad."
+  (erc-send-message (concat "𝝰(‍blackboxsw, fcorrea, benji‍): " (string-join line " ") " \n")))
+
+(defun erc-cmd-QA (&rest line)
+  "Send a LINE to QA squad."
+  (erc-send-message (concat "ቀ(‍andreas‍, fginther, Ursinha ): " (string-join line " ") " \n")))
+
+
+(defun erc-cmd-HANDBAG (recipient &rest line)
+  "Handbags the RECIPIENT, then sends them LINE."
+  (erc-send-message (concat (erc-compute-nick) " 👜→😱 " recipient " " (string-join line " ") " \n")))
+
+(defun erc-cmd-PISTOL (recipient &rest line)
+  "Pistol whips the RECIPIENT, then sends them LINE."
+  (erc-send-message (concat (erc-compute-nick) " 🔫→😱 " recipient " " (string-join line " ") " \n")))
+
+
+(defun erc-cmd-SLAP (recipient &rest line)
+  "Slaps the RECIPIENT, then sends then LINE."
+  (erc-send-message (concat "🖑→😱 " recipient " " (string-join line " ") " \n")))
+
+(defun erc-cmd-FISTBUMP (recipient &rest line)
+  "Slaps the RECIPIENT, then sends then LINE."
+  (erc-send-message (concat "👊→👊 " recipient " " (string-join line " ") " \n")))
+
+
+(defun erc-cmd-RUSSIANPLUSONE (recipient)
+  "Say +1 to RECIPIENT in Russian."
+  (erc-send-message (concat recipient ": плюс один.")))
+
+
+(defun erc-cmd-PARK (branch &rest line)
+  "Parks the BRANCH, then sends then LINE."
+  (erc-send-message (concat "[" branch "] 🚗 ⇥ 🄿 " (string-join line " ") " \n")))
+
+(defun reset-erc-track-mode ()
+  "Reset 'erc-track-mode'.
+
+Clears out annoying 'erc-track-mode' stuff for when we don't care.
+Useful for when ChanServ restarts."
+  (interactive)
+  
+  (setq erc-modified-channels-alist nil)
+  (erc-modified-channels-update))
+
+(defadvice erc-track-find-face (around erc-track-find-face-promote-query activate)
+  "Wrapper for erc-track-find-face."
+  (if (erc-query-buffer-p)
+      (setq ad-return-value (intern "erc-current-nick-face"))
+    ad-do-it))
+
+(defadvice erc-track-modified-channels (around erc-track-modified-channels-promote-query activate)
+  "Wrapper for erc-track-modified-channels."
+  (if (erc-query-buffer-p)
+      (setq erc-track-priority-faces-only 'nil))
+  ad-do-it
+  (if (erc-query-buffer-p)
+      (setq erc-track-priority-faces-only 'all)))
+
+(setq erc-format-query-as-channel-p t
+      erc-track-priority-faces-only 'all
+      erc-track-faces-priority-list '(erc-error-face
+                                      erc-current-nick-face
+                                      erc-keyword-face
+                                      erc-nick-msg-face
+                                      erc-direct-msg-face
+                                      erc-dangerous-host-face
+                                      erc-notice-face
+                                      erc-prompt-face))
+(setq erc-current-nick-highlight-type 'nick)
+(setq erc-keywords '("landscape-crew"))
+ 
+(setq erc-track-exclude-types '("JOIN" "PART" "QUIT" "NICK"
+                                "MODE"))
+(setq erc-track-use-faces t)
+(setq erc-track-faces-priority-list
+      '(erc-current-nick-face erc-keyword-face))
+(setq erc-track-priority-faces-only 'all)
+#+END_SRC
+
+** Provide the feature
+#+BEGIN_SRC emacs-lisp
+(provide 'tealeg-irc)
+#+END_SRC
+
+   

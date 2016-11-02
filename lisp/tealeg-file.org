@@ -1,0 +1,17 @@
+* File management
+** Overview
+Variables relating to file management are handled here.
+
+** Configure the dired file management tool.
+#+BEGIN_SRC emacs-lisp
+  (eval-after-load "dired"
+    (progn
+      (require 'dired-x)
+      (setq-default dired-omit-files-p t)
+      (setq dired-omit-files (concat dired-omit-files "\\|^\\..+$\\|.*\\.pyc$"))))
+#+END_SRC
+
+** Provide the feature
+#+BEGIN_SRC emacs-lisp
+(provide 'tealeg-file)
+#+END_SRC

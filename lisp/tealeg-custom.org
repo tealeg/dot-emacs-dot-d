@@ -1,0 +1,21 @@
+* Variable customisation system
+** Overview
+Emacs has a built in 'settings' UI called =customize=. Any tweaks we
+make to the configuration of that system belong here, the settings it
+sets are stored in a special file.
+
+** Put emacs customisations in their own file.
+By default, emacs puts the customisations in your root emacs
+configuration file (=.emacs= or =.emacs.d/init.el=). That's annoying
+and ugly, so I put them in their own special file that I can easily
+put in my =.gitignore= file too.
+
+#+BEGIN_SRC emacs-lisp
+  (setq custom-file "~/.emacs.d/emacs-custom.el")
+  (load custom-file t)
+#+END_SRC
+
+** Provide the feature
+#+BEGIN_SRC emacs-lisp
+  (provide 'tealeg-custom)
+#+END_SRC

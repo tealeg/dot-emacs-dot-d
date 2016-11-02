@@ -1,0 +1,16 @@
+* Behaviour
+** Overview
+Global behavioural settings belong here.
+
+** Set the fill width
+When using =auto-fill= mode we'll wrap here.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default fill-column 80)
+#+END_SRC
+
+** Default to not inserting tab characters in buffers
+#+BEGIN_SRC emacs-lisp
+   (setq-default indent-tabs-mode nil)
+#+END_SRC
+

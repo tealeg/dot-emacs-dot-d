@@ -1,0 +1,42 @@
+* Packages 
+** Overview
+Emacs has a package management system (like every decent OS ;-) ).
+
+
+** Add MELPA to the package-archives list if it's missing.
+
+#+BEGIN_SRC emacs-lisp
+  (unless (assoc-default "melpa" package-archives)
+    (add-to-list 'package-archives
+		 '("melpa" . "http://melpa.org/packages/") t)
+    ;; (package-refresh-contents)  ; Only do this once, it's not needed every load time.
+    )
+#+END_SRC
+
+** Ensure we have =use-package=.
+=use-package= is a very helpful extension that handles installing
+missing packages and lazy-loading of files.
+
+#+BEGIN_SRC emacs-lisp 
+ (unless (package-installed-p 'use-package)
+     (package-install 'use-package))
+#+END_SRC
+
+We also need to set-up some configuration for =use-package=.
+
+Keep =use-package= from flooding me with information, I'd toggle this
+for debugging purposes.
+#+BEGIN_SRC emacs-lisp
+  (setq use-package-verbose nil)
+#+END_SRC
+
+Always ensure the package is installed.
+#+BEGIN_SRC emacs-lisp
+  (setq use-package-always-ensure t)
+#+END_SRC
+
+** Provide the feature
+A good habit to be in.
+#+BEGIN_SRC emacs-lisp
+  (provide 'tealeg-packages)
+#+END_SRC

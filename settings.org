@@ -1,0 +1,148 @@
+* Emacs settings
+** Overview
+This is the core of my emacs configuration.  There is a small shim in
+=init.el= that's used to check this file for updates and use org-bable
+to tangle it into a valid elisp file if it has.
+
+** Organisation
+I break my Emacs configuration down into a number of files that each
+setup specific aspects of my emacs experience. All of this config
+files are loaded up-front, but they might put of doing some work until
+later.  I don't have a global policy for that.
+
+
+** Setting up the load-path variable.
+Tell emacs where to find my personal elisp files:
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'load-path "/home/tealeg/.emacs.d/lisp")
+#+END_SRC
+
+** Disabling the file-name handler
+This macro is used to load files in context where emacs won't attempt
+to match the filename to a special handler via a regexp.  During the
+loading of config we don't need or want any special case handling, and
+this speed the load time up somewhat.
+
+#+BEGIN_SRC emacs-lisp
+(defmacro disable-file-name-handler (&rest code)
+  "Wrap CODE in a let that will disable the file-name-handler."
+  `(let ((file-name-handler-alist nil))
+     ,@code))
+#+END_SRC
+
+** Reduce boiler plate when loading literate elisp.
+Because I'm doing this all with tangled org files, I'm going to wrap
+each file I load here in an =org-babel-load-file= call and a
+=disable-file-name-handler= call.  That's looking a lot like the sort
+of plate one might find on a boiler, so lets use a macro to magic it
+away.
+#+BEGIN_SRC emacs-lisp
+(defmacro tealeg-load (package-name)
+  "Load PACKAGE-NAME from a literate emacs-lisp org file."
+  (let ((expanded (expand-file-name (concat "lisp/tealeg-" package-name ".org") user-emacs-directory)))
+  `(disable-file-name-handler
+     (org-babel-load-file ,expanded))))
+#+END_SRC
+
+** Speed daemon
+Not really a daemon, I just like the pun.  Load performance improving
+optimisations from [[lisp/tealeg-speed-daemon.org][tealeg-speed-daemon.org]].  This file has been
+getting shorter over the year, this is a good thing.
+
+#+BEGIN_SRC emacs-lisp
+  (tealeg-load "speed-daemon")
+#+END_SRC
+
+
+** Package management system
+Load the configuration of the emacs package management system from
+[[lisp/tealeg-package.org][tealeg-package.org]].
+#+BEGIN_SRC emacs-lisp
+  (tealeg-load "package")
+#+END_SRC
+
+** Emacs variable customisation system
+Load the configuration of the emacs customisation system from [[lisp/tealeg-custom.org][tealeg-custom.org]].
+#+BEGIN_SRC emacs-lisp
+  (tealeg-load "custom")
+#+END_SRC
+
+
+** Auto-compilation of emacs lisp files
+Load the configuration of =auto-compile= from [[lisp/tealeg-autocompile.org][tealeg-autocompile.org]].
+#+BEGIN_SRC emacs-lisp
+  (tealeg-load "autocompile")
+#+END_SRC
+
+** Cryptographic settings
+Load the configuration of =epa= and =secrets= from [[lisp/tealeg-crypto.org][tealeg-crypto.org]].
+#+BEGIN_SRC emacs-lisp
+  (tealeg-load "crypto")
+#+END_SRC
+
+** IRC setup
+Load the configuration of =erc= and =znc= from [[lisp/tealeg-irc.org][tealeg-irc.org]].
+#+BEGIN_SRC emacs-lisp
+  (tealeg-load "irc")
+#+END_SRC
+
+** Font setup
+Load the font configuraton from [[lisp/tealeg-font.org][tealeg-font.org]].
+#+BEGIN_SRC emacs-lisp
+  (tealeg-load "font")
+#+END_SRC
+
+** General appearance
+Load the appearance configuration from [[lisp/tealeg-appearance.org][tealeg-appearance.org]].
+#+BEGIN_SRC emacs-lisp
+  (tealeg-load "appearance")
+#+END_SRC
+
+** Org-mode setup
+Load the org-mode configuration from [[lisp/tealeg-org.org][tealeg-org.org]].
+#+BEGIN_SRC emacs-lisp
+  (tealeg-load "org")
+#+END_SRC
+  
+** Backups
+Load the file backup configuration from [[lisp/tealeg-backup.org][tealeg-backup.org]].
+#+BEGIN_SRC emacs-lisp
+  (tealeg-load "backup")
+#+END_SRC
+
+** Dired
+Load configuration values for dired from [[lisp/tealeg-file.org][tealeg-file.org]].
+#+BEGIN_SRC emacs-lisp
+  (tealeg-load "file")
+#+END_SRC
+
+# ;;   (require 'tealeg-gnus)
+# ;;   (require 'tealeg-unicode)
+# ;;   (require 'tealeg-spelling)
+# ;;   (require 'tealeg-shell)
+# ;;   (require 'tealeg-check) ;; Needs flycheck
+# ;;   (require 'landscape)
+# ;;   (require 'tealeg-vc)
+# ;;   (require 'tealeg-calendar)
+# ;;   (require 'tealeg-elisp)
+# ;;   (require 'tealeg-lisp)
+# ;;   (require 'tealeg-go) ;; Needs go-mode
+# ;;   (require 'tealeg-js)
+# ;;   (require 'tealeg-xml)
+# ;;   (require 'tealeg-html)
+# ;;   (require 'tealeg-org)
+# ;;   (require 'tealeg-irc)
+# ;;   (require 'tealeg-python)
+# ;;   (require 'tealeg-automode)
+# ;;   (require 'tealeg-keybindings)
+# ;;   (require 'tealeg-theme-setup)
+# ;;   (require 'tealeg-mouse)
+# ;; ;;  (require 'tealeg-modeline)
+# ;;   (require 'tealeg-ido)
+# ;;   (require 'tealeg-project)
+# ;;   (require 'tealeg-landscape)
+# ;;   )
+
+# (server-start)
+# ;; (sauron-start)

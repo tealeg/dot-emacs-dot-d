@@ -1,0 +1,49 @@
+* Fonts
+** Overview
+Set-up fonts here.  I've created a 'font-set' definition that I use to
+save particular combinations of fonts I like.  Technically these could
+be emacs themes, I might have to investigate that in the future.
+
+** Macro to set baseline fonts
+Remove some of the boiler plate from setting the baseline fonts.
+#+BEGIN_SRC emacs-lisp
+  (defmacro tealeg-set-base-fonts (frame variable-pitch unicode)
+  "Set the baseline fonts (FRAME, VARIABLE-PITCH and UNICODE)."
+  `(progn
+     (set-frame-font ,frame)
+     (set-face-font 'variable-pitch ,variable-pitch)
+     (set-fontset-font t 'unicode ,unicode nil 'prepend)))
+#+END_SRC
+
+** Macro to define a font-set - =tealeg-deffs=
+
+#+BEGIN_SRC emacs-lisp
+(defmacro tealeg-deffs (name frame variable-pitch unicode)
+  "Define a function to set fonts as NAME, that will use FRAME as the frame font and VARIABLE-PITCH.  Optionally a BODY form can be passed in to be added to the tail of the function (to set other faces, for example."
+    `(defun ,name ()
+       (interactive)
+       (tealeg-set-base-fonts ,frame ,variable-pitch ,unicode)))
+#+END_SRC
+
+** Set-up fontsets
+#+BEGIN_SRC emacs-lisp
+  (tealeg-deffs tealeg-fs-ubuntu "Ubuntu Mono-9" "Ubuntu-9" "Noto Mono-9")
+  (tealeg-deffs tealeg-fs-google "Cousine-9" "Arimo-9" "Noto Mono-9")
+#+END_SRC
+
+** Enable font-set
+#+BEGIN_SRC emacs-lisp
+(setq font-use-system-font nil)
+(if (daemonp)
+    (add-hook 'after-make-frame-functions
+              (lambda (frame)
+                (with-selected-frame frame
+                  (tealeg-fs-google))))
+    (if (display-graphic-p)
+      (tealeg-fs-google)))
+#+END_SRC
+
+** Provide feature
+#+BEGIN_SRC emacs-lisp
+  (provide 'tealeg-font)
+#+END_SRC

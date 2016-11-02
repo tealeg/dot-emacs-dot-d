@@ -1,0 +1,19 @@
+* Automatic compilation of emacs lisp
+** Overview
+This helps to keep .elc files up-to date, and .elc files make things
+load more quickly.
+
+** Use the auto-compile package
+I used to handle all this in my own code, but as there's a package for
+it now, I'll use that instead. Progress, ain't it grand!
+#+BEGIN_SRC 
+  (use-package auto-compile
+    :config (auto-compile-on-load-mode))
+  (setq load-prefer-newer t)
+
+#+END_SRC
+
+** Provide the feature
+#+BEGIN_SRC emacs-lisp
+  (provide 'tealeg-autocompile)
+#+END_SRC 

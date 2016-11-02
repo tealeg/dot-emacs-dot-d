@@ -1,0 +1,31 @@
+* Crypographic settings
+
+** Overview 
+Here I'll configure emacs built in support for encrypting and
+decryting files. EPA.
+
+** Load EPA
+#+BEGIN_SRC emacs-lisp
+(require 'epa-file)
+#+END_SRC
+
+** Setup the Secrets Service API
+#+BEGIN_SRC emacs-lisp
+(require 'secrets)
+(setq secrets-enabled t)
+#+END_SRC
+
+** Enable EPA
+#+BEGIN_SRC emacs-lisp
+(epa-file-enable)
+#+END_SRC
+
+** Setup passphrase caching
+#+BEGIN_SRC emacs-lisp
+(setq epa-file-cache-passphrase-for-symmetric-encryption t)
+#+END_SRC
+
+** Provide the feature
+#+BEGIN_SRC emacs-lisp
+(provide 'tealeg-crypto)
+#+END_SRC

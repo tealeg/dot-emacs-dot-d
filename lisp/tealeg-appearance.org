@@ -1,0 +1,61 @@
+* Apperance
+** Overview
+Settings relating to the overall appearance of emacs.
+
+** Configuration 
+Remove unnecssary UI elements
+#+BEGIN_SRC emacs-lisp
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
+#+END_SRC
+
+Reduce the occurence of the dreaded =??= line count in the mode line
+#+BEGIN_SRC emacs-lisp
+  (setq line-number-display-limit-width 10000)
+#+END_SRC
+
+Don't beep, ever
+#+BEGIN_SRC emacs-lisp
+  (setq ring-bell-function (lambda ()))
+#+END_SRC
+
+Don't show the splash screen
+#+BEGIN_SRC emacs-lisp
+  (setq inhibit-startup-screen t)
+#+END_SRC
+
+Do show the line and column number in the modeline
+#+BEGIN_SRC emacs-lisp
+  (line-number-mode 1)
+  (column-number-mode 1)
+#+END_SRC
+
+Tabs in files will be rendered as two spaces
+#+BEGIN_SRC emacs-lisp
+  (setq-default default-tab-width 2)
+#+END_SRC
+
+Fix some weird escape sequences that show up in emacs sometimes.
+#+BEGIN_SRC emacs-lisp
+   (setq system-uses-terminfo nil)
+#+END_SRC
+
+Show the time in the mode line.
+#+BEGIN_SRC emacs-lisp
+  (setq display-time-day-and-date 1)
+  (display-time-mode 1)
+#+END_SRC
+
+Show  battery status in the mode line
+#+BEGIN_SRC emacs-lisp
+  (display-battery-mode 1)
+#+END_SRC
+
+** Provide feature
+#+BEGIN_SRC emacs-lisp
+  (provide 'tealeg-appearance)
+#+END_SRC
+
+
+   

@@ -1,0 +1,43 @@
+* Backups
+** Overview
+Emacs makes automatic backups of files you edit.  Configuration
+options controlling that process live here.
+
+** Set configuration options
+By default emacs puts a single backup file next to the file you're
+editing.  This litters the filesystem and is, on the whole, annoying.
+Lets put them elsewhere.
+#+BEGIN_SRC emacs-lisp
+  (setq backup-directory-alist `(("." . "~/.saves")))
+#+END_SRC
+
+Make copies to backup files being edited, rather than renaming the file.
+#+BEGIN_SRC emacs-lisp
+  (setq backup-by-copying t)
+#+END_SRC
+
+Clear down old backup versions, silently.
+#+BEGIN_SRC emacs-lisp
+  (setq delete-old-versions t)
+#+END_SRC
+
+Keep the 6 most recent versions of the file.
+#+BEGIN_SRC emacs-lisp
+  (setq kept-new-versions 6)
+#+END_SRC
+
+Keep the 2 oldest versions of the file.
+#+BEGIN_SRC emacs-lisp
+  (setq kept-old-versions 2) 
+#+END_SRC	
+
+Use numeric values to differentiate version of backed up files.
+#+BEGIN_SRC emacs-lisp
+  (setq version-control t)
+#+END_SRC
+
+** Provide the feature
+#+BEGIN_SRC emacs-lisp
+  (provide 'tealeg-backups)
+#+END_SRC
+
