@@ -18,3 +18,5 @@ xkcd
 lisp/yui-mode/*
 auto-save-list
 backups
+lisp/*.el
+settings.el
