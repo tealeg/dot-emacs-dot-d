@@ -47,11 +47,6 @@
 	   "~/.emacs.d/lisp/tealeg-font.el")
 
   )
-;;  (load-file "/home/tealeg/.emacs.d/lisp/tealeg-packages.el"))
-
-;;   (require 'tealeg-packages)
-;;   (require 'sauron)
-;;   (require 'tealeg-customize)
 ;;   (require 'tealeg-autocompile)
 ;;   (require 'tealeg-complete)
 ;;   (require 'tealeg-backups)
