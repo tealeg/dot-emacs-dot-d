@@ -27,6 +27,10 @@ Remove some of the boiler plate from setting the baseline fonts.
 
 ** Set-up fontsets
 #+BEGIN_SRC emacs-lisp
+  (tealeg-deffs tealeg-fs-terminus
+     "-xos4-terminus-medium-*-*-*-*-320-*-*-*-*-*-1"
+     "-xos4-terminus-medium-*-*-*-*-320-*-*-*-*-*-1"
+     "-xos4-terminus-medium-*-*-*-*-320-*-*-*-*-*-1")
   (tealeg-deffs tealeg-fs-ubuntu "Ubuntu Mono-9" "Ubuntu-9" "Noto Mono-9")
   (tealeg-deffs tealeg-fs-google "Cousine-9" "Arimo-9" "Noto Mono-9")
 #+END_SRC
