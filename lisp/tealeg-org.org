@@ -13,4 +13,21 @@ of the org system is done here.
 
 #+END_SRC
 
+** Load polymode
+First we need poly...
+#+BEGIN_SRC emacs-lisp
+	(use-package polymode
+		:commands poly-org-mode)
+#+END_SRC
+
+Then we need to turn =poly-org-mode= on when we enter an org-mode buffer.
+#+BEGIN_SRC emacs-lisp
+	(defun org-mode-helper-func ()
+		"Setup org mode buffers."
+		(require 'poly-org)
+		(poly-org-mode 1))
+
+ (add-hook 'org-mode-hook 'org-mode-helper-func)
+#+END_SRC
+
 
