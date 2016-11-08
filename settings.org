@@ -117,6 +117,18 @@ Load configuration values for dired from [[lisp/tealeg-file.org][tealeg-file.org
   (tealeg-load "file")
 #+END_SRC
 
+** Eshell
+Load my custom eshell configuration from [[lisp/tealeg-shell.org][tealeg-shell.org]].
+#+BEGIN_SRC emacs-lisp
+  (tealeg-load "shell")
+#+END_SRC
+
+** Landscape LXD support
+Load my custom functions, for developing Landscape inside a LXD container, from [[lisp/tealeg-landscape-lxd.org][tealeg-landscape-lxd.org]].
+#+BEGIN_SRC emacs-lisp
+  (tealeg-load "landscape-lxd")
+#+END_SRC
+
 # ;;   (require 'tealeg-gnus)
 # ;;   (require 'tealeg-unicode)
 # ;;   (require 'tealeg-spelling)
