@@ -1,0 +1,139 @@
+* Landscape LXD development
+** Overview
+I work on the Landscape team at Canonical (hey everyone!).  I do my
+development work inside LXD containers, so I've developed some
+functionality to help make that easier.  This is a work in process,
+but for the most part the build in TRAMP mode and eshell handle things
+transparently once you cd to a TRAMP path.
+
+** Code
+*** Load dependencies
+We depend on =em-dir=.
+
+#+BEGIN_SRC emacs-lisp
+  (require 'em-dirs)
+#+END_SRC
+
+*** Customisable values
+Right now the only thing you can customise is the name of the
+container you want to work on.  You can reach this option by doing
+=M-x customize-group RET lsx RET=.
+
+#+BEGIN_SRC emacs-lisp
+	(defgroup lsx nil
+		"Customisable configuration values for the Landscape LXD Development tools"
+		:group 'tools)
+
+ (defcustom lsx-container "l1"
+	 "The name of the container to develop landscape inside."
+	 :type 'string)
+
+#+END_SRC
+
+*** Get the IP address of any given container
+
+In order to cd into a container we'll first need to have an address
+for it.  Containers can have multiple addresses, which means we have
+to make a decision as to which one we'd like to use - I'm defaulting
+to using =eth0=.
+
+#+BEGIN_SRC emacs-lisp
+	(defun lsx-lxc-ip (container)
+		"Return the primary IP assigned to the CONTAINER."
+		(interactive "sContainer: ")
+  
+		(nth 2
+				 (split-string
+					(car
+					 (cl-remove-if-not (lambda (s) (string-prefix-p "eth0:\tinet\t" s))
+														 (split-string
+															(shell-command-to-string (concat "lxc info " container))
+															"\n" t split-string-default-separators))))))
+#+END_SRC
+
+*** Define internal utilities
+These functions are use by top level functions.
+
+**** Define =parent-directory=
+Reliably find the parent directory of the current path.
+
+#+BEGIN_SRC emacs-lisp
+	(defun parent-directory (path)
+		"Return the parent directory of the provided PATH."
+		(file-name-directory (directory-file-name path)))
+#+END_SRC
+
+**** Define =branch-root=
+Find the path to the directory, either the provided PATH or one of its
+ancestors, that contains the =.bzr= folder.
+
+#+BEGIN_SRC emacs-lisp
+	(defun branch-root (path)
+		"Find the path to the directory, either the provided PATH or one of its
+ ancestors, that contains the =.bzr= folder."
+		(interactive "sPath: ")
+		(let ((path (expand-file-name path)))
+			(if (and (directory-name-p path)
+							 (member ".bzr" (directory-files path)))
+					path
+				(branch-root (parent-directory path)))))
+#+END_SRC
+
+**** Define =strip-tramp-context=
+Get the path of a remote path on that remote machine.
+
+#+BEGIN_SRC emacs-lisp
+	(defun strip-tramp-context (tramp-path)
+		"Return TRAMP-PATH with the tramp context removed."
+		(elt (tramp-dissect-file-name tramp-path) 3))
+#+END_SRC
+
+**** Define =cpu-count=
+
+#+BEGIN_SRC emacs-lisp
+	(defun cpu-count ()
+		"Return the number of logical CPUs (including hypethreads)."
+		(interactive)
+		(string-to-int (shell-command-to-string "nproc")))
+#+END_SRC
+
+*** Define =lcd=
+I've defined an eshell function, =lcd=, which will do an =eshell/cd=
+to a TRAMP compliant path for the container. I have an =lcd= function
+in my host environment which will already use =ssh= to connect to the
+container, but within emacs it's much better to use the TRAMP path,
+because now any emacs operations that works on the current path will
+work (with very few exceptions) via TRAMP.  This *rocks*.
+
+#+BEGIN_SRC emacs-lisp
+	(defun eshell/lcd (container-name)
+		"Change directory to your home directory on the lxd container identified by CONTAINER-NAME."
+		(eshell/cd (concat "/ssh:" (getenv "USER") "@" (lsx-lxc-ip container-name) ":"))
+		(rename-buffer "*l1*" t))
+#+END_SRC
+
+*** Define =ltest=
+Run the landscape test suite, with optional arguments passed in the =SPEC= field.
+
+#+BEGIN_SRC emacs-lisp
+	(defun eshell/ltest (&rest spec)
+		"Run ./bin/test in a compilation buffer. Use SPEC to narrow test scope, if provided."
+		(compile (concat (strip-tramp-context (branch-root default-directory))
+										 "bin/test -j" (int-to-string (cpu-count)) " "
+										 (mapconcat 'identity spec ""))))
+#+END_SRC
+
+*** Define =llint"
+Run the landscape source lint.
+
+#+BEGIN_SRC emacs-lisp
+	(defun eshell/llint ()
+		"Run bzr ls-lint."
+		(compile "bzr ls-lint"))
+#+END_SRC
+
+*** Provide the feature
+A good habit.
+#+BEGIN_SRC emacs-lisp
+  (provide 'tealeg-landscape-lxd)
+#+END_SRC
