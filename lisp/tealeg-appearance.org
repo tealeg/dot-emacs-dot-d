@@ -3,6 +3,12 @@
 Settings relating to the overall appearance of emacs.
 
 ** Configuration 
+Setup theme.
+#+BEGIN_SRC emacs-lisp
+	(use-package 'base16-theme)
+  (load-theme 'base16-default-dark)
+#+END_SRC
+
 Remove unnecssary UI elements
 #+BEGIN_SRC emacs-lisp
   (menu-bar-mode -1)
@@ -49,7 +55,7 @@ Show the time in the mode line.
 
 Show  battery status in the mode line
 #+BEGIN_SRC emacs-lisp
-  (display-battery-mode 1)
+  (display-battery-mode)
 #+END_SRC
 
 ** Provide feature
