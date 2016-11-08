@@ -5,7 +5,7 @@ Settings relating to the overall appearance of emacs.
 ** Configuration 
 Setup theme.
 #+BEGIN_SRC emacs-lisp
-	(use-package 'base16-theme)
+  (use-package base16-theme)
   (load-theme 'base16-default-dark)
 #+END_SRC
 
