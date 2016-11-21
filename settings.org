@@ -129,6 +129,12 @@ Load my custom functions, for developing Landscape inside a LXD container, from 
   (tealeg-load "landscape-lxd")
 #+END_SRC
 
+** JS and JSX support
+Load my JS and JSX configuration from [[lisp/tealeg-js.org][tealeg-js.org]].
+#+BEGIN_SRC emacs-lisp
+  (tealeg-load "js")
+#+END_SRC
+
 # ;;   (require 'tealeg-gnus)
 # ;;   (require 'tealeg-unicode)
 # ;;   (require 'tealeg-spelling)
