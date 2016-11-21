@@ -8,9 +8,11 @@ Emacs has a package management system (like every decent OS ;-) ).
 #+BEGIN_SRC emacs-lisp
   (unless (assoc-default "melpa" package-archives)
     (add-to-list 'package-archives
-		 '("melpa" . "http://melpa.org/packages/") t)
-    ;; (package-refresh-contents)  ; Only do this once, it's not needed every load time.
-    )
+								 '("melpa" . "http://melpa.org/packages/") t))
+	(unless (assoc-default "org" package-archives)
+		(add-to-list 'package-archives
+								 '("org" . "http://orgmode.org/elpa/")))
+	;; (package-refresh-contents)  ; Only do this once, it's not needed every load time.
 #+END_SRC
 
 ** Ensure we have =use-package=.
