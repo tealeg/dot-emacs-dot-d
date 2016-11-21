@@ -112,6 +112,27 @@ work (with very few exceptions) via TRAMP.  This *rocks*.
 		(rename-buffer "*l1*" t))
 #+END_SRC
 
+*** Define =l1=
+I mainly work in an LXD container called =l1=, and I've grown used to
+this being available as an =eshell= all the time.  The =l1= method
+simply checks if the =*l1*= buffer exists, if it does, it will switch
+to it, if it doesn't then it will start a new eshell and =lcd= to l1.
+
+#+BEGIN_SRC emacs-lisp
+	(defun l1 ()
+		"Switch to, or create, the l1 shell."
+		(interactive)
+		(let* ((eshell-buffer-name "*l1*")
+					 (buffer (get-buffer eshell-buffer-name)))
+			(if buffer
+					(eshell)
+				(progn
+					(with-current-buffer (eshell)
+						(eshell-return-to-prompt)
+						(insert "lcd l1")
+						(eshell-send-input))))))
+#+END_SRC
+
 *** Define =ltest=
 Run the landscape test suite, with optional arguments passed in the =SPEC= field.
 
