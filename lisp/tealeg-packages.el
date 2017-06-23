@@ -19,6 +19,7 @@
     go-mode
     go-complete
     go-eldoc
+    go-guru
     magit
     minimal-theme
     org
