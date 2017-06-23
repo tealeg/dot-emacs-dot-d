@@ -10,7 +10,7 @@
 (defvar tealeg/packages/depencies
   '(ample-theme
     column-enforce-mode
-    challenger-deep
+    challenger-deep-theme
     company
     exec-path-from-shell
     flycheck
