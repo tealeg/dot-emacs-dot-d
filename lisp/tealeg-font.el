@@ -21,8 +21,9 @@
        ,@body))
 
 
-(tealeg-deffs tealeg-fs-arial "Arial Monospaced MT Std-7" "Arial-7")
-(tealeg-deffs tealeg-fs-nk57 "NK57Monospace-7" "NK57Monospace-7")
+(tealeg-deffs tealeg-fs-ubuntu "Ubuntu Mono-12" "Ubuntu-12")
+;; (tealeg-deffs tealeg-fs-arial "Arial Monospaced MT Std-7" "Arial-7")
+;; (tealeg-deffs tealeg-fs-nk57 "NK57Monospace-7" "NK57Monospace-7")
 
 
 
@@ -32,7 +33,7 @@
               (lambda (frame)
                 (with-selected-frame frame
                   (setq font-use-system-font nil)
-                  (tealeg-fs-nk57)
+                  (tealeg-fs-ubuntu)
                   ))))
 
 (provide 'tealeg-font)

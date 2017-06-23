@@ -28,7 +28,11 @@
     ;;highlight-tail-mode
     ace-jump-mode
     web-mode
-    sauron
+    paredit
+    multi-web-mode
+    auto-complete
+    go-autocomplete
+    projectile
     )
   "A list of package required for my Emacs setup.")
 

@@ -12,7 +12,7 @@
 (customize-set-variable 'geiser-default-implementation 'guile)
 
 
-(load (expand-file-name "~/quicklisp/slime-helper.el"))
+;; (load (expand-file-name "~/quicklisp/slime-helper.el"))
 (setq inferior-lisp-program "/usr/bin/sbcl")
 
 (setq common-lisp-hyperspec-root "/usr/share/doc/hyperspec/")
