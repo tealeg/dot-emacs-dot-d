@@ -11,6 +11,7 @@
   '(ample-theme
     column-enforce-mode
     company
+    exec-path-from-shell
     flycheck
     flycheck-pyflakes
     geiser
