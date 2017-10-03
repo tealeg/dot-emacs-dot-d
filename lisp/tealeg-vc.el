@@ -14,8 +14,23 @@
 				(global-set-key (kbd "C-x v =") 'git-status))))
 
 (require 'magit)
-
 (require 'git-gutter)
+(require 'github-notifier)
+
+(custom-set-variables '(github-notifier-token "5adb2a6d757eaaac24dd78e7acdd43f3aa7bcf0b")
+                      '(github-notifier-only-participating t)
+                      )
+
+(require 'alert)
+(custom-set-variables '(alert-default-style 'osx-notifier))
+
+(add-hook 'github-notifier-update-hook
+          (lambda (some-json)
+            (let (count (length (json-read-from-string some-json)))
+              (when (> count 0)
+                (alert (concat "There are " (number-to-string count) " unread notifications on GitHub"))))))
+
+
 
 (set-face-attribute 'git-gutter:added nil :inherit 'fringe)
 (set-face-attribute 'git-gutter:deleted nil :inherit 'fringe)

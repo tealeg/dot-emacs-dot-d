@@ -12,10 +12,14 @@
 (require 'go-autocomplete)
 (require 'go-eldoc)
 (require 'go-guru)
+(require 'which-func)
 
 
 (setenv "GOROOT" "/usr/local/go")
-(setenv "GOPATH" "/home/tealeg/go")
+(setenv "GOPATH" (concat (getenv "HOME") "/go"))
+
+(add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/golang/lint/misc/emacs"))
+(require 'golint)
 
 (defun set-exec-path-from-shell-PATH ()
   (let ((path-from-shell (replace-regexp-in-string
@@ -28,29 +32,19 @@
 
 (when window-system (set-exec-path-from-shell-PATH))
 
-(add-to-list 'exec-path "/home/tealeg/go/bin")
-
-
-;; (defvar go-oracle-path
-;;   "/src/golang.org/x/tools/cmd/oracle/oracle.el"
-;;   "Path below GOROOT or GOPATH where oracle.el lives.")
-
-;; (defun load-from-go-path (sub-path)
-;;   "Load an Emacs Lisp file from a Go directory, searching all possible locations for the SUB-PATH, starting with GOROOT and then iterating through the list of values for GOPATH."
-;;   (let ((GOROOT (getenv "GOROOT"))
-;;         (GOPATH (getenv "GOPATH")))
-;;     (if (null GOPATH) (error "GOPATH not set"))
-;;     (let ((go-load-path (if (null GOROOT) (split-string GOPATH ":")
-;;                           (cons GOROOT (split-string GOPATH ";")))))
-;;       (dolist (path go-load-path)
-;;         (if (load (concat path sub-path) t)
-;;             (return))
-;;         (error (concat sub-path " not found below GOROOT or any GOPATH"))))))
-
-;; (load-from-go-path go-oracle-path)
+(add-to-list 'exec-path "~/go/bin")
 
 (setq gofmt-command "goimports")
 
+
+(setq mode-line-misc-info (delete (assoc 'which-func-mode
+                                      mode-line-misc-info) mode-line-misc-info)
+      which-func-header-line-format '(which-func-mode ("" which-func-format)))
+(defadvice which-func-ff-hook (after header-line activate)
+  (when which-func-mode
+    (setq mode-line-misc-info (delete (assoc 'which-func-mode
+                                          mode-line-misc-info) mode-line-misc-info)
+          header-line-format which-func-header-line-format)))
 
 (defun golang-helpers ()
   "Things to do when loading go-mode."
@@ -58,6 +52,7 @@
   (auto-complete-mode 1)
   (go-eldoc-setup)
   (go-guru-hl-identifier-mode 1)
+  (which-function-mode 1)
 
   ;; Customize compile command to run go build
   (if (not (string-match "go" compile-command))
@@ -79,6 +74,7 @@
 (add-hook 'before-save-hook 'golang-save-helpers)
 (add-hook 'completion-at-point-functions 'go-complete-at-point)
 (add-hook 'go-mode-hook 'go-eldoc-setup)
+
 
 (provide 'tealeg-go)
 ;;; tealeg-go.el ends here

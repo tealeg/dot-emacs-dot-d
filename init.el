@@ -17,14 +17,14 @@
 ;; This let speeds start up by avoiding some regexps against file names whilst
 ;; loading.
 (let ((file-name-handler-alist nil))
-  (add-to-list 'load-path "/home/tealeg/.emacs.d/lisp")
-  (load-file "/home/tealeg/.emacs.d/lisp/tealeg-packages.el")
+  (add-to-list 'load-path "~/.emacs.d/lisp")
+  (load-file "~/.emacs.d/lisp/tealeg-packages.el")
   (require 'tealeg-speed-daemon)
   (require 'tealeg-packages)
   (require 'tealeg-customize)
   (require 'tealeg-autocompile)
   (require 'tealeg-backups)
-  (require 'tealeg-crypto)
+  ;;(require 'tealeg-crypto)
   (require 'tealeg-frame)
   (require 'tealeg-font)
   (require 'tealeg-file)

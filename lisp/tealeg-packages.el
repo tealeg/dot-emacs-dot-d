@@ -39,6 +39,9 @@
     )
   "A list of package required for my Emacs setup.")
 
+(when (eq system-type 'darwin)
+  (dolist (package '(grab-mac-link launchctl spotlight))
+    (add-to-list 'tealeg/packages/depencies package)))
 
 (add-to-list 'package-archives
   '("melpa" . "http://melpa.milkbox.net/packages/") t)

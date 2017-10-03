@@ -12,6 +12,16 @@
 (setq eshell-smart-space-goes-to-end t)
 
 
+(require 'esh-help)
+(setup-esh-help-eldoc)  ;; To use eldoc in Eshell
+(add-hook 'shell-mode-hook (lambda () (eldoc-mode 1)))
+
+(require 'eshell-did-you-mean)
+(eshell-did-you-mean-setup)
+
+(require 'eshell-git-prompt)
+(eshell-git-prompt-use-theme "powerline")
+
 (require 'em-tramp)
 (setq password-cache t)
 (setq password-cache-expiry 60)
