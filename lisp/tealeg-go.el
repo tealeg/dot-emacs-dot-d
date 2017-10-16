@@ -8,11 +8,12 @@
 (require 'go-complete)
 (require 'go-eldoc)
 (require 'exec-path-from-shell)
-(require 'auto-complete)
-(require 'go-autocomplete)
 (require 'go-eldoc)
 (require 'go-guru)
+(require 'godoctor)
 (require 'which-func)
+(require 'yasnippet)
+(require 'rainbow-delimiters)
 
 
 (setenv "GOROOT" "/usr/local/go")
@@ -34,6 +35,9 @@
 
 (add-to-list 'exec-path "~/go/bin")
 
+
+
+
 (setq gofmt-command "goimports")
 
 
@@ -48,8 +52,12 @@
 
 (defun golang-helpers ()
   "Things to do when loading go-mode."
+  (setq flycheck-disabled-checkers '(go-build))
+  (yas-minor-mode 1)
+  (electric-pair-mode 1)
+  (rainbow-delimiters-mode 1)
+  (yas-load-directory "~/.emacs.d/snippets/yasnippet-golang")
   (show-paren-mode 1)
-  (auto-complete-mode 1)
   (go-eldoc-setup)
   (go-guru-hl-identifier-mode 1)
   (which-function-mode 1)
@@ -67,8 +75,8 @@
   "Things to do when saving a go file."
   (gofmt-before-save))
 
-(with-eval-after-load 'go-mode
-  (require 'go-autocomplete))
+;; (with-eval-after-load 'go-mode
+;;   (require 'go-autocomplete))
 
 (add-hook 'go-mode-hook 'golang-helpers)
 (add-hook 'before-save-hook 'golang-save-helpers)
