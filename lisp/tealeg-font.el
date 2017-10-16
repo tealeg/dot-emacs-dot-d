@@ -27,11 +27,13 @@
 ;; (tealeg-deffs tealeg-fs-ubuntu "Ubuntu Mono-12" "Ubuntu-12")
 ;; (tealeg-deffs tealeg-fs-arial "Arial Monospaced MT Std-7" "Arial-7")
 ;; (tealeg-deffs tealeg-fs-nk57 "NK57Monospace-7" "NK57Monospace-7")
-(tealeg-deffs tealeg-fs-go "Go Mono-15" "Go-15")
-(tealeg-deffs tealeg-fs-menlo "Menlo-15" "Menlo-15")
-(tealeg-deffs tealeg-fs-monaco "Monaco-15" "Monaco-15")
-(tealeg-deffs tealeg-fs-iosevka-term "Iosevka Term-15" "Iosevka Term-15")
-
+(tealeg-deffs tealeg-fs-go "Go Mono-15" "Go-11")
+(tealeg-deffs tealeg-fs-menlo "Menlo-15" "Menlo-11")
+(tealeg-deffs tealeg-fs-monaco "Monaco-15" "Monaco-11")
+(tealeg-deffs tealeg-fs-iosevka-term "Iosevka Term Medium-11" "Iosevka Term Medium-11")
+(tealeg-deffs tealeg-fs-special-elite "Special Elite-12" "Special Elite-12")
+(tealeg-deffs tealeg-fs-traveling-typewriter "Traveling_Typewriter-12" "Traveling_Typewriter-12")
+(tealeg-deffs tealeg-fs-libertinus "Libertinus Mono-12" "Libertinus Mono-12")
 
 
 (if (daemonp)
@@ -42,6 +44,5 @@
                   (tealeg-fs-iosevka-term)
                   )))
   (tealeg-fs-iosevka-term))
-
 (provide 'tealeg-font)
 ;;; tealeg-font.el ends here

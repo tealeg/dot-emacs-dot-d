@@ -23,12 +23,11 @@
     go-guru
     magit
     minimal-theme
+    tao-theme
     org
     org-plus-contrib
-    ;; slime -- grab this with quicklisp instead.
     highlight-parentheses
     js2-mode
-    ;;highlight-tail-mode
     ace-jump-mode
     web-mode
     paredit
@@ -36,6 +35,8 @@
     auto-complete
     go-autocomplete
     projectile
+    yasnippet
+    rainbow-delimiters
     )
   "A list of package required for my Emacs setup.")
 
