@@ -38,6 +38,10 @@
     projectile
     yasnippet
     rainbow-delimiters
+    esh-help
+    eshell-did-you-mean
+    eshell-git-prompt
+    avk-emacs-themes
     )
   "A list of package required for my Emacs setup.")
 
