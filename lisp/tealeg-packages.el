@@ -21,6 +21,7 @@
     go-complete
     go-eldoc
     go-guru
+    godoctor
     magit
     minimal-theme
     tao-theme

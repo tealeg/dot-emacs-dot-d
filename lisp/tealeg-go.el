@@ -14,7 +14,7 @@
 (require 'which-func)
 (require 'yasnippet)
 (require 'rainbow-delimiters)
-
+(require 'tealeg-avocet)
 
 (setenv "GOROOT" "/usr/local/go")
 (setenv "GOPATH" (concat (getenv "HOME") "/go"))
@@ -53,10 +53,10 @@
 (defun golang-helpers ()
   "Things to do when loading go-mode."
   (setq flycheck-disabled-checkers '(go-build))
+  (yas-load-directory "~/.emacs.d/snippets/yasnippet-golang")  
   (yas-minor-mode 1)
   (electric-pair-mode 1)
   (rainbow-delimiters-mode 1)
-  (yas-load-directory "~/.emacs.d/snippets/yasnippet-golang")
   (show-paren-mode 1)
   (go-eldoc-setup)
   (go-guru-hl-identifier-mode 1)
@@ -69,7 +69,14 @@
 
   ;; Godef jump key binding
   (local-set-key (kbd "M-.") 'godef-jump)
-  (local-set-key (kbd "M-*") 'pop-tag-mark))
+  (local-set-key (kbd "M-*") 'pop-tag-mark)
+
+  ;; avocet key bindings
+  (local-set-key (kbd "C-l t o") 'avct/test-one)
+  (local-set-key (kbd "C-l t p") 'avct/test-package)
+  (local-set-key (kbd "C-l t a") 'avct/test-all)
+  (local-set-key (kbd "C-l t r") 'avct/race-test-all))
+
 
 (defun golang-save-helpers ()
   "Things to do when saving a go file."
