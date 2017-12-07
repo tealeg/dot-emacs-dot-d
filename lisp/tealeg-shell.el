@@ -23,6 +23,8 @@
 (eshell-git-prompt-use-theme "powerline")
 
 (require 'em-tramp)
+(setq eshell-prefer-lisp-functions t)
+(setq eshell-prefer-lisp-variables t)
 (setq password-cache t)
 (setq password-cache-expiry 60)
 

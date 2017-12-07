@@ -5,6 +5,12 @@
 
 ;;; Code:
 
+(require 'ido)
+
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(ido-mode 1)
+
 (when (string-equal system-type "darwin")
   ;; set keys for Apple keyboard, for emacs in OS X
   (setq mac-command-modifier 'meta) ; make cmd key do Meta

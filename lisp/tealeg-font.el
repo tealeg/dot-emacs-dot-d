@@ -30,7 +30,7 @@
 (tealeg-deffs tealeg-fs-go "Go Mono-11" "Go-11")
 (tealeg-deffs tealeg-fs-menlo "Menlo-15" "Menlo-11")
 (tealeg-deffs tealeg-fs-monaco "Monaco-15" "Monaco-11")
-(tealeg-deffs tealeg-fs-iosevka-term "Iosevka Term Medium-16" "Iosevka Term Medium-16")
+(tealeg-deffs tealeg-fs-iosevka-term "Iosevka Term Medium-13" "Iosevka Term Medium-13")
 (tealeg-deffs tealeg-fs-special-elite "Special Elite-16" "Special Elite-16")
 (tealeg-deffs tealeg-fs-traveling-typewriter "Traveling_Typewriter-16" "Traveling_Typewriter-16")
 (tealeg-deffs tealeg-fs-libertinus "Libertinus Mono-16" "Libertinus Mono-16")
@@ -43,18 +43,19 @@
 (tealeg-deffs tealeg-fs-pro "ProFontWindows-16" "ProFontWindows-16")
 (tealeg-deffs tealeg-fs-didot "Didot-16" "Didot-16")
 (tealeg-deffs tealeg-fs-futura "Futura-16" "Futura-16")
-(tealeg-deffs tealeg-fs-lispM "LispM-18" "LispM-18")
+(tealeg-deffs tealeg-fs-lispM "LispM-18" "LispM-18")sur
 (tealeg-deffs tealeg-fs-pocket-calculator "Pocket Calculator-24" "Pocket Calculator-24")
 (tealeg-deffs tealeg-fs-hermit "Hermit-18" "Hermit-18")
 (tealeg-deffs tealeg-fs-neoletters "neoletters-15" "neoletters-15")
+(tealeg-deffs tealeg-fs-ibmplex "IBM Plex Mono Medium-8" "IBM Plex Sans Medium-8")
 
 (if (daemonp)
     (add-hook 'after-make-frame-functions
               (lambda (frame)
                 (with-selected-frame frame
                   (setq font-use-system-font nil)
-                  (tealeg-fs-iosevka-term)
+                  (tealeg-fs-ibmplex)
                   )))
-  (tealeg-fs-iosevka-term))
+  (tealeg-fs-ibmplex))
 (provide 'tealeg-font)
 ;;; tealeg-font.el ends here

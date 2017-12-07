@@ -7,11 +7,12 @@
 
 ;;; Good candidates: minimal-light, Andreas, greiner, high-contrast, katester, leuven, montz, ramangalahy, scintilla, tango, vim-colors, xemacs
 
-(defvar tealeg-global-day-theme 'avk-daylight
+
+(defvar tealeg-global-day-theme 'base16-porple
 	"The theme to apply to new frames during daylight hours.")
 
 ;;; Good candidates: minimal, arjen-grey, gruvbox, charcoal-black, desert, green-phosphor, hemisu-dark, lawrence, monokai, peacock, railscast, reykjavik, solarized-dark, tango-dark, ubuntu, wombat,
-(defvar tealeg-global-night-theme 'tronesque
+(defvar tealeg-global-night-theme 'base16-porple
   "The theme to apply to new frames during nighttime hours.")
 
 (defun tealeg-load-theme ()

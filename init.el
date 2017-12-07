@@ -45,6 +45,7 @@
   (require 'tealeg-theme-setup)
   (require 'tealeg-mouse)
   (require 'tealeg-project)
+  (require 'tealeg-mail)
   )
 
 (server-start)

@@ -13,6 +13,7 @@
 (column-number-mode 1)
 (winner-mode 1)
 (display-battery-mode 1)
+(display-time-mode 1)
 (put 'suspend-frame 'disabled t)
 (setq-default indent-tabs-mode nil)
 
