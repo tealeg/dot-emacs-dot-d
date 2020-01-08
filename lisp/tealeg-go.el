@@ -13,6 +13,7 @@
 (require 'lsp-mode)
 (require 'go-mode)
 (require 'gotest)
+(require 'cl-lib)
 
 
 (add-hook 'go-mode-hook 'lsp)
@@ -29,7 +30,13 @@
 
 (defun tealeg-go-mode-helper ()
   "Setup go-mode."
-  (setq go-command "/usr/local/go/bin/go")
+  (setq go-command
+	(let ((go-paths (list "/usr/local/go/bin/go"
+			      "/snap/bin/go"
+			      "/usr/bin/go")))
+	  (cl-dolist (path go-paths)
+	    (when (file-exists-p path)
+	      (cl-return path)))))
   (define-key go-mode-map (kbd "C-l c") #'go-test-current-coverage)
   (define-key go-mode-map (kbd "C-l t o") #'go-test-current-test)
   (define-key go-mode-map (kbd "C-l t f") #'go-test-current-file)
