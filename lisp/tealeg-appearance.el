@@ -24,12 +24,14 @@
 (menu-bar-mode -1)
 (column-number-mode 1)
 (global-linum-mode -1)
-(scroll-bar-mode -1)
+(if (boundp 'scroll-bar-mode)
+    (scroll-bar-mode -1))
 (display-time-mode 1)
 (setq display-time-day-and-date t)
 (setq display-time-format " [%Y/%m/%d %H:%M] ")
 (setq display-time-load-average-threshold 4.0)
-(fringe-mode 20)
+(if (boundp 'fringe-mode)
+    (fringe-mode 20))
 
 (setq font-use-system-font t)
 
