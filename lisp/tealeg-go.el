@@ -2,7 +2,11 @@
 ;;;
 ;;; Commentary:
 ;;;	This file has quite a lot of external dependencies, I'll
-;;;	document how to install them as a I go.
+;;;	document how to install them as a I go:
+;;;
+;;;		go get golang.org/x/tools/cmd/goimports@latest
+;;;             go get github.com/go-delve/delve@lateste
+;;;             go get golang.org/x/tools/gopls@latest
 ;;;
 ;;; Code:
 
