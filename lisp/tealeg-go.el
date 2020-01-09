@@ -19,7 +19,7 @@
 (add-hook 'go-mode-hook 'lsp)
 (add-hook 'go-mode-hook 'flycheck-mode)
 
-(custom-set-default 'lsp-clients-go-server "go-langserver")
+(custom-set-default 'lsp-clients-go-server "gopls")
 
 
 (defun golang-save-helper ()
