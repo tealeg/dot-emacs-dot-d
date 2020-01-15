@@ -21,7 +21,6 @@
 
 
 (add-hook 'go-mode-hook 'lsp)
-(add-hook 'go-mode-hook 'flycheck-mode)
 
 (custom-set-default 'lsp-clients-go-server "gopls")
 
@@ -60,10 +59,6 @@
 
 (add-hook 'go-mode-hook 'tealeg-go-mode-helper)
 
-
-
-;;(straight-use-package 'go-test)
-;;(straight-use-package 'yasnippet)
 
 (provide 'tealeg-go)
 ;;; tealeg-go.el ends here

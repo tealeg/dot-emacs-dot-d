@@ -24,6 +24,7 @@
 (require 'tealeg-lsp)
 (require 'tealeg-go)
 (require 'tealeg-rust)
+(require 'tealeg-yaml)
 
 (provide 'init)
 ;;; init.el ends here
