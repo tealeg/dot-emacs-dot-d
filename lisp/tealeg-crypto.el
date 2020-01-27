@@ -7,6 +7,7 @@
 (straight-use-package 'pinentry)
 (setq epg-gpg-program "gpg2")
 
+(setenv "GPG_TTY" nil)
 (setenv "GPG_AGENT_INFO" nil)
 
 (setq epa-pinentry-mode 'ask)

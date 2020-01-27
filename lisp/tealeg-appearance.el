@@ -13,7 +13,7 @@
 (require 'doom-modeline)
 (require 'all-the-icons)
 
-(load-theme 'doom-acario-light)
+(load-theme 'doom-outrun-electric)
 
 ;; If the icons aren't showing, this should fix that ;-)
 ;; (all-the-icons-install-fonts t)
@@ -33,7 +33,8 @@
 (if (boundp 'fringe-mode)
     (fringe-mode 20))
 
-(setq font-use-system-font t)
+(setq font-use-system-font nil)
+
 
 (provide 'tealeg-appearance)
 ;;; tealeg-appearance.el ends here
