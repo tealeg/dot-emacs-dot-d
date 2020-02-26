@@ -21,6 +21,7 @@
 (defun eshell-helper-f ()
   "Setup eshell"
   (setq eshell-path-env (string-join exec-path ":"))
+  (setenv "PAGER" "cat")
   )
 
 (add-hook 'eshell-mode-hook 'eshell-helper-f)
