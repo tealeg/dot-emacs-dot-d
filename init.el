@@ -27,6 +27,7 @@
 (require 'tealeg-yaml)
 (require 'tealeg-avsc)
 (require 'tealeg-crypto)
+(require 'tealeg-haskell)
 
 (provide 'init)
 ;;; init.el ends here

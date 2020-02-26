@@ -14,15 +14,24 @@
 (straight-use-package 'go-mode)
 (straight-use-package 'gotest)
 (straight-use-package 'go-dlv)
+(straight-use-package 'company)
+(straight-use-package 'company-lsp)
+(straight-use-package 'exec-path-from-shell)
 (require 'lsp-mode)
 (require 'go-mode)
 (require 'gotest)
 (require 'cl-lib)
+(require 'company)
+(require 'company-lsp)
+(require 'exec-path-from-shell)
 
+(push 'company-lsp company-backends)
 
-(add-hook 'go-mode-hook 'lsp)
+(add-hook 'go-mode-hook 'lsp-deferred)
 
 (custom-set-default 'lsp-clients-go-server "gopls")
+
+
 
 
 (defun golang-save-helper ()
@@ -33,6 +42,9 @@
 
 (defun tealeg-go-mode-helper ()
   "Setup go-mode."
+  (exec-path-from-shell-initialize)
+  (exec-path-from-shell-copy-env "GOPATH")
+    (exec-path-from-shell-copy-env "GOROOT")
   (setq go-command
 	(let ((go-paths (list "/usr/local/go/bin/go"
 			      "/snap/bin/go"
@@ -40,6 +52,7 @@
 	  (cl-dolist (path go-paths)
 	    (when (file-exists-p path)
 	      (cl-return path)))))
+  (define-key go-mode-map (kbd "C-c d") #'lsp-describe-thing-at-point)
   (define-key go-mode-map (kbd "C-l c") #'go-test-current-coverage)
   (define-key go-mode-map (kbd "C-l t o") #'go-test-current-test)
   (define-key go-mode-map (kbd "C-l t f") #'go-test-current-file)
@@ -53,6 +66,7 @@
   (setq go-test-args "-cover -race -cpu 2")
   (setq gofmt-command "goimports")
   (add-hook 'before-save-hook 'golang-save-helper t t)
+
   )
 
 
