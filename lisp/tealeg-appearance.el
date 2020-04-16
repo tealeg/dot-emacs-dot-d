@@ -13,7 +13,7 @@
 (require 'doom-modeline)
 (require 'all-the-icons)
 
-(load-theme 'doom-outrun-electric)
+(load-theme 'doom-material)
 
 ;; If the icons aren't showing, this should fix that ;-)
 ;; (all-the-icons-install-fonts t)
