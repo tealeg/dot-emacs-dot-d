@@ -13,6 +13,7 @@
 
 (defun rust-mode-helpers ()
   "Setup rust mode."
+  (add-to-list 'exec-path "~/.cargo/bin")
   (lsp)
   (flycheck-mode 1)
   (setq rust-format-on-save t)

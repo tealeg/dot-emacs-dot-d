@@ -14,18 +14,12 @@
 (straight-use-package 'go-mode)
 (straight-use-package 'gotest)
 (straight-use-package 'go-dlv)
-(straight-use-package 'company)
-(straight-use-package 'company-lsp)
 (straight-use-package 'exec-path-from-shell)
 (require 'lsp-mode)
 (require 'go-mode)
 (require 'gotest)
 (require 'cl-lib)
-(require 'company)
-(require 'company-lsp)
 (require 'exec-path-from-shell)
-
-(push 'company-lsp company-backends)
 
 (add-hook 'go-mode-hook 'lsp-deferred)
 
@@ -47,6 +41,7 @@
     (exec-path-from-shell-copy-env "GOROOT")
   (setq go-command
 	(let ((go-paths (list "/usr/local/go/bin/go"
+			      "/usr/local/bin/go"
 			      "/snap/bin/go"
 			      "/usr/bin/go")))
 	  (cl-dolist (path go-paths)

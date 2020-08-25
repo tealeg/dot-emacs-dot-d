@@ -8,12 +8,25 @@
 (straight-use-package 'doom-themes)
 (straight-use-package 'doom-modeline)
 (straight-use-package 'all-the-icons)
+(straight-use-package 'green-screen-theme)
+(straight-use-package 'poet-theme)
+
 (require 'time)
 (require 'doom-themes)
+(require 'poet-theme)
 (require 'doom-modeline)
 (require 'all-the-icons)
 
-(load-theme 'doom-material)
+(setq font-use-system-font nil)
+(when (display-graphic-p)
+  (load-theme 'poet-dark)
+  (set-frame-font "IBM Plex Mono-14")
+  (set-face-font 'default "IBM Plex Mono-14")
+  (set-face-font 'variable-pitch "IBM Plex Serif-14")
+  (set-face-font 'fixed-pitch "IBM Plex Mono-14")
+  (set-face-font 'fixed-pitch-serif "Courier-14")
+  
+  )
 
 ;; If the icons aren't showing, this should fix that ;-)
 ;; (all-the-icons-install-fonts t)
@@ -31,9 +44,7 @@
 (setq display-time-format " [%Y/%m/%d %H:%M] ")
 (setq display-time-load-average-threshold 4.0)
 (if (boundp 'fringe-mode)
-    (fringe-mode 20))
-
-(setq font-use-system-font nil)
+    (fringe-mode 8))
 
 
 (provide 'tealeg-appearance)

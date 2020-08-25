@@ -2,4 +2,6 @@
 (require 'carp-mode)
 (require 'inf-carp-mode)
 (require 'carp-flycheck)
+
+(provide 'tealeg-carp)
 	 

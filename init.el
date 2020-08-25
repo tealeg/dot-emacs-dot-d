@@ -17,6 +17,7 @@
 (require 'tealeg-custom-file)
 (require 'tealeg-text-encoding)
 (require 'tealeg-backups)
+(require 'tealeg-counsel)
 (require 'tealeg-checking)
 (require 'tealeg-appearance)
 (require 'tealeg-vc)
@@ -28,6 +29,8 @@
 (require 'tealeg-avsc)
 (require 'tealeg-crypto)
 (require 'tealeg-haskell)
+(require 'tealeg-cfn)
+(require 'tealeg-terraform)
 
 (provide 'init)
 ;;; init.el ends here

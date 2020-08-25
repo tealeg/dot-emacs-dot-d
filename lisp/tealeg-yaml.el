@@ -8,5 +8,8 @@
 ;;; Code:
 
 (straight-use-package 'yaml-mode)
+
+(add-to-list 'auto-mode-alist (cons "\\.yamp\\'"  'yaml-mode))
+
 (provide 'tealeg-yaml)
 ;;; tealeg-yaml.el ends here.
