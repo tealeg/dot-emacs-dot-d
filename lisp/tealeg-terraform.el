@@ -1,4 +1,4 @@
-;;; tealeg-terraform --
+;;; tealeg-terraform -- terraform setup.
 ;;;
 ;;; Commentary:
 ;;;

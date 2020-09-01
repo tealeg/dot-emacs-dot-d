@@ -4,19 +4,10 @@
 ;;;
 ;;; Code:
 
-;; (straight-use-package 'exec-path-from-shell)
-;; (require 'exec-path-from-shell)
-
-
-;; (defun tealeg-eshell-mode-helper ()
-;;   "Setup eshell environment."
-;;   ;; (exec-path-from-shell-initialize)
-;;   )
-
-;; (add-hook 'eshell-mode-hook 'tealeg-eshell-mode-helper)
-
 (straight-use-package 'with-editor)
 (straight-use-package 'eshell-git-prompt)
+
+(require 'eshell)
 
 (add-hook 'shell-mode-hook  'with-editor-export-editor)
 (add-hook 'term-exec-hook   'with-editor-export-editor)
@@ -28,7 +19,7 @@
 
 
 (defun eshell-helper-f ()
-  "Setup eshell"
+  "Setup eshell."
   (eshell-git-prompt-use-theme 'robbyrussell)
   (setq eshell-path-env (string-join exec-path ":" ))
   (setenv "PAGER" "cat")

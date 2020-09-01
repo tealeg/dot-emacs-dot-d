@@ -7,6 +7,8 @@
 ;;; Code:
 
 (straight-use-package 'magit)
+(require 'magit)
+
 (setq magit-git-executable "/usr/bin/git")
 (global-set-key (kbd "C-x g") 'magit-status)
 (setq vc-handled-backends (delq 'Git vc-handled-backends))

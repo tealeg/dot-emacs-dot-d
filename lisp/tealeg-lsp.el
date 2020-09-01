@@ -27,6 +27,7 @@
 (setq lsp-ui-sideline-ignore-duplicate t)
 
 (defun lsp-mode-helper ()
+  "Setup lsp."
   (lsp-ui-mode 1)
   (lsp-ui-doc-mode -1)
   (setq lsp-eldoc-render-all 1)

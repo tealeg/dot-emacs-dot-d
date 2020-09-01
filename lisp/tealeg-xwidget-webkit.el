@@ -1,3 +1,10 @@
+;;; tealeg-xwidget-webkit -- setup embedded browser
+;;;
+;;; Commentary:
+;;;   Danger Will Robinson - this is experimental territory.
+;;;
+;;; Code:
+
 (defun markdown-live-preview-window-xwidget-webkit (file)
   "Preview FILE with eww.
 To be used with `markdown-live-preview-window-function'."
@@ -5,8 +12,6 @@ To be used with `markdown-live-preview-window-function'."
   (let ((f (concat "file://" file)))
     (xwidget-webkit-browse-url f nil)
     (get-buffer (concat "*xwidget webkit: " (file-name-base file) ".html *"))))
-
-
 
 (when (featurep 'xwidget-internal)
   (progn
@@ -18,4 +23,4 @@ To be used with `markdown-live-preview-window-function'."
     ))
 
 (provide 'tealeg-xwidget-webkit)
-  
+;;; tealeg-xwidget-webkit.el ends here

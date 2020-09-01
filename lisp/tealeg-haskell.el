@@ -1,4 +1,4 @@
-;;; tealeg-haskel.el -- customisations for haskell programming
+;;; tealeg-haskell -- customisations for haskell programming
 ;;;
 ;;; Commentary:
 ;;;    Blah blah, haskell
@@ -17,4 +17,4 @@
 
 
 (provide 'tealeg-haskell)
-;;; tealeg-haskel.el ends here
+;;; tealeg-haskell.el ends here

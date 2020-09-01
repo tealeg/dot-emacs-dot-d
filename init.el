@@ -18,7 +18,6 @@
 (require 'tealeg-text-encoding)
 (require 'tealeg-backups)
 (require 'tealeg-counsel)
-(require 'tealeg-checking)
 (require 'tealeg-appearance)
 (require 'tealeg-vc)
 (require 'tealeg-yasnippet)

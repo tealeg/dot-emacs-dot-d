@@ -4,12 +4,11 @@
 ;;;	Blah, blah, get you rust here...
 ;;;
 ;;; Code:
-
-
 (straight-use-package 'lsp-mode)
 (straight-use-package 'rust-mode)
 (straight-use-package 'flycheck-rust)
 
+(require 'rust-mode)
 
 (defun rust-mode-helpers ()
   "Setup rust mode."

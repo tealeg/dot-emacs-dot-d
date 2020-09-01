@@ -26,9 +26,6 @@
 
 (custom-set-default 'lsp-clients-go-server "gopls")
 
-
-
-
 (defun golang-save-helper ()
   "Things to do when saving a go file."
   (message gofmt-command)
@@ -65,8 +62,6 @@
   (add-hook 'before-save-hook 'golang-save-helper t t)
 
   )
-
-
 
 (add-hook 'go-mode-hook 'tealeg-go-mode-helper)
 

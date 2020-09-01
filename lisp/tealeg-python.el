@@ -1,4 +1,9 @@
-
+;;; tealeg-python -- setup python
+;;;
+;;; Commentary:
+;;;    Once upon a time I had a huge Python config.  Now I barely use Python.
+;;;
+;;; Code:
 (straight-use-package 'python-mode)
 (straight-use-package 'projectile)
 (require 'tealeg-lsp)
@@ -6,15 +11,16 @@
 (require 'projectile)
 (require 'flyspell)
 
-(lsp-stdio-connection 
-   (lambda () 
-     ;; implementation of the function that returns the proper 
+(lsp-stdio-connection
+   (lambda ()
+     ;; implementation of the function that returns the proper
      ;; pyls for the current directory/project/file.
      "/usr/local/bin/pyls"
      ))
 
 (defun tealeg-python-mode-helper ()
-  (flyspell-prog-mode 1)
+  "Setup 'python-mode'."
+  (flyspell-prog-mode)
   (lsp-mode 1)
  )
 
@@ -22,3 +28,4 @@
 
 (setq python-shell-interpreter "python3")
 (provide 'tealeg-python)
+;;; tealeg-python.el ends here
