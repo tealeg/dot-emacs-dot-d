@@ -21,6 +21,8 @@
 (require 'tealeg-checking)
 (require 'tealeg-appearance)
 (require 'tealeg-vc)
+(require 'tealeg-yasnippet)
+(require 'tealeg-elisp)
 (require 'tealeg-eshell)
 (require 'tealeg-lsp)
 (require 'tealeg-go)
@@ -32,5 +34,6 @@
 (require 'tealeg-cfn)
 (require 'tealeg-terraform)
 
+(setq user-mail-address "tealeg@gmail.com")
 (provide 'init)
 ;;; init.el ends here

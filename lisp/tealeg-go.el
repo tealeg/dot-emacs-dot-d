@@ -15,6 +15,7 @@
 (straight-use-package 'gotest)
 (straight-use-package 'go-dlv)
 (straight-use-package 'exec-path-from-shell)
+(straight-use-package 'yasnippet)
 (require 'lsp-mode)
 (require 'go-mode)
 (require 'gotest)
@@ -38,7 +39,8 @@
   "Setup go-mode."
   (exec-path-from-shell-initialize)
   (exec-path-from-shell-copy-env "GOPATH")
-    (exec-path-from-shell-copy-env "GOROOT")
+  (exec-path-from-shell-copy-env "GOROOT")
+  (yas-minor-mode 1)
   (setq go-command
 	(let ((go-paths (list "/usr/local/go/bin/go"
 			      "/usr/local/bin/go"

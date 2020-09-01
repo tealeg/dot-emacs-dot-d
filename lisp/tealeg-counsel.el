@@ -1,9 +1,12 @@
 (straight-use-package 'counsel)
+(straight-use-package 'ivy-posframe)
 
 (ivy-mode 1)
 (setq ivy-use-virtual-buffers t)
 (setq ivy-count-format "(%d/%d) ")
+(require 'ivy-posframe)
 
+(setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display)))
 (global-set-key (kbd "C-s") 'swiper-isearch)
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
@@ -47,6 +50,7 @@
 (global-set-key (kbd "C-c V") 'ivy-pop-view)
 
 (counsel-mode 1)
+(ivy-posframe-mode 1)
 
 (provide 'tealeg-counsel)
 
