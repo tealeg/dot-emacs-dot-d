@@ -19,12 +19,12 @@
 
 (setq font-use-system-font nil)
 (when (display-graphic-p)
-  (load-theme 'doom-Iosvkem)
-  (set-frame-font "IBM Plex Mono-16")
-  (set-face-font 'default "IBM Plex Mono-16")
-  (set-face-font 'variable-pitch "IBM Plex Serif-16")
-  (set-face-font 'fixed-pitch "IBM Plex Mono-16")
-  (set-face-font 'fixed-pitch-serif "IBM Plex Mono-16")
+  (load-theme 'doom-henna)
+  (set-frame-font "Monospac821 BT-8")
+  (set-face-font 'default "Monospac821 BT-8")
+  (set-face-font 'variable-pitch "Humnst777 BT-8")
+  (set-face-font 'fixed-pitch "Monospac821 BT-8")
+  (set-face-font 'fixed-pitch-serif "Monospac821 BT-8")
   
   )
 
