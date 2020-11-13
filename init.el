@@ -32,6 +32,7 @@
 (require 'tealeg-haskell)
 (require 'tealeg-cfn)
 (require 'tealeg-terraform)
+(require 'tealeg-carp)
 
 (setq user-mail-address "tealeg@gmail.com")
 (provide 'init)
