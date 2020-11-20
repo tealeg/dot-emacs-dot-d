@@ -18,21 +18,27 @@
 
 
 (setq-default font-use-system-font nil)
-;;(when (display-graphic-p)
-;;  (load-theme 'doom-henna)
-;;  (set-frame-font "Monospac821 BT-8")
-;;  (set-face-font 'default "Monospac821 BT-8")
-;;  (set-face-font 'variable-pitch "Humnst777 BT-8")
-;;  (set-face-font 'fixed-pitch "Monospac821 BT-8")
-;;  (set-face-font 'fixed-pitch-serif "Monospac821 BT-8")
-;;  (load-theme 'doom-material)
-;;  (set-frame-font "IBM Plex Mono-13")
-;;  (set-face-font 'default "IBM Plex Mono-13")
-;;  (set-face-font 'variable-pitch "IBM Plex Mono-13")
-;;  (set-face-font 'fixed-pitch "IBM Plex Mono-13")
-;;  (set-face-font 'fixed-pitch-serif "IBM Plex Mono-13")
-;;  (setq-default line-spacing 0.3)
-;;  )
+(when (display-graphic-p)
+  (if (eq system-type 'darwin)
+      (progn
+	(set-frame-font "IBM Plex Mono-14")
+	(set-face-font 'default "IBM Plex Mono-14")
+	(set-face-font 'variable-pitch "IBM Plex Mono-14")
+	(set-face-font 'fixed-pitch "IBM Plex Mono-14")
+	(set-face-font 'fixed-pitch-serif "IBM Plex Mono-14")
+	(setq-default line-spacing 0.3))
+    (progn
+      (set-frame-font "Monospac821 BT-8")
+      (set-face-font 'default "Monospac821 BT-8")
+      (set-face-font 'variable-pitch "Humnst777 BT-8")
+      (set-face-font 'fixed-pitch "Monospac821 BT-8")
+      (set-face-font 'fixed-pitch-serif "Monospac821 BT-8")
+      )
+    )
+  (load-theme 'doom-henna)
+  )
+
+
 
 ;; If the icons aren't showing, this should fix that ;-)
 ;; (all-the-icons-install-fonts t)
