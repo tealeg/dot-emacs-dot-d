@@ -5,17 +5,22 @@
 ;;; Code:
 
 (straight-use-package 'ox-jira)
+(straight-use-package 'org-plus-contrib)
 
 (require 'org)
 (require 'org-agenda)
+(require 'org-contacts)
+(require 'org-capture)
 (require 'ox-md)
 (require 'ox-jira)
 (require 'flyspell)
 (require 'face-remap)
 
-(setq org-todo-keywords
-  '((sequence "TODO" "IN-PROGRESS" "WAITING" "BLOCKED" "|" "DONE" "CANCELED")))
-(setq org-agenda-files '("~/Dropbox/HDI/projects/rds-scaling.org"))
+(if (file-exists-p "~/src/hdi/c3-devcare-org/")
+    (progn
+      (add-to-list 'load-path "~/src/hdi/c3-devcare-org/")
+      (require 'hdi-c3-devcare-config)))
+
 
 (defun org-mode-helper-f ()
   "Setup 'org-mode'."

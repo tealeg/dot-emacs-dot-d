@@ -6,10 +6,12 @@
 ;;; Code:
 
 (straight-use-package 'yasnippet)
+(straight-use-package 'ivy-yasnippet)
 
 (require 'yasnippet)
 
 (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets")
+
 
 (provide 'tealeg-yasnippet)
 ;;; tealeg-yasnippet.el ends here

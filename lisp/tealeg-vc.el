@@ -7,7 +7,9 @@
 ;;; Code:
 
 (straight-use-package 'magit)
+(straight-use-package 'ssh-agency)
 (require 'magit)
+(require 'ssh-agency)
 
 (setq magit-git-executable "/usr/bin/git")
 (global-set-key (kbd "C-x g") 'magit-status)
