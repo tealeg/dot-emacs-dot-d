@@ -4,7 +4,6 @@
 ;;;
 ;;; Code:
 
-(straight-use-package 'ox-jira)
 (straight-use-package 'org-plus-contrib)
 
 (require 'org)
