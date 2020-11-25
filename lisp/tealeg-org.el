@@ -12,7 +12,6 @@
 (require 'org-contacts)
 (require 'org-capture)
 (require 'ox-md)
-(require 'ox-jira)
 (require 'flyspell)
 (require 'face-remap)
 
