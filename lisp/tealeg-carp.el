@@ -7,12 +7,13 @@
 
 (straight-use-package 'flycheck)
 (straight-use-package 'clojure-mode)
+(straight-use-package 'exec-path-from-shell)
 
 (defvar carp-dir "~/src/3rdparty/Carp")
-(defvar carp-emacs-dir "~/src/3rdparty/Carp/emacs")
+(defvar carp-emacs-dir "~/src/3rdparty/carp-emacs")
 
 (defun carp-mode-helper-f ()
-  (setenv "CARP_DIR" (expand-file-name carp-dir))
+  (exec-path-from-shell-setenv "CARP_DIR" (expand-file-name carp-dir))
   (setq inf-carp-program "~/.local/bin/carp")
   (require 'flycheck)
   (show-paren-mode 1)

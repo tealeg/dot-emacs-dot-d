@@ -15,6 +15,7 @@
 
 (require 'tealeg-package-management)
 (require 'tealeg-custom-file)
+(require 'tealeg-environment)
 (require 'tealeg-text-encoding)
 (require 'tealeg-backups)
 (require 'tealeg-counsel)
