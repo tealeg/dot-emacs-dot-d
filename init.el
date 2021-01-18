@@ -18,7 +18,8 @@
 (require 'tealeg-environment)
 (require 'tealeg-text-encoding)
 (require 'tealeg-backups)
-(require 'tealeg-counsel)
+;; (require 'tealeg-counsel);;
+(require 'tealeg-selectrum)
 (require 'tealeg-appearance)
 (require 'tealeg-vc)
 (require 'tealeg-yasnippet)
@@ -36,6 +37,7 @@
 (require 'tealeg-carp)
 (require 'tealeg-org)
 (require 'tealeg-yasnippet)
+(require 'tealeg-dot)
 
 (setq user-mail-address "tealeg@gmail.com")
 (provide 'init)
