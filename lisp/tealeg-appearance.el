@@ -5,45 +5,45 @@
 ;;;
 ;;; Code:
 
-;; (straight-use-package 'doom-themes)
-;; (straight-use-package 'doom-modeline)
-;; (straight-use-package 'all-the-icons)
-;; (straight-use-package 'green-screen-theme)
-;; (straight-use-package 'poet-theme)
-;; (straight-use-package 'tron-legacy-theme)
-;; (straight-use-package 'eink-theme)
-;; (straight-use-package 'borland-blue-theme)
-;
-;; (require 'time)
+(straight-use-package 'doom-themes)
+(straight-use-package 'doom-modeline)
+(straight-use-package 'all-the-icons)
+(straight-use-package 'green-screen-theme)
+(straight-use-package 'poet-theme)
+(straight-use-package 'tron-legacy-theme)
+(straight-use-package 'eink-theme)
+(straight-use-package 'borland-blue-theme)
+
+(require 'time)
 
 
-;; (setq-default font-use-system-font nil)
-;; (when (display-graphic-p)
-  ;; (if (eq system-type 'darwin)
-  ;;     (progn
-  ;; 	(set-frame-font "IBM Plex Mono-16")
-  ;; 	(set-face-font 'default "IBM Plex Mono-16")
-  ;; 	(set-face-font 'variable-pitch "IBM Plex Mono-16")
-  ;; 	(set-face-font 'fixed-pitch "IBM Plex Mono-16")
-  ;; 	(set-face-font 'fixed-pitch-serif "IBM Plex Mono-16")
-  ;; 	(setq-default line-spacing 0.3))
-  ;;   (progn
-  ;;     (set-frame-font "Monospac821 BT-8")
-  ;;     (set-face-font 'default "Monospac821 BT-8")
-  ;;     (set-face-font 'variable-pitch "Humnst777 BT-8")
-  ;;     (set-face-font 'fixed-pitch "Monospac821 BT-8")
-  ;;     (set-face-font 'fixed-pitch-serif "Monospac821 BT-8")
-  ;;     )
-  ;;   )
-;;  (load-theme 'doom-henna)
-  ;; )
+(setq-default font-use-system-font nil)
+(when (display-graphic-p)
+  (if (eq system-type 'darwin)
+      (progn
+	(set-frame-font "IBM Plex Mono-16")
+	(set-face-font 'default "IBM Plex Mono-16")
+	(set-face-font 'variable-pitch "IBM Plex Mono-16")
+	(set-face-font 'fixed-pitch "IBM Plex Mono-16")
+	(set-face-font 'fixed-pitch-serif "IBM Plex Mono-16")
+	(setq-default line-spacing 0.3))
+    (progn
+      (set-frame-font "IBM Plex Mono-10")
+      (set-face-font 'default "IBM Plex Mono-10")
+      (set-face-font 'variable-pitch "IBM Plex Sans-10")
+      (set-face-font 'fixed-pitch "IBM Plex Mono-10")
+      (set-face-font 'fixed-pitch-serif "IBM Plex Mono-10")
+      )
+    )
+ (load-theme 'doom-henna)
+  )
 
 
 
 ;; If the icons aren't showing, this should fix that ;-)
 ;; (all-the-icons-install-fonts t)
 
-;; (doom-modeline-mode 1)
+(doom-modeline-mode 1)
 
 (display-battery-mode 1)
 (tool-bar-mode -1)
@@ -59,7 +59,7 @@
 (if (boundp 'fringe-mode)
     (fringe-mode 8))
 
-(require 'tealeg-nano)
+;; (require 'tealeg-nano)
 
 (provide 'tealeg-appearance)
 ;;; tealeg-appearance.el ends here
