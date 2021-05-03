@@ -34,6 +34,7 @@
 (require 'tealeg-appearance)
 (require 'tealeg-flycheck)
 (require 'tealeg-comint)
+(require 'tealeg-olivetti)
 
 (defun reload-theme (theme)
   "Reload a custom theme."
