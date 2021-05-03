@@ -11,7 +11,12 @@
 (require 'magit)
 (require 'ssh-agency)
 
-(setq magit-git-executable "/usr/bin/git")
+(if (file-exists-p "/usr/local/bin/git")
+    (setq magit-git-executable "/usr/local/bin/git")
+  (when (file-exists-p "/usr/bin/git")
+    (setq magit-git-executable "/usr/bin/git")
+  ))
+
 (global-set-key (kbd "C-x g") 'magit-status)
 (setq vc-handled-backends (delq 'Git vc-handled-backends))
 

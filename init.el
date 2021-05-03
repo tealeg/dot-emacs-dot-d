@@ -11,6 +11,10 @@
 ;; we don't need to collect garbage so aggressively.
 (setq gc-cons-threshold 120000000)
 
+;;; Grab bigger blocks of data from processes, because LSP
+;;; implementations sometimes give 3MB chunks back.
+(setq read-process-output-max (* 1024 4096)) ;; 4mb
+
 (add-to-list 'load-path "~/.emacs.d/lisp")
 
 (require 'tealeg-package-management)
@@ -18,27 +22,29 @@
 (require 'tealeg-environment)
 (require 'tealeg-text-encoding)
 (require 'tealeg-backups)
-;; (require 'tealeg-counsel);;
-(require 'tealeg-selectrum)
-(require 'tealeg-appearance)
-(require 'tealeg-vc)
-(require 'tealeg-yasnippet)
-(require 'tealeg-elisp)
-(require 'tealeg-eshell)
+(require 'tealeg-tree-sitter)
 (require 'tealeg-lsp)
 (require 'tealeg-go)
-(require 'tealeg-rust)
-(require 'tealeg-yaml)
-(require 'tealeg-avsc)
-(require 'tealeg-crypto)
-(require 'tealeg-haskell)
-(require 'tealeg-cfn)
-(require 'tealeg-terraform)
-(require 'tealeg-carp)
-(require 'tealeg-org)
-(require 'tealeg-yasnippet)
-(require 'tealeg-dot)
+(require 'tealeg-vc)
+(require 'tealeg-eshell)
+(require 'tealeg-markdown)
+(require 'tealeg-appearance)
+(require 'tealeg-flycheck)
+(require 'tealeg-comint)
 
-(setq user-mail-address "tealeg@gmail.com")
+(defun reload-theme (theme)
+  "Reload a custom theme."
+  (interactive
+   (list
+    (intern (completing-read "Reoad custom theme: "
+                             (mapcar #'symbol-name
+				     (custom-available-themes))))
+    ))
+  (unless (custom-theme-name-valid-p theme)
+    (error "Invalid theme name `%s'" theme))
+  (disable-theme theme)
+  (load-theme theme))
+
+
 (provide 'init)
 ;;; init.el ends here
