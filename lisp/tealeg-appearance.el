@@ -1,6 +1,7 @@
 ;;; tealeg-appearance.el -- Configuration visual aspects of emacs
 ;;;
 ;;; Commentary:
+;;;	Configuration for theming, chrome aspects, fonts etc..
 ;;;
 ;;; Code:
 
@@ -51,6 +52,10 @@
 
 (if (boundp 'scroll-bar-mode)
     (scroll-bar-mode -1))
+(display-time-mode 1)
+(setq display-time-day-and-date t)
+(setq display-time-format " [%Y/%m/%d %H:%M] ")
+(setq display-time-load-average-threshold 4.0)
 (if (boundp 'fringe-mode)
     (fringe-mode 30))
 

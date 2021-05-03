@@ -22,9 +22,12 @@
 (require 'tealeg-environment)
 (require 'tealeg-text-encoding)
 (require 'tealeg-backups)
-(require 'tealeg-tree-sitter)
-(require 'tealeg-lsp)
-(require 'tealeg-go)
+
+(setq user-mail-address "tealeg@gmail.com")
+
+(require 'tealeg-selectrum)
+(require 'tealeg-flycheck)
+(require 'tealeg-rust)
 (require 'tealeg-vc)
 (require 'tealeg-eshell)
 (require 'tealeg-markdown)
