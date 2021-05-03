@@ -4,3 +4,7 @@ elpa
 eshell
 straight
 emacs-custom.el
+eln-cache
+request
+transient
+var
