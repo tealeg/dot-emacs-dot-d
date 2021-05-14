@@ -28,6 +28,7 @@
 (require 'tealeg-selectrum)
 (require 'tealeg-flycheck)
 (require 'tealeg-rust)
+(require 'tealeg-go)
 (require 'tealeg-vc)
 (require 'tealeg-eshell)
 (require 'tealeg-markdown)
