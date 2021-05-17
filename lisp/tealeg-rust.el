@@ -48,8 +48,7 @@
   (define-key company-active-map "C-p" #'company-select-previous)
   (define-key company-active-map "M-<" #'company-select-first)
   (define-key company-active-map "M->" #'company-select-last)
-  (define-key company-mode-map "<tab>" #'tab-indent-or-complete)
-  (define-key company-mode-map "TAB" #'tab-indent-or-complete)
+  (define-key company-mode-map (kbd "TAB") #'tab-indent-or-complete)
   )
 
 (defun company-yasnippet-or-completion ()
