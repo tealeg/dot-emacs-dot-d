@@ -14,5 +14,8 @@
 (exec-path-from-shell-initialize)
 (exec-path-from-shell-setenv "PATH" (string-join exec-path ":"))
 
+(straight-use-package 'pinentry)
+(pinentry-start)
+
 (provide 'tealeg-environment)
 ;;; tealeg-environment.el ends here

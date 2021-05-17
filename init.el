@@ -25,7 +25,8 @@
 
 (setq user-mail-address "tealeg@gmail.com")
 
-(require 'tealeg-selectrum)
+;;(require 'tealeg-selectrum)
+(require 'tealeg-vertico)
 (require 'tealeg-flycheck)
 (require 'tealeg-rust)
 (require 'tealeg-go)
