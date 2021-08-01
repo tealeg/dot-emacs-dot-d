@@ -8,10 +8,10 @@
 (straight-use-package 'go-test)
 (require 'tealeg-lsp)
 (require 'go-mode)
-(require 'dap-go)
-(require 'dap-ui)
+;; (require 'dap-go)
+;; (require 'dap-ui)
 
-(dap-go-setup)
+;;(dap-go-setup)
 
 (defun go-mode-helper-f ()
   "Setup go-mode."
