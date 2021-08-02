@@ -21,7 +21,7 @@
 
 (add-hook 'go-mode-hook #'lsp)
 (add-hook 'go-mode-hook #'go-mode-helper-f)
-
+(add-hook 'before-save-hook #'gofmt-before-save)
 
 
 

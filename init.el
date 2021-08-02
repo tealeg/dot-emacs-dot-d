@@ -37,6 +37,8 @@
 (require 'tealeg-flycheck)
 (require 'tealeg-comint)
 (require 'tealeg-olivetti)
+(require 'tealeg-yaml)
+(require 'tealeg-java)
 
 (defun reload-theme (theme)
   "Reload a custom theme."

@@ -10,7 +10,6 @@
 
 (require 'org)
 (require 'org-agenda)
-;;(require 'org-contacts)
 (require 'org-capture)
 (require 'org-bullets)
 (require 'org-tempo)
@@ -40,7 +39,7 @@
          ((x-family-fonts "Sans Serif")    '(:family "Sans Serif"))
          (nil (warn "Cannot find a Sans Serif Font.  Install Source Sans Pro."))))
        (base-font-color     (face-foreground 'default nil 'default))
-       (headline           `(:inherit default :weight bold :foreground ,base-font-color)))
+       (headline           `(:inherit default :weight bold :foreground ,base-font-color :family "Rye")))
 
   (custom-theme-set-faces
    'user
@@ -54,14 +53,30 @@
    `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.75))))
    `(org-document-title ((t (,@headline ,@variable-tuple :height 2.0 :underline nil))))))
 
+(custom-theme-set-faces
+   'user
+   '(org-block ((t (:inherit fixed-pitch))))
+   '(org-code ((t (:inherit (shadow fixed-pitch)))))
+;;   '(org-document-info ((t (:foreground "dark orange"))))
+   '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
+   '(org-indent ((t (:inherit (org-hide fixed-pitch)))))
+;;   '(org-link ((t (:foreground "royal blue" :underline t))))
+   '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+   '(org-property-value ((t (:inherit fixed-pitch))) t)
+   '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+   '(org-table ((t (:inherit fixed-pitch))))
+   '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
+   '(org-verbatim ((t (:inherit (shadow fixed-pitch))))))
 
 
 (defun org-mode-helper-f ()
   "Setup 'org-mode'."
   (flyspell-mode 1)
   (variable-pitch-mode 1)
+;;  (org-indent-mode 1)
+  (visual-line-mode 1)
   (org-bullets-mode 1)
-  (org-indent-mode 1)
+
   )
 
 (add-hook 'org-mode-hook 'org-mode-helper-f)
