@@ -15,7 +15,7 @@
 (straight-use-package 'lsp-treemacs)
 
 (defun java-helper ()
-  (lsp-mode 1)0
+  (lsp-mode 1)
   (setq lsp-completion-enable-additional-text-edit nil)
   (yas-mode 1)
   (which-key-mode 1)
@@ -24,6 +24,7 @@
 
 (add-hook 'lsp-mode #'tealeg-java-helper)
 
-
+(provide 'tealeg-java)
+;;; tealeg-java.el ends here.
 
 
