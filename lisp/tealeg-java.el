@@ -29,10 +29,6 @@
 (add-hook 'lsp-mode #'tealeg-java-helper)
 
 (provide 'tealeg-java)
-<<<<<<< HEAD
-;;; tealeg-java.el ends here.
-=======
 ;;; tealeg-java.el ends here
->>>>>>> 829d4a0 (Set-up vertico, conrfu, orderless, consult, etc..)
 
 

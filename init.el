@@ -37,6 +37,7 @@
 (require 'tealeg-yaml)
 (require 'tealeg-java)
 (require 'tealeg-animate)
+(require 'tealeg-scheme)
 
 ;; (defun reload-theme (theme)
 ;;   "Reload a custom theme."
