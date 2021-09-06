@@ -8,7 +8,7 @@
 (straight-use-package 'flycheck)
 (straight-use-package 'lsp-mode)
 (straight-use-package 'lsp-ui)
-(straight-use-package 'company)
+;;(straight-use-package 'company)
 (straight-use-package 'lsp-treemacs)
 (straight-use-package 'projectile)
 (straight-use-package 'yasnippet)
@@ -19,7 +19,7 @@
 (require 'lsp-ui-imenu)
 (require 'rustic)
 (require 'yasnippet)
-(require 'company)
+;;(require 'company)
 
 (setq lsp-rust-analyzer-cargo-watch-command "clippy"
       lsp-eldoc-render-all t
@@ -28,13 +28,13 @@
       lsp-ui-peek-always-show t
       lsp-ui-sideline-show-hover t
       lsp-ui-doc-enable nil
-      company-idle-delay 0.5
+;;      company-idle-delay 0.5
       lsp-rust-server "rust-analyzer" 
       )
 (yas-reload-all)
 
 (defun tealeg/rustic-mode-helper-f ()
-  (company-mode 1)
+;;  (company-mode 1)
   (setq-local buffer-save-without-query t)
   (define-key rustic-mode-map (kbd "M-j") #'lsp-ui-imenu)
   (define-key rustic-mode-map (kbd "M-?")  #'lsp-find-references)
@@ -44,11 +44,11 @@
   (define-key rustic-mode-map (kbd "C-c C-c q")  #'lsp-workspace-restart)
   (define-key rustic-mode-map (kbd "C-c C-c Q")  #'lsp-workspace-shutdown)
   (define-key rustic-mode-map (kbd "C-c C-c s")  #'lsp-rust-analyzer-status)
-  (define-key company-active-map (kbd "C-n") #'company-select-next)
-  (define-key company-active-map (kbd "C-p") #'company-select-previous)
-  (define-key company-active-map (kbd "M-<") #'company-select-first)
-  (define-key company-active-map (kbd "M->") #'company-select-last)
-  (define-key company-mode-map (kbd "TAB") #'tab-indent-or-complete)
+  ;; (define-key company-active-map (kbd "C-n") #'company-select-next)
+  ;; (define-key company-active-map (kbd "C-p") #'company-select-previous)
+  ;; (define-key company-active-map (kbd "M-<") #'company-select-first)
+  ;; (define-key company-active-map (kbd "M->") #'company-select-last)
+  ;; (define-key company-mode-map (kbd "TAB") #'tab-indent-or-complete)
   )
 
 (defun company-yasnippet-or-completion ()

@@ -1,3 +1,10 @@
+;;; tealeg-java -- Java setup.
+;;;
+;;; Commentary:
+;;;    It exists because it has too.
+;;;
+;;; Code:
+
 (straight-use-package 'lsp-java)
 (add-hook 'java-mode-hook #'lsp)
 
@@ -7,11 +14,8 @@
 (straight-use-package 'yasnippet)
 (straight-use-package 'lsp-mode)
 (straight-use-package 'hydra)
-(straight-use-package 'company)
 (straight-use-package 'lsp-ui)
 (straight-use-package 'which-key)
-;; (straight-use-package 'dap-mode)
-;;(straight-use-package 'dap-java)
 (straight-use-package 'lsp-treemacs)
 
 (defun java-helper ()
@@ -25,6 +29,10 @@
 (add-hook 'lsp-mode #'tealeg-java-helper)
 
 (provide 'tealeg-java)
+<<<<<<< HEAD
 ;;; tealeg-java.el ends here.
+=======
+;;; tealeg-java.el ends here
+>>>>>>> 829d4a0 (Set-up vertico, conrfu, orderless, consult, etc..)
 
 

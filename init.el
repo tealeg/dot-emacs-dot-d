@@ -11,8 +11,8 @@
 ;; we don't need to collect garbage so aggressively.
 (setq gc-cons-threshold 120000000)
 
-;;; Grab bigger blocks of data from processes, because LSP
-;;; implementations sometimes give 3MB chunks back.
+;; ;;; Grab bigger blocks of data from processes, because LSP
+;; ;;; implementations sometimes give 3MB chunks back.
 (setq read-process-output-max (* 1024 4096)) ;; 4mb
 
 (add-to-list 'load-path "~/.emacs.d/lisp")
@@ -25,33 +25,31 @@
 
 (setq user-mail-address "tealeg@gmail.com")
 
-;;(require 'tealeg-selectrum)
-(require 'tealeg-vertico)
+(require 'tealeg-completion)
 (require 'tealeg-flycheck)
-(require 'tealeg-rust)
+;; ;; (require 'tealeg-rust)
 (require 'tealeg-go)
 (require 'tealeg-vc)
 (require 'tealeg-eshell)
 (require 'tealeg-markdown)
 (require 'tealeg-appearance)
-(require 'tealeg-flycheck)
 (require 'tealeg-comint)
-(require 'tealeg-olivetti)
 (require 'tealeg-yaml)
 (require 'tealeg-java)
+(require 'tealeg-animate)
 
-(defun reload-theme (theme)
-  "Reload a custom theme."
-  (interactive
-   (list
-    (intern (completing-read "Reoad custom theme: "
-                             (mapcar #'symbol-name
-				     (custom-available-themes))))
-    ))
-  (unless (custom-theme-name-valid-p theme)
-    (error "Invalid theme name `%s'" theme))
-  (disable-theme theme)
-  (load-theme theme))
+;; (defun reload-theme (theme)
+;;   "Reload a custom theme."
+;;   (interactive
+;;    (list
+;;     (intern (completing-read "Reoad custom theme: "
+;;                              (mapcar #'symbol-name
+;; 				     (custom-available-themes))))
+;;     ))
+;;   (unless (custom-theme-name-valid-p theme)
+;;     (error "Invalid theme name `%s'" theme))
+;;   (disable-theme theme)
+;;   (load-theme theme))
 
 
 (provide 'init)
