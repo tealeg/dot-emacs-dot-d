@@ -11,7 +11,7 @@
 (straight-use-package 'doom-themes)
 (straight-use-package 'hlinum)
 (straight-use-package 'doom-modeline)
-(load-theme 'doom-flat-white t)
+(load-theme 'doom-flatwhite t)
 (tooltip-mode 0)
 (scroll-bar-mode 0)
 (window-divider-mode 0)
