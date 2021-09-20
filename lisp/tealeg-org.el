@@ -31,7 +31,8 @@
 (let* ((variable-tuple
 	
         (cond
-	 ((x-list-fonts "IBM Plex Serif")         '(:font "IBM Plex Serif"))
+	 ((x-list-fonts "LispM")	   '(:font "LispM"))
+	 ((x-list-fonts "IBM Plex Serif")  '(:font "IBM Plex Serif"))
 	 ((x-list-fonts "ETBembo")         '(:font "ETBembo"))
          ((x-list-fonts "Source Sans Pro") '(:font "Source Sans Pro"))
          ((x-list-fonts "Lucida Grande")   '(:font "Lucida Grande"))

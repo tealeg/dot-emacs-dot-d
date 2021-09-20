@@ -19,7 +19,9 @@
 (define-key lsp-mode-map [remap xref-find-apropos] #'consult-lsp-symbols)
 (add-hook 'lsp-ui-mode-hook (lambda ()
 			      (lsp-ui-doc-enable)
-			      (lsp-ui-peek-enable)))
+			      (lsp-ui-peek-enable)
+			      (define-key lsp-ui-mode-map (kbd "C-<tab>") #'lsp-ui-sideline-apply-code-actions)
+			      ))
 
 (add-hook 'dap-stopped-hook
           (lambda (arg) (call-interactively #'dap-hydra)))

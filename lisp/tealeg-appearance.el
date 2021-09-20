@@ -6,12 +6,13 @@
 ;;; Code:
 
 (setq-default line-spacing 7)
-(set-frame-font "IBM Plex Mono-17")
-
+(set-frame-font "LispM-24")
+(add-to-list 'default-frame-alist '(font . "LispM-24"))
 (straight-use-package 'doom-themes)
+(straight-use-package 'kaolin-themes)
 (straight-use-package 'hlinum)
 (straight-use-package 'doom-modeline)
-(load-theme 'doom-flatwhite t)
+(load-theme 'kaolin-valley-dark t)
 (tooltip-mode 0)
 (scroll-bar-mode 0)
 (window-divider-mode 0)
