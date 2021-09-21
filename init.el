@@ -5,6 +5,7 @@
 (require 'tealeg--backups)
 (require 'tealeg--env)
 (require 'tealeg--syntax)
+(require 'tealeg--vc)
 (require 'tealeg--appearance)
 
 
