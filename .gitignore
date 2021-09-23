@@ -8,3 +8,5 @@ eln-cache
 request
 transient
 var
+.cache
+url

@@ -21,8 +21,9 @@
  ((string-equal system-type "gnu/linux")
   (progn
     (message "Loading Linux appearance parameters")
-    (add-to-list 'default-frame-alist '(font . "IBM Plex Sans-14"))
-    (set-frame-font "IBM Plex Sans-14"))))
+    (add-to-list 'default-frame-alist '(font . "IBM Plex Mono-12"))
+    (set-frame-font "IBM Plex Mono-12")
+    (menu-bar-mode -1))))
 
 
 
