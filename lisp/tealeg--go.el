@@ -9,5 +9,5 @@
 (straight-use-package 'go-mode)
 
 
-(provide 'tealeg-go)
+(provide 'tealeg--go)
 ;;; tealeg--go.el ends here
