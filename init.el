@@ -7,6 +7,9 @@
 (require 'tealeg--syntax)
 (require 'tealeg--vc)
 (require 'tealeg--racket)
+(require 'tealeg--markdown)
+(require 'tealeg--yaml)
+(require 'tealeg--go)
 (require 'tealeg--appearance)
 
 

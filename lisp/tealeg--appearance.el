@@ -16,8 +16,9 @@
  ((string-equal system-type "darwin")
     (progn
       (message "Loading Mac OS X apperance parameters")
-      (add-to-list 'default-frame-alist '(font . "Monaco-14"))
-      (set-frame-font "Monaco-14")))
+      (add-to-list 'default-frame-alist '(font . "IBM Plex Mono-14"))
+      (set-frame-font "IBM Plex Mono-14")
+      ))
  ((string-equal system-type "gnu/linux")
   (progn
     (message "Loading Linux appearance parameters")
