@@ -9,6 +9,7 @@
 (require 'tealeg--markdown)
 (require 'tealeg--yaml)
 (require 'tealeg--go)
+(require 'tealeg--racket)
 (require 'tealeg--appearance)
 
 
