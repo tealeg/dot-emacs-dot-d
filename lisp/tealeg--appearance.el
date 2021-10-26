@@ -5,9 +5,11 @@
 ;;;
 ;;; Code: 
 
-(straight-use-package 'lavenderless-theme)
-(straight-use-package 'green-is-the-new-black-theme)
-;;(straight-use-package 'nano-modeline)
+;;(straight-use-package 'lavenderless-theme)
+;;(straight-use-package 'green-is-the-new-black-theme)
+(straight-use-package 'modus-themes)
+(straight-use-package 'base16-theme)
+(straight-use-package 'nano-modeline)
 
 (require 'nano-modeline)
 
@@ -15,8 +17,6 @@
 (tool-bar-mode -1)
 (nano-modeline-mode 1)
 
-;; (load-theme 'green-is-the-new-black t)
-(load-theme 'lavenderless t)
 
 (cond
  ((string-equal system-type "darwin")
@@ -24,13 +24,17 @@
       (message "Loading Mac OS X apperance parameters")
       (add-to-list 'default-frame-alist '(font . "IBM Plex Mono-14"))
       (set-frame-font "IBM Plex Mono-14")
+      (load-theme 'modus-vivendi t)
       ))
  ((string-equal system-type "gnu/linux")
   (progn
     (message "Loading Linux appearance parameters")
     (add-to-list 'default-frame-alist '(font . "IBM Plex Mono-12"))
     (set-frame-font "IBM Plex Mono-12")
-    (menu-bar-mode -1))))
+    (menu-bar-mode -1)
+    (when (display-graphic-p)
+	(load-theme 'base16-darkmoss t))
+    )))
 
 
 

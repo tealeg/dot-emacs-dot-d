@@ -14,7 +14,7 @@
   (paredit-mode 1)
   )
 
-(add-hook 'racket-mode-hook #'tealeg--scheme-mode-helper-f)
+(add-hook 'racket-mode-hook #'tealeg--racket-mode-helper-f)
 
 (provide 'tealeg--racket)
 ;;; tealeg--racket.el ends here
