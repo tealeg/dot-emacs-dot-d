@@ -5,19 +5,18 @@
 ;;;
 ;;; Code:
 
-(straight-use-package 'quack)
-(straight-use-package 'geiser)
-(straight-use-package 'geiser-racket)
+(straight-use-package 'racket-mode)
 (straight-use-package 'paredit)
 
-(require 'quack)
-
-(defun tealeg--quack-mode-helper-f ()
-  (enable-paredit-mode)
+(defun tealeg--racket-mode-helper-f ()
+  "Setup racket mode"
+  (require 'paredit)
+  (paredit-mode 1)
   )
 
-(add-hook 'quack-pltfile-mode-hook #'tealeg--quack-mode-helper-f)
-
+(add-hook 'racket-mode-hook #'tealeg--scheme-mode-helper-f)
 
 (provide 'tealeg--racket)
 ;;; tealeg--racket.el ends here
+
+

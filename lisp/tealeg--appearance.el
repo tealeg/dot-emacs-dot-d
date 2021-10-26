@@ -5,12 +5,18 @@
 ;;;
 ;;; Code: 
 
+(straight-use-package 'lavenderless-theme)
 (straight-use-package 'green-is-the-new-black-theme)
+;;(straight-use-package 'nano-modeline)
+
+(require 'nano-modeline)
 
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
+(nano-modeline-mode 1)
 
-(load-theme 'green-is-the-new-black t)
+;; (load-theme 'green-is-the-new-black t)
+(load-theme 'lavenderless t)
 
 (cond
  ((string-equal system-type "darwin")
