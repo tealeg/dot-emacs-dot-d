@@ -7,11 +7,13 @@
 
 (straight-use-package 'racket-mode)
 (straight-use-package 'paredit)
+(straight-use-package 'flycheck)
 
 (defun tealeg--racket-mode-helper-f ()
   "Setup racket mode"
   (require 'paredit)
   (paredit-mode 1)
+  (flycheck-mode 1)
   )
 
 (add-hook 'racket-mode-hook #'tealeg--racket-mode-helper-f)
