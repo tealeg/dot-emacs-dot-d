@@ -6,11 +6,13 @@
 (require 'tealeg--env)
 (require 'tealeg--syntax)
 (require 'tealeg--vc)
+(require 'tealeg--comint)
 (require 'tealeg--racket)
 (require 'tealeg--markdown)
 (require 'tealeg--yaml)
 (require 'tealeg--go)
 (require 'tealeg--racket)
+(require 'tealeg--eshell)
 (require 'tealeg--appearance)
 
 
