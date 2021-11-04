@@ -5,14 +5,31 @@
 ;;;
 ;;; Code:
 
-
 (straight-use-package 'go-mode)
-(require 'me-alpheus-gotags)
+(straight-use-package 'go-test)
+(straight-use-package 'flycheck)
+
+(require 'go-mode)
+(require 'gotest)
+(require 'flycheck)
+
+
+
 
 (defun go-mode-helper-f ()
-  (local-set-key (kbd "s-.") #'me.alpheus/gotags/tag-search))
+  (require 'gotest)
+  (setq go-test-verbose 1)
+  (local-set-key (kbd "C-l t o") #'go-test-current-test)
+  (local-set-key (kbd "C-l t f") #'go-test-current-file)
+  (local-set-key (kbd "C-l t p") #'go-test-current-project)
+  (local-set-key (kbd "M-.") #'lsp-ui-peek-find-definitions)
 
+  )
+
+(add-hook 'go-mode-hook #'lsp)
 (add-hook 'go-mode-hook #'go-mode-helper-f)
+
+(add-hook 'before-save-hook #'gofmt-before-save)
 
 (provide 'tealeg--go)
 ;;; tealeg--go.el ends here

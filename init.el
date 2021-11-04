@@ -6,6 +6,7 @@
 (require 'tealeg--env)
 (require 'tealeg--syntax)
 (require 'tealeg--vc)
+(require 'tealeg--lsp)
 (require 'tealeg--comint)
 (require 'tealeg--racket)
 (require 'tealeg--markdown)
