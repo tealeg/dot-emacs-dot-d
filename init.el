@@ -15,7 +15,10 @@
 (require 'tealeg--racket)
 (require 'tealeg--rust)
 (require 'tealeg--eshell)
+(require 'tealeg--carp)
 (require 'tealeg--appearance)
 
 
 
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)

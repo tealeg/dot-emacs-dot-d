@@ -3,6 +3,7 @@
 (straight-use-package 's)
 (straight-use-package 'magit)
 (straight-use-package 'pyvenv)
+(straight-use-package 'esh-autosuggest)
 
 (require 'cl-lib)
 (require 'dash)
@@ -10,6 +11,7 @@
 (require 'magit-process)
 (require 'magit-git)
 (require 'pyvenv)
+(require 'esh-autosuggest)
 
 
 (defmacro with-face (STR &rest PROPS)
@@ -88,6 +90,8 @@
 
 ;; Enable the new eshell prompt
 (setq eshell-prompt-function 'esh-prompt-func)
+
+(add-hook 'eshell-mode-hook #'esh-autosuggest-mode)
 
 (provide 'tealeg--eshell)
 ;;; tealeg--eshell.el ends here
