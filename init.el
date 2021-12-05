@@ -19,7 +19,7 @@
 (require 'tealeg--zig)
 (require 'tealeg--rust)
 (require 'tealeg--eshell)
-(require 'tealeg--carp)
+;;(require 'tealeg--carp)
 (require 'tealeg--appearance)
 
 
