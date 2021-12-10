@@ -63,11 +63,11 @@
 				:background "white"
 				:foreground "gray50")
 ))
-      (add-to-list 'default-frame-alist '(font . "Ubuntu Mono-15"))
-      (set-frame-font "Ubuntu Mono-15")
-      (set-face-font 'variable-pitch "Ubuntu-15")
-      (set-face-font 'mode-line "Ubuntu-12")
-      (set-face-font 'mode-line-inactive "Ubuntu-12")
+      (add-to-list 'default-frame-alist '(font . "IBM Plex Mono-14:weight=Medium"))
+      (set-frame-font "IBM Plex Mono-14:weight=Medium")
+      (set-face-font 'variable-pitch "IBM Plex Sans-14:weight=Medium")
+      (set-face-font 'mode-line "IBM Plex Sans-14:weight=Medium")
+      (set-face-font 'mode-line-inactive "IBM Plex Sans-14:weight=Light")
       (set-fringe-style '( 40 . 40 ))
 
       ))
