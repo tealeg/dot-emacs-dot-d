@@ -42,6 +42,11 @@
 				:overline "white"
 				:background "black"
 				:foreground "gray50")
+
+	    (set-face-attribute 'show-paren-match-expression nil
+				:background "yellow"
+				:foreground "black")
+
 	    )
 	(progn 
 	    (load-theme 'monochrome-bright t)
@@ -63,11 +68,11 @@
 				:background "white"
 				:foreground "gray50")
 ))
-      (add-to-list 'default-frame-alist '(font . "IBM Plex Mono-14:weight=Medium"))
-      (set-frame-font "IBM Plex Mono-14:weight=Medium")
-      (set-face-font 'variable-pitch "IBM Plex Sans-14:weight=Medium")
-      (set-face-font 'mode-line "IBM Plex Sans-14:weight=Medium")
-      (set-face-font 'mode-line-inactive "IBM Plex Sans-14:weight=Light")
+      (add-to-list 'default-frame-alist '(font . "IBM Plex Mono-16:weight=Medium"))
+      (set-frame-font "IBM Plex Mono-16:weight=Medium")
+      (set-face-font 'variable-pitch "IBM Plex Sans-16:weight=Medium")
+      (set-face-font 'mode-line "IBM Plex Sans-16:weight=Medium")
+      (set-face-font 'mode-line-inactive "IBM Plex Sans-16:weight=Light")
       (set-fringe-style '( 40 . 40 ))
 
       ))
