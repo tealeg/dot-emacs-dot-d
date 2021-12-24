@@ -1,2 +1,4 @@
 ;; Auto-generated file; don't edit -*- mode: lisp-data -*-
-((:url "https://blog.logrocket.com/create-a-backend-api-with-rust-and-postgres/" :title "How to create an API with Rust and Postgres - LogRocket Blog" :time "Tue Dec 14 09:24:57 2021"))
+((:url "https://blog.logrocket.com/create-a-backend-api-with-rust-and-postgres/" :title "How to create an API with Rust and Postgres - LogRocket Blog" :time "Tue Dec 14 09:24:57 2021")
+(:url "https://github.com/phoenix2082/rustdays" :title "GitHub - phoenix2082/rustdays: REST service tutorial using Actix Web, Diesel and PostgreSQL." :time "Thu Dec 16 04:55:38 2021"))
+
