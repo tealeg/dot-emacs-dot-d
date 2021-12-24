@@ -18,6 +18,7 @@
 (require 'tealeg--racket)
 (require 'tealeg--zig)
 (require 'tealeg--rust)
+(require 'tealeg--zig)
 (require 'tealeg--eshell)
 ;;(require 'tealeg--carp)
 (require 'tealeg--appearance)
