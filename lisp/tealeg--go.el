@@ -13,12 +13,15 @@
 (require 'gotest)
 (require 'flycheck)
 
+(require 'tealeg--edit)
+
 
 
 
 (defun go-mode-helper-f ()
   (require 'gotest)
   (setq go-test-verbose 1)
+  (enable-tabs)
   (local-set-key (kbd "C-l t o") #'go-test-current-test)
   (local-set-key (kbd "C-l t f") #'go-test-current-file)
   (local-set-key (kbd "C-l t p") #'go-test-current-project)
