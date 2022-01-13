@@ -18,6 +18,7 @@
       lsp-ui-sideline-show-hover t
       lsp-ui-sideline-show-code-actions t
       lsp-ui-peek-show-directory t
+      read-process-output-max 4000
       )
 
 (defun lsp-ui-mode-helper-f ()

@@ -1,3 +1,5 @@
+(straight-use-package 'zig-mode)
+
 (require 'elec-pair)
 (require 'flycheck)
 

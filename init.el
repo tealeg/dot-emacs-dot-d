@@ -14,14 +14,16 @@
 (require 'tealeg--typescript)
 (require 'tealeg--yaml)
 (require 'tealeg--org)
+(require 'tealeg--lisp)
 (require 'tealeg--go)
 (require 'tealeg--racket)
 (require 'tealeg--zig)
 (require 'tealeg--rust)
-(require 'tealeg--zig)
 (require 'tealeg--eshell)
+(require 'tealeg--irc)
 ;;(require 'tealeg--carp)
 (require 'tealeg--appearance)
+(require 'tealeg--helm)
 
 
 

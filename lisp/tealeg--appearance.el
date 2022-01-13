@@ -5,96 +5,42 @@
 ;;;
 ;;; Code: 
 
-;; (straight-use-package 'doom-themes)
-;; (straight-use-package 'doom-modeline)
 (straight-use-package 'pretty-mode-plus)
-(straight-use-package 'monochrome-theme)
-(straight-use-package 'eink-theme)
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (column-number-mode 1)
 
-(setq tealeg--theme-tone 'dark)
+(load-theme 'tealeg t)
 
-;; (doom-modeline-mode -1)
 (custom-set-default 'mode-line-compact t)
-(cond
- ((string-equal system-type "darwin")
-    (progn
-      (message "Loading Mac OS X apperance parameters")
-      (if (eq tealeg--theme-tone 'dark)
-	  (progn
-	    (load-theme 'monochrome t)
-	    (set-face-attribute 'fringe nil
-				:foreground "#ffffff"
-				:background "#000000")
-	    (set-face-attribute 'mode-line nil
-				:box (list :line-width 5
-					   :color "black"
-					   :style nil )
-				:overline "#cccccc"
-				:background "black"
-				:foreground "#cccccc")
-	    (set-face-attribute 'mode-line-inactive nil
-				:box (list :line-width 5
-					   :color "black"
-					   :style nil )
-				:overline "white"
-				:background "black"
-				:foreground "gray50")
 
-	    (set-face-attribute 'show-paren-match-expression nil
-				:background "yellow"
-				:foreground "black")
+(defun tealeg--linux-p ()
+  "Return t when the current system is gnu/linux."
+  (string-equal system-type "gnu/linux"))
 
-	    )
-	(progn 
-	    (load-theme 'monochrome-bright t)
-	    (set-face-attribute 'fringe nil
-				:background "#ffffff"
-				:foreground "#444444")
-	    (set-face-attribute 'mode-line nil
-				:box (list :line-width 5
-					   :color "white"
-					   :style nil )
-				:overline "black"
-				:underline nil
-				:background "white")
-	    (set-face-attribute 'mode-line-inactive nil
-				:box (list :line-width 5
-					   :color "white"
-					   :style nil )
-				:overline "black"
-				:background "white"
-				:foreground "gray50")
-))
-      (add-to-list 'default-frame-alist '(font . "IBM Plex Mono-16:weight=Medium"))
-      (set-frame-font "IBM Plex Mono-16:weight=Medium")
-      (set-face-font 'variable-pitch "IBM Plex Sans-16:weight=Medium")
-      (set-face-font 'mode-line "IBM Plex Sans-16:weight=Medium")
-      (set-face-font 'mode-line-inactive "IBM Plex Sans-16:weight=Light")
-      (set-fringe-style '( 40 . 40 ))
+(defun tealeg--set-font (mono-font variable-font)
+  "Set emacs fonts to provided MONO-FONT and VARIABLE-FONT, using preset sizes per OS."
+  (let* ((buffer-point-size (if (tealeg--linux-p) 12 15))
+	 (minibuffer-point-size (if (tealeg--linux-p) 12 15))
+	 (buffer-font (concat mono-font "-" (int-to-string buffer-point-size)))
+	 (minibuffer-font (concat variable-font "-" (int-to-string minibuffer-point-size)))
+	 (variable-pitch-font (concat variable-font "-" (int-to-string buffer-point-size)))
+    )
 
-      ))
- ((string-equal system-type "gnu/linux")
-  (progn
-    (message "Loading Linux appearance parameters")
-    (load-theme 'monochrome-bright t)
-    (add-to-list 'default-frame-alist '(font . "IBM Plex Mono-12"))
-    (set-frame-font "IBM Plex Mono-12")
-    (set-face-font 'mode-line "IBM Plex Serif-10")
-    (set-face-font 'mode-line-inactive "IBM Plex Serif-10")
-    (menu-bar-mode -1)
-      (set-face-attribute 'fringe nil :background "#ffffff" :foreground "#444444")
-      (set-face-attribute 'mode-line nil :box (list :line-width 3 :color "white" :style nil ) :overline "black" :underline nil :background "white")
-      (set-face-attribute 'mode-line-inactive nil :box (list :line-width 3 :color "white" :style nil ) :overline "black" :underline nil :background "white" :foreground "gray50")
-      (set-fringe-style '( 20 . 20 ))
-    ;; (when (display-graphic-p)
-    ;;   (load-theme 'doom-solarized-dark-high-contrast t))
-    )))
+    (add-to-list 'default-frame-alist '(font . buffer-font))
+    (set-frame-font buffer-font)
+    (set-face-font 'mode-line minibuffer-font)
+    (set-face-font 'mode-line-inactive minibuffer-font)
+    (set-face-font 'variable-pitch variable-pitch-font)))
 
 
+;;(tealeg--set-font "IBM Plex Mono" "IBM Plex Sans")
+;; (tealeg--set-font "Pixel Operator Mono 8" "Pixel Operator 8")
+;; (tealeg--set-font "Source Code Pro" "Source Sans Pro")
+(tealeg--set-font "Monaco" "Monaco")
+(when (tealeg--linux-p) (menu-bar-mode -1))
 
+(require 'pretty-mode)
 (defun prog-mode-helper-f ()
   "Setup up all prog-modes a little bit ;-)"
   (pretty-mode 1))
