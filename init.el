@@ -23,7 +23,8 @@
 (require 'tealeg--irc)
 ;;(require 'tealeg--carp)
 (require 'tealeg--appearance)
-(require 'tealeg--helm)
+;;(require 'tealeg--helm)
+(require 'tealeg--vertico)
 
 
 

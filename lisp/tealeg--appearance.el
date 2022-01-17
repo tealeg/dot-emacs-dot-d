@@ -10,7 +10,7 @@
 (tool-bar-mode -1)
 (column-number-mode 1)
 
-(load-theme 'tealeg t)
+;;(load-theme 'tealeg t)
 
 (custom-set-default 'mode-line-compact t)
 
@@ -20,8 +20,8 @@
 
 (defun tealeg--set-font (mono-font variable-font)
   "Set emacs fonts to provided MONO-FONT and VARIABLE-FONT, using preset sizes per OS."
-  (let* ((buffer-point-size (if (tealeg--linux-p) 12 15))
-	 (minibuffer-point-size (if (tealeg--linux-p) 12 15))
+  (let* ((buffer-point-size (if (tealeg--linux-p) 13 15))
+	 (minibuffer-point-size (if (tealeg--linux-p) 13 15))
 	 (buffer-font (concat mono-font "-" (int-to-string buffer-point-size)))
 	 (minibuffer-font (concat variable-font "-" (int-to-string minibuffer-point-size)))
 	 (variable-pitch-font (concat variable-font "-" (int-to-string buffer-point-size)))
@@ -37,8 +37,10 @@
 ;;(tealeg--set-font "IBM Plex Mono" "IBM Plex Sans")
 ;; (tealeg--set-font "Pixel Operator Mono 8" "Pixel Operator 8")
 ;; (tealeg--set-font "Source Code Pro" "Source Sans Pro")
-(tealeg--set-font "Monaco" "Monaco")
+;; (tealeg--set-font "TT2020 Style E" "TT2020 Style E")
+(tealeg--set-font "DM Mono" "DM Mono")
 (when (tealeg--linux-p) (menu-bar-mode -1))
+(setq line-spacing 0.4)
 
 (require 'pretty-mode)
 (defun prog-mode-helper-f ()
