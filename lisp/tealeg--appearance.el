@@ -10,7 +10,7 @@
 (tool-bar-mode -1)
 (column-number-mode 1)
 
-;;(load-theme 'tealeg t)
+(load-theme 'tealeg-teal t)
 
 (custom-set-default 'mode-line-compact t)
 
@@ -34,10 +34,6 @@
     (set-face-font 'variable-pitch variable-pitch-font)))
 
 
-;;(tealeg--set-font "IBM Plex Mono" "IBM Plex Sans")
-;; (tealeg--set-font "Pixel Operator Mono 8" "Pixel Operator 8")
-;; (tealeg--set-font "Source Code Pro" "Source Sans Pro")
-;; (tealeg--set-font "TT2020 Style E" "TT2020 Style E")
 (tealeg--set-font "DM Mono" "DM Mono")
 (when (tealeg--linux-p) (menu-bar-mode -1))
 (setq line-spacing 0.4)
