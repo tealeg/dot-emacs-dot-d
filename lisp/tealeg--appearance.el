@@ -5,49 +5,51 @@
 ;;;
 ;;; Code:
 
+
+
 (setq lexical-binding t)
+
+(straight-use-package
+  '(nano-emacs :type git :host github :repo "rougier/nano-emacs"))
+(straight-use-package 'mini-frame)
+
+
+
+
+(setq nano-font-family-monospaced "Victor Mono")
+(setq nano-font-size 14)
+(require 'nano-base-colors)
+(require 'nano-faces)
+(require 'nano-theme-light)
+;; (require 'nano-theme-dark)
+(require 'nano-theme)
+(require 'nano-help)
+(require 'nano-splash)
+(require 'nano-layout)
+(require 'nano-modeline)
+(require 'nano-session)
+(require 'nano-colors)
+(setq nano-light-foreground nano-color-foreground)
+(setq nano-light-background nano-color-background)
+(setq nano-light-popout nano-color-popout)
+(setq nano-light-subtle nano-color-subtle)
+(setq nano-light-faded nano-color-faded)
+(require 'nano-minibuffer)
+(require 'nano-command)
+(straight-use-package 'ts)
+(require 'nano-agenda)
+(nano-theme)
+
 
 (straight-use-package 'pretty-mode-plus)
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (column-number-mode 1)
 
-(load-theme 'tealeg t)
-
-(custom-set-default 'mode-line-compact t)
-
 (defun tealeg--linux-p ()
   "Return t when the current system is gnu/linux."
   (string-equal system-type "gnu/linux"))
 
-(defun tealeg--set-edit-buffer-font (font)
-  (add-to-list 'default-frame-alist '(font . ,font))
-  (set-frame-font font))
-
-(defun tealeg--set-mode-line-font (font)
-  (set-face-font 'mode-line font)
-  (set-face-font 'mode-line-inactive font))
-
-(defun tealeg--set-variable-pitch-font (font)
-  (set-face-font 'variable-pitch font))
-
-
-(defun tealeg--set-font (mono-font variable-font)
-  "Set emacs fonts to provided MONO-FONT and VARIABLE-FONT, using preset sizes per OS."
-  (apply (lambda (buffer-point-size minibuffer-point-size mono-font variable-font)
-           (tealeg--set-edit-buffer-font (concat mono-font "-" (int-to-string buffer-point-size)))
-           (tealeg--set-mode-line-font (concat variable-font "-" (int-to-string minibuffer-point-size)))
-           (tealeg--set-variable-pitch-font (concat variable-font "-" (int-to-string buffer-point-size)))
-           (setq line-spacing 0.2))
-         (list
-          (if (tealeg--linux-p) 13 14)
-          (if (tealeg--linux-p) 13 14)
-          mono-font
-          variable-font)))
-
-
-
-(tealeg--set-font "Victor Mono" "Victor Mono")
 (when (tealeg--linux-p) (menu-bar-mode -1))
 
 

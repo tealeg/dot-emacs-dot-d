@@ -15,8 +15,7 @@
 
 (defun tealeg--markdown-mode-hook-f ()
   "Run setup for markdown"
-  (flyspell-mode 1)
-  (visual-line-mode 1))
+  (flyspell-mode 1))
 
 (add-hook 'markdown-mode-hook #'tealeg--markdown-mode-hook-f)
 
