@@ -4,6 +4,8 @@
 (require 'org-tempo)
 (require 'flyspell)
 
+(setq org-todo-keywords '((sequence "TODO" "QUERY" "PLANNING" "PLANNED" "IN-PROGRESS" "DELEGATED" "BLOCKED" "|" "CANCELLED" "DONE")))
+
 (defun org-mode-helper-f ()
   (flyspell-mode 1)
   (org-tempo-setup))

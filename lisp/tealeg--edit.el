@@ -4,6 +4,7 @@
 
 (require 'string-inflection)
 
+(global-visual-line-mode -1)
 (setq custom-tab-width 2)
 
 
