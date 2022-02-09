@@ -1,5 +1,9 @@
 (require 'package)
 
+(let ((guix-path "/home/tealeg/.guix-profile"))
+  (if (file-exists-p guix-path)
+      (setenv "PATH" (concat (getenv "PATH") ":" guix-path))))
+
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 ;; This block bootstraps straight:
 (defvar bootstrap-version)

@@ -20,11 +20,13 @@
 (require 'tealeg--zig)
 (require 'tealeg--rust)
 (require 'tealeg--eshell)
-(require 'tealeg--irc)
+;;(require 'tealeg--irc)
 ;;(require 'tealeg--carp)
 (require 'tealeg--appearance)
 ;;(require 'tealeg--helm)
-(require 'tealeg--vertico)
+;;(require 'tealeg--vertico)
+
+(require 'tealeg--scheme)
 
 
 
