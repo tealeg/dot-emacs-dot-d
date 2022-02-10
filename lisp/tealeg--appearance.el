@@ -25,6 +25,8 @@
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (column-number-mode 1)
+(fringe-mode 20)
+
 
 
 
@@ -36,5 +38,7 @@
 (add-hook 'prog-mode-hook #'prog-mode-helper-f)
 
 (load-theme 'weyland-yutani t)
+
+
 (provide 'tealeg--appearance)
 ;;; tealeg--appearance.el ends here
