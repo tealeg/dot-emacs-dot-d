@@ -4,6 +4,7 @@
 (require 'tealeg--custom-file)
 (require 'tealeg--backups)
 (require 'tealeg--env)
+(require 'tealeg--spelling)
 (require 'tealeg--edit)
 (require 'tealeg--syntax)
 (require 'tealeg--vc)
@@ -20,9 +21,11 @@
 (require 'tealeg--zig)
 (require 'tealeg--rust)
 (require 'tealeg--eshell)
+
 ;;(require 'tealeg--irc)
 ;;(require 'tealeg--carp)
 (require 'tealeg--appearance)
+(require 'tealeg--tabs)
 ;;(require 'tealeg--helm)
 ;;(require 'tealeg--vertico)
 

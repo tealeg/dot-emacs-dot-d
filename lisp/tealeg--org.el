@@ -8,6 +8,7 @@
 
 
 
+
 (setq org-todo-keywords '((sequence "TODO" "QUERY" "PLANNING" "PLANNED" "IN-PROGRESS" "DELEGATED" "BLOCKED" "|" "CANCELLED" "DONE")))
 
 (defun org-mode-helper-f ()
