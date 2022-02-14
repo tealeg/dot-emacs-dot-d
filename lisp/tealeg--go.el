@@ -19,6 +19,7 @@
 
 
 (defun go-mode-helper-f ()
+  "Setup go mode correctly."
   (require 'gotest)
   (setq go-test-verbose 1)
   (enable-tabs)

@@ -8,4 +8,4 @@
 (straight-use-package 'magit)
 
 (provide 'tealeg--vc)
-;;; tealeg-vc.el ends here
+;;; tealeg-vc.el ends here.

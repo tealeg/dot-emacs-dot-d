@@ -1,3 +1,9 @@
+;;; tealeg--eshell --- configure the Emacs native shell
+;;;
+;;; Commentary:
+;;;     Configure the Emacs native shell.
+;;;
+;;; Code:
 
 (straight-use-package 'dash)
 (straight-use-package 's)

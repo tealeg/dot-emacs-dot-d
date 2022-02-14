@@ -1,4 +1,9 @@
-
+;;; tealeg--tabs --- define buffer tabs
+;;;
+;;; Commentary:
+;;;     Setup centaur tabs, to my taste.
+;;;
+;;; Code:
 (straight-use-package 'centaur-tabs)
 (straight-use-package 'all-the-icons)
 
@@ -9,7 +14,7 @@
       centaur-tabs-set-icons nil
       centaur-tabs-set-modified-marker t
       centaur-tabs-modified-marker "💾"
-      ) 
+      )
 
 (set-face-background 'tab-line (face-background 'centaur-tabs-default))
 (set-face-foreground 'tab-line (face-foreground 'default))
@@ -33,5 +38,5 @@
 
 (centaur-tabs-mode t)
 
-
 (provide 'tealeg--tabs)
+;;; tealeg--tabs.el ends here

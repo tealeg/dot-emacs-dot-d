@@ -5,11 +5,13 @@
 ;;;
 ;;; Code:
 
-
-
 (setq lexical-binding t)
 
+(straight-use-package 'pretty-mode)
 (straight-use-package 'weyland-yutani-theme)
+(straight-use-package 'hydandata-light-theme)
+(require 'pretty-mode)
+
 
 (defun tealeg--linux-p ()
   "Return t when the current system is gnu/linux."
@@ -27,18 +29,14 @@
 (column-number-mode 1)
 (fringe-mode 20)
 
-
-
-
-(require 'pretty-mode)
 (defun prog-mode-helper-f ()
   "Setup up all prog-modes a little bit ;-)"
   (pretty-mode 1))
 
 (add-hook 'prog-mode-hook #'prog-mode-helper-f)
 
+;; (load-theme 'hydandata-light-theme)
 (load-theme 'weyland-yutani t)
-
 
 (provide 'tealeg--appearance)
 ;;; tealeg--appearance.el ends here

@@ -1,3 +1,9 @@
+;;; tealeg--zig -- configure support for Zig programming
+;;;
+;;; Commentary:
+;;;     Zig is a really promising systems programming language.
+;;;
+;;; Code:
 (straight-use-package 'zig-mode)
 
 (require 'elec-pair)
@@ -11,4 +17,6 @@
 
 (add-hook 'zig-mode-hook #'lsp)
 (add-hook 'zig-mode-hook #'zig-mode-helper-f)
+
 (provide 'tealeg--zig)
+;;; tealeg--zig.el ends here.

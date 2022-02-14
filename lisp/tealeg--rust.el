@@ -15,6 +15,7 @@
 (require 'rustfmt)
 
 (defun rust-mode-helper-f ()
+  "Configure rust mode on demand."
   (rustfmt-enable-on-save)
   )
 

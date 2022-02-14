@@ -10,4 +10,4 @@
 (setq show-paren-style 'expression)
 
 (provide 'tealeg--syntax)
-;;; tealeg--syntax.el ends here 
+;;; tealeg--syntax.el ends here.

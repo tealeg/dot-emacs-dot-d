@@ -8,5 +8,4 @@
 (straight-use-package 'yaml-mode)
 
 (provide 'tealeg--yaml)
-
-;;; tealeg--yaml.el ends here
+;;; tealeg--yaml.el ends here.

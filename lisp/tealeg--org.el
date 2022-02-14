@@ -1,17 +1,23 @@
+;;; tealeg--org --- Org mode setup
+;;;
+;;; Commentary:
+;;;     Org is one of the most important pieces of the Emacs puzzle, here's my config.
+;;;
+;;; Code:
+
 (straight-use-package 'org)
 (straight-use-package 'org-bullets)
 (straight-use-package 'org-present)
 
 (require 'org)
+(require 'org-bullets)
 (require 'org-tempo)
 (require 'flyspell)
-
-
-
 
 (setq org-todo-keywords '((sequence "TODO" "QUERY" "PLANNING" "PLANNED" "IN-PROGRESS" "DELEGATED" "BLOCKED" "|" "CANCELLED" "DONE")))
 
 (defun org-mode-helper-f ()
+  "Setup Org mode on demand."
   (setq org-hide-emphasis-markers t
         org-hide-block-startup t
         org-hide-leading-stars t
@@ -38,7 +44,6 @@
      `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.5))))
      `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.75))))
      `(org-document-title ((t (,@headline ,@variable-tuple :height 2.0 :underline nil))))))
-  
   (font-lock-add-keywords 'org-mode
                           '(("^ *\\([-]\\) "
                              (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
@@ -59,7 +64,7 @@
        :publishing-directory "~/src/personal/blog/html/"
        :recursive t
        :publishing-function org-html-publish-to-html
-       :headline-levels 4  
+       :headline-levels 4
        :auto-preamble nil
        ;:html-preamble "<header><h1><a href=\"index.html\">Would rather be on the beach...</a></h1></header>"
        :html-postamble "<hr><a href=\"/\">Home Page</a>"
@@ -117,3 +122,4 @@
 
 
 (provide 'tealeg--org)
+;;; tealeg--org.el ends here.

@@ -1,3 +1,10 @@
+;;; tealeg--lsp -- Emacs as a Language Server Protocol client.
+;;;
+;;; Commentary:
+;;;     All generic setup for LSP mode.
+;;;
+;;; Code:
+
 (straight-use-package 'lsp-mode)
 (straight-use-package 'lsp-ui)
 (straight-use-package 'lsp-treemacs)
@@ -22,6 +29,7 @@
       )
 
 (defun lsp-ui-mode-helper-f ()
+  "Configure lsp-ui mode on demand."
   (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
   (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references))
 
@@ -29,3 +37,4 @@
 (add-hook 'lsp-ui-mode-hook #'lsp-ui-mode-helper-f)
 
 (provide 'tealeg--lsp)
+;;; tealeg--lsp.el ends here

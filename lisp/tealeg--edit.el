@@ -1,4 +1,9 @@
 ;;; tealeg--edit -- general editing setup
+;;;
+;;; Commentary:
+;;;     Everything that doesn't fit elsewhere ;-)
+;;;
+;;; Code:
 
 (straight-use-package 'string-inflection)
 
@@ -8,8 +13,14 @@
 (setq custom-tab-width 2)
 
 
-(defun disable-tabs () (setq indent-tabs-mode nil))
+(defun disable-tabs ()
+  "Disallow the insertion of tabs."
+  (interactive)
+  (setq indent-tabs-mode nil))
+
 (defun enable-tabs  ()
+  "Allow the insertion of tabs."
+  (interactive)
   (local-set-key (kbd "TAB") 'tab-to-tab-stop)
   (setq indent-tabs-mode t)
   (setq tab-width custom-tab-width))
@@ -31,11 +42,11 @@
 ;; This will also show trailing characters as they are useful to spot.
 (setq whitespace-style '(face tabs tab-mark trailing))
 (custom-set-faces
- '(whitespace-tab ((t (:foreground "#636363")))))
+ '(whitespace-tab ((t (:foreground "white" :background "green")))))
 (setq whitespace-display-mappings
   '((tab-mark 9 [124 9] [92 9]))) ; 124 is the ascii ID for '\|'
+
 (global-whitespace-mode) ; Enable whitespace mode everywhere
-; END TABS CONFIG
 
 (provide 'tealeg--edit)
 ;;; tealeg--edit.el ends here

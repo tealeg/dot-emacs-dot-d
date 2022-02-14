@@ -1,3 +1,9 @@
+;;; init -- core initialisation of emacs
+;;;
+;;; Commentary:
+;;;     Basically, everything starts here!
+;;;
+;;; Code:
 (setq gc-cons-threshold 120000000)
 (add-to-list 'load-path "~/.emacs.d/lisp")
 (require 'tealeg--package)
@@ -24,7 +30,6 @@
 (require 'tealeg--eshell)
 (require 'tealeg--guix)
 ;;(require 'tealeg--irc)
-;;(require 'tealeg--carp)
 (require 'tealeg--appearance)
 (require 'tealeg--tabs)
 (require 'tealeg--scheme)
@@ -34,3 +39,4 @@
 
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
+;;; init.el ends here

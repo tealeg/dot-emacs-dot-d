@@ -1,3 +1,10 @@
+;;; tealeg--package --- initialise package management.
+;;;
+;;; Commentary:
+;;;     Setup straight.
+;;;
+;;; Code:
+
 (require 'package)
 
 (let ((guix-path "/home/tealeg/.guix-profile"))
@@ -23,3 +30,4 @@
 (straight-use-package 'melpa)
 
 (provide 'tealeg--package)
+;;; tealeg--package.el ends here.
