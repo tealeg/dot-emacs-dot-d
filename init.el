@@ -7,6 +7,7 @@
 (require 'tealeg--spelling)
 (require 'tealeg--edit)
 (require 'tealeg--syntax)
+(require 'tealeg--make)
 (require 'tealeg--vc)
 (require 'tealeg--lsp)
 (require 'tealeg--comint)
