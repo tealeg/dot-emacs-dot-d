@@ -34,7 +34,7 @@
 (require 'tealeg--tabs)
 (require 'tealeg--scheme)
 
-(require 'tealeg--selectrum)
+;;(require 'tealeg--selectrum)
 
 
 (put 'downcase-region 'disabled nil)
