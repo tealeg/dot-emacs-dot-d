@@ -42,7 +42,7 @@
 ;; This will also show trailing characters as they are useful to spot.
 (setq whitespace-style '(face tabs tab-mark trailing))
 (custom-set-faces
- '(whitespace-tab ((t (:foreground "white" :background "green")))))
+ (list 'whitespace-tab (list (list t (list :foreground (face-foreground 'font-lock-comment-face) :background (face-background 'font-lock-comment-face))))))
 (setq whitespace-display-mappings
   '((tab-mark 9 [124 9] [92 9]))) ; 124 is the ascii ID for '\|'
 
