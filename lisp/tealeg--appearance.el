@@ -1,4 +1,4 @@
-;;; tealeg--appearance -- frame configuration
+;;; tealeg--appearance -- frame configuration  -*- lexical-binding: t; -*-
 ;;;
 ;;; Commentary:
 ;;;	Make it puuuuurdy
@@ -10,6 +10,7 @@
 (straight-use-package 'pretty-mode)
 (straight-use-package 'weyland-yutani-theme)
 (straight-use-package 'hydandata-light-theme)
+(straight-use-package 'telephone-line)
 (require 'pretty-mode)
 
 
@@ -35,8 +36,35 @@
 
 (add-hook 'prog-mode-hook #'prog-mode-helper-f)
 
+(setq telephone-line-primary-left-separator 'telephone-line-gradient
+      telephone-line-secondary-left-separator 'telephone-line-nil
+      telephone-line-primary-right-separator 'telephone-line-gradient
+      telephone-line-secondary-right-separator 'telephone-line-nil)
+(setq telephone-line-height 24
+      telephone-line-evil-use-short-tag t)
+
+
+(defun tealeg--apply-telephone-line-theme (orig &rest args)
+  "Setup telephone line when loading themes"
+  (let ((result (apply orig args)))
+    (telephone-line-mode -1)
+    (set-face-background 'telephone-line-accent-active (face-background 'diff-added))
+    (set-face-foreground 'telephone-line-accent-active (face-foreground 'diff-added))
+    (set-face-background 'telephone-line-accent-inactive (face-background 'font-lock-comment-face))
+    (set-face-foreground 'telephone-line-accent-inactive (face-foreground 'font-lock-comment-face))
+    (telephone-line-mode 1)
+    result
+    )
+
+  )
+(telephone-line-mode 1)
+
+(advice-add 'load-theme :around #'tealeg--apply-telephone-line-theme)
+(advice-add 'disable-theme :around #'tealeg--apply-telephone-line-theme)
+
 ;; (load-theme 'hydandata-light-theme)
 (load-theme 'weyland-yutani t)
+
 
 (provide 'tealeg--appearance)
 ;;; tealeg--appearance.el ends here

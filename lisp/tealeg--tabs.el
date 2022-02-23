@@ -41,13 +41,12 @@
     result))
 
 (advice-add 'load-theme :around #'tealeg--apply-tabs-theme)
+(advice-add 'disable-theme :around #'tealeg--apply-tabs-theme)
 
 (global-set-key (kbd "C-<prior>") #'centaur-tabs-backward)
 (global-set-key (kbd "C-<next>") #'centaur-tabs-forward)
 
 (centaur-tabs-mode t)
-
-(add-hook 'theme)
 
 (provide 'tealeg--tabs)
 ;;; tealeg--tabs.el ends here
