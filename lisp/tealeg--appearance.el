@@ -12,7 +12,7 @@
 (straight-use-package 'hydandata-light-theme)
 (straight-use-package 'telephone-line)
 (require 'pretty-mode)
-
+(require 'diff-mode)
 
 (defun tealeg--linux-p ()
   "Return t when the current system is gnu/linux."
