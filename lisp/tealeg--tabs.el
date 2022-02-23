@@ -7,6 +7,7 @@
 (straight-use-package 'centaur-tabs)
 (straight-use-package 'all-the-icons)
 
+(require 'diff-mode)
 (require 'centaur-tabs)
 (require 'centaur-tabs-functions)
 
@@ -16,27 +17,37 @@
       centaur-tabs-modified-marker "💾"
       )
 
-(set-face-background 'tab-line (face-background 'centaur-tabs-default))
-(set-face-foreground 'tab-line (face-foreground 'default))
-(set-face-background 'centaur-tabs-unselected (face-background 'centaur-tabs-default))
-(set-face-foreground 'centaur-tabs-unselected (face-foreground 'font-lock-comment-face))
+(defun tealeg--apply-tabs-theme (orig &rest args)
+  "Update centaur tabs theme based on enabled theme."
+  (let ((result (apply orig args)))
+    (progn 
+(set-face-background 'tab-line (face-background 'diff-changed-unspecified))
+(set-face-foreground 'tab-line (face-foreground 'diff-changed-unspecified))
+(set-face-background 'centaur-tabs-unselected (face-background 'diff-changed-unspecified))
+(set-face-foreground 'centaur-tabs-unselected (face-foreground 'diff-changed-unspecified))
 (set-face-background 'centaur-tabs-selected (face-background 'default))
 (set-face-foreground 'centaur-tabs-selected (face-foreground 'default))
-(set-face-background 'centaur-tabs-unselected-modified (face-background 'centaur-tabs-default))
+(set-face-background 'centaur-tabs-unselected-modified (face-background 'diff-changed-unspecified))
 (set-face-foreground 'centaur-tabs-unselected-modified (face-foreground 'font-lock-variable-name-face))
-(set-face-background 'centaur-tabs-selected-modified (face-background 'default))
+(set-face-background 'centaur-tabs-selected-modified (face-background 'font-lock-keyword-face))
 (set-face-foreground 'centaur-tabs-selected-modified (face-foreground 'font-lock-keyword-face))
-(set-face-background 'centaur-tabs-modified-marker-selected (face-background 'default))
+(set-face-background 'centaur-tabs-modified-marker-selected (face-background 'font-lock-keyword-face))
 (set-face-foreground 'centaur-tabs-modified-marker-selected (face-foreground 'font-lock-keyword-face))
-(set-face-background 'centaur-tabs-modified-marker-unselected (face-background 'centaur-tabs-default))
-(set-face-foreground 'centaur-tabs-modified-marker-unselected (face-foreground 'font-lock-variable-name-face))
+(set-face-background 'centaur-tabs-modified-marker-unselected (face-background 'diff-changed-unspecified))
+(set-face-foreground 'centaur-tabs-modified-marker-unselected (face-foreground 'diff-changed-unspecified))
 (set-face-background 'centaur-tabs-active-bar-face (face-foreground 'font-lock-constant-face))
 (set-face-foreground 'centaur-tabs-active-bar-face (face-foreground 'font-lock-constant-face))
+)
+    result))
+
+(advice-add 'load-theme :around #'tealeg--apply-tabs-theme)
 
 (global-set-key (kbd "C-<prior>") #'centaur-tabs-backward)
 (global-set-key (kbd "C-<next>") #'centaur-tabs-forward)
 
 (centaur-tabs-mode t)
+
+(add-hook 'theme)
 
 (provide 'tealeg--tabs)
 ;;; tealeg--tabs.el ends here
