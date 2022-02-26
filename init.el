@@ -37,7 +37,7 @@
 (require 'tealeg--scheme)
 
 ;;(require 'tealeg--selectrum)
-
+(require 'tealeg--minad)
 
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)

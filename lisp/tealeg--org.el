@@ -9,9 +9,10 @@
 (straight-use-package 'org-bullets)
 (straight-use-package 'org-present)
 
+
 (require 'org)
 (require 'org-bullets)
-(require 'org-tempo)
+;; (require 'org-tempo)
 (require 'flyspell)
 
 (setq org-todo-keywords '((sequence "TODO" "QUERY" "PLANNING" "PLANNED" "IN-PROGRESS" "DELEGATED" "BLOCKED" "|" "CANCELLED" "DONE")))
@@ -50,7 +51,7 @@
 
   (org-bullets-mode 1)
   (flyspell-mode 1)
-  (org-tempo-setup))
+  
 
 (add-hook 'org-mode-hook #'org-mode-helper-f)
 
