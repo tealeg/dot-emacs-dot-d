@@ -6,12 +6,12 @@
 ;;; Code:
 
 (straight-use-package 'org)
-(straight-use-package 'org-bullets)
+(straight-use-package 'org-modern)
 (straight-use-package 'org-present)
 
 
 (require 'org)
-(require 'org-bullets)
+
 ;; (require 'org-tempo)
 (require 'flyspell)
 
@@ -49,8 +49,8 @@
                           '(("^ *\\([-]\\) "
                              (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
-  (org-bullets-mode 1)
-  (flyspell-mode 1)
+  (org-modern-mode 1)
+  (flyspell-mode 1))
   
 
 (add-hook 'org-mode-hook #'org-mode-helper-f)
