@@ -12,6 +12,7 @@
 (straight-use-package 'doom-themes)
 (straight-use-package 'weyland-yutani-theme)
 (straight-use-package 'hydandata-light-theme)
+(straight-use-package 'flatland-theme)
 ;; (straight-use-package 'telephone-line)
 (require 'pretty-mode)
 (require 'diff-mode)
@@ -42,8 +43,8 @@
 ;; (load-theme 'weyland-yutani t)
 
 
-(load-theme 'doom-one-light)
-
+;;(load-theme 'doom-one-light)
+(load-theme 'flatland t nil)
 
 (provide 'tealeg--appearance)
 ;;; tealeg--appearance.el ends here
