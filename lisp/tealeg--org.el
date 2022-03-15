@@ -51,14 +51,8 @@
                              (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
   (org-modern-mode 1)
-<<<<<<< HEAD
   (flyspell-mode 1))
-  
-=======
-  ;; (org-bullets-mode 1)
-  (flyspell-mode 1)
   )
->>>>>>> c3bd420 (Completion and Pollen support from mac config)
 
 (add-hook 'org-mode-hook #'org-mode-helper-f)
 
