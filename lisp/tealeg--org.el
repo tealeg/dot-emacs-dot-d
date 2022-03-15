@@ -52,7 +52,6 @@
 
   (org-modern-mode 1)
   (flyspell-mode 1))
-  )
 
 (add-hook 'org-mode-hook #'org-mode-helper-f)
 
