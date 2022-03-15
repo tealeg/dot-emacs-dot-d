@@ -8,12 +8,13 @@
 (straight-use-package 'org)
 (straight-use-package 'org-modern)
 (straight-use-package 'org-present)
+(straight-use-package 'org-modern)
 
 
 (require 'org)
-
-;; (require 'org-tempo)
+(require 'org-tempo)
 (require 'flyspell)
+(require 'org-modern)
 
 (setq org-todo-keywords '((sequence "TODO" "QUERY" "PLANNING" "PLANNED" "IN-PROGRESS" "DELEGATED" "BLOCKED" "|" "CANCELLED" "DONE")))
 
@@ -50,8 +51,14 @@
                              (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
   (org-modern-mode 1)
+<<<<<<< HEAD
   (flyspell-mode 1))
   
+=======
+  ;; (org-bullets-mode 1)
+  (flyspell-mode 1)
+  )
+>>>>>>> c3bd420 (Completion and Pollen support from mac config)
 
 (add-hook 'org-mode-hook #'org-mode-helper-f)
 

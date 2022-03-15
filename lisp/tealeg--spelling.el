@@ -9,7 +9,10 @@
 (require 'flyspell)
 
 
-(setq ispell-personal-dictionary "~/.emacs.d/personal-dictionary")
+(setq ispell-program-name "aspell"
+ ispell-personal-dictionary "~/.emacs.d/personal-dictionary"
+      ispell-dictionary "british")
+
 
 (provide 'tealeg--spelling)
 ;;; tealeg--spelling.el ends here.

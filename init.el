@@ -29,7 +29,7 @@
 (require 'tealeg--rust)
 (require 'tealeg--eshell)
 (require 'tealeg--guix)
-
+(require 'tealeg--pollen)
 ;; tabs have to come before appearance
 (require 'tealeg--tabs)
 (require 'tealeg--appearance)

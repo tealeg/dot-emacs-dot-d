@@ -9,7 +9,8 @@
 (straight-use-package '(hippie-completing-read :type git :host github :repo "duckwork/hippie-completing-read"))
 (straight-use-package 'corfu)
 (straight-use-package 'cape)
-
+(straight-use-package 'kind-icon)
+(straight-use-package '(corfu-doc :type git :host github :repo "galeo/corfu-doc"))
 
 (require 'hippie-exp)
 (require 'hippie-completing-read)
@@ -37,10 +38,16 @@
 
 ./
 
+(require 'kind-icon)
+(setq kind-icon-use-icons t
+      kind-icon-default-face 'corfu-default
+      )
+
+(add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter)
 (global-corfu-mode 1)
+(corfu-doc-mode 1)
 (global-set-key (kbd "\M- ") #'hippie-expand)
 (global-set-key (kbd "M-/") #'hippie-completing-read)
-
 
 (provide 'tealeg--completion)
 ;;; tealeg--completion.el ends here
