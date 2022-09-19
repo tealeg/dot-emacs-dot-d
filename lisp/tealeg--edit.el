@@ -6,6 +6,7 @@
 ;;; Code:
 
 (straight-use-package 'string-inflection)
+(straight-use-package 'browse-kill-ring)
 
 (require 'string-inflection)
 
@@ -47,6 +48,9 @@
   '((tab-mark 9 [124 9] [92 9]))) ; 124 is the ascii ID for '\|'
 
 (global-whitespace-mode) ; Enable whitespace mode everywhere
+
+(global-unset-key (kbd "M-y"))
+(global-set-key (kbd "M-y") 'browse-kill-ring)
 
 (provide 'tealeg--edit)
 ;;; tealeg--edit.el ends here
