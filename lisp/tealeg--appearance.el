@@ -27,7 +27,7 @@
 
 (if (tealeg--linux-p)
     (set-frame-font "Victor Mono-11")
-  (set-frame-font "Menlo-14"))
+  (set-frame-font "Victor Mono-14"))
 (straight-use-package 'pretty-mode-plus)
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
@@ -41,7 +41,8 @@
 
 (add-hook 'prog-mode-hook #'prog-mode-helper-f)
 
-(load-theme 'hydandata-light t nil)
+;; (load-theme 'hydandata-light t nil)
+(load-theme 'solarized-zenburn t nil)
 ;; (load-theme 'weyland-yutani t)
 
 
