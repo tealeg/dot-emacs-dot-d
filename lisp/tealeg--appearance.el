@@ -42,7 +42,7 @@
 (add-hook 'prog-mode-hook #'prog-mode-helper-f)
 
 ;; (load-theme 'hydandata-light t nil)
-(load-theme 'solarized-zenburn t nil)
+(load-theme 'solarized-light-high-contrast t nil)
 ;; (load-theme 'weyland-yutani t)
 
 

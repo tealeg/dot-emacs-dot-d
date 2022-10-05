@@ -97,6 +97,9 @@
 ;; Enable the new eshell prompt
 (setq eshell-prompt-function 'esh-prompt-func)
 
+;; Get rid of those annoying "WARNING: terminal is not fully functional" messages
+(setq eshell-visual-subcommands '(("git" "log" "diff" "show" "branch")))
+
 (add-hook 'eshell-mode-hook #'esh-autosuggest-mode)
 
 (provide 'tealeg--eshell)
