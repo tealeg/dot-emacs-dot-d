@@ -26,7 +26,7 @@
 
 
 (if (tealeg--linux-p)
-    (set-frame-font "Victor Mono-11")
+    (set-frame-font "IBM Plex Mono-14")
   (set-frame-font "Victor Mono-14"))
 (straight-use-package 'pretty-mode-plus)
 (scroll-bar-mode -1)
@@ -42,7 +42,7 @@
 (add-hook 'prog-mode-hook #'prog-mode-helper-f)
 
 ;; (load-theme 'hydandata-light t nil)
-(load-theme 'solarized-light-high-contrast t nil)
+(load-theme 'doom-Iosvkem t nil)
 ;; (load-theme 'weyland-yutani t)
 
 
@@ -55,6 +55,6 @@
 ;; (modus-themes-load-themes)
 ;; (modus-themes-load-operandi)
 ;;(load-theme 'doom-snazzy t nil)
-(define-key global-map (kbd "<f5>") #'modus-themes-toggle)
+;; (define-key global-map (kbd "<f5>") #'modus-themes-toggle)
 (provide 'tealeg--appearance)
 ;;; tealeg--appearance.el ends here

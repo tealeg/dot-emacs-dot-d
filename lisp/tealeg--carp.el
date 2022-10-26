@@ -1,5 +1,7 @@
 
 (straight-use-package 'clojure-mode)
+
+(setenv "CARP_DIR" (expand-file-name "~/src/3rdparty/Carp"))
 (add-to-list 'load-path "~/src/3rdparty/carp-emacs-master")
 
 (require 'carp-mode)
