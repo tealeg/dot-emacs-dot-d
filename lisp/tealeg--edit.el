@@ -41,13 +41,13 @@
 ;; WARNING: This will change your life
 ;; (OPTIONAL) Visualize tabs as a pipe character - "|"
 ;; This will also show trailing characters as they are useful to spot.
-(setq whitespace-style '(face tabs tab-mark trailing))
-(custom-set-faces
- (list 'whitespace-tab (list (list t (list :foreground (face-foreground 'font-lock-comment-face) :background (face-background 'font-lock-comment-face))))))
-(setq whitespace-display-mappings
-  '((tab-mark 9 [124 9] [92 9]))) ; 124 is the ascii ID for '\|'
+;; (setq whitespace-style '(face tabs tab-mark trailing))
+;; (custom-set-faces
+;;  (list 'whitespace-tab (list (list t (list :foreground (face-foreground 'font-lock-comment-face) :background (face-background 'font-lock-comment-face))))))
+;; (setq whitespace-display-mappings
+;;   '((tab-mark 9 [124 9] [92 9]))) ; 124 is the ascii ID for '\|'
 
-(global-whitespace-mode) ; Enable whitespace mode everywhere
+;; (global-whitespace-mode) ; Enable whitespace mode everywhere
 
 (global-unset-key (kbd "M-y"))
 (global-set-key (kbd "M-y") 'browse-kill-ring)

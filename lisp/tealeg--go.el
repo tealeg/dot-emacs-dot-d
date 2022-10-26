@@ -8,11 +8,12 @@
 (straight-use-package 'go-mode)
 (straight-use-package 'go-test)
 (straight-use-package 'flycheck)
+(straight-use-package 'go-dlv)
 
 (require 'go-mode)
 (require 'gotest)
 (require 'flycheck)
-
+(require 'go-dlv)
 (require 'tealeg--edit)
 
 

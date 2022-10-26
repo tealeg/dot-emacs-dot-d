@@ -24,37 +24,31 @@
 
 (when (tealeg--linux-p) (menu-bar-mode -1))
 
+;; (set-face-attribute 'default nil :font "JetBrains Mono" :weight 'light :height 180)
+;; (set-face-attribute 'fixed-pitch nil :font "JetBrains Mono" :weight 'light :height 190)
+;; (set-face-attribute 'variable-pitch nil :font "Iosevka Aile" :weight 'light :height 1.3)
 
-(if (tealeg--linux-p)
-    (set-frame-font "IBM Plex Mono-14")
-  (set-frame-font "Victor Mono-14"))
+;; 
+(set-frame-font "IBM Plex Mono-14")
+  ;; (set-frame-font "Victor Mono-14"))
+
 (straight-use-package 'pretty-mode-plus)
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (column-number-mode 1)
 (fringe-mode 20)
 (display-time-mode 1)
-(setq line-spacing 0.3)
+;; (setq line-spacing 0.3)
 (defun prog-mode-helper-f ()
   "Setup up all prog-modes a little bit ;-)"
   (pretty-mode 1))
 
 (add-hook 'prog-mode-hook #'prog-mode-helper-f)
 
-;; (load-theme 'hydandata-light t nil)
 (load-theme 'doom-Iosvkem t nil)
-;; (load-theme 'weyland-yutani t)
 
+(set-frame-parameter (selected-frame) 'alpha '(97 . 100))
+(add-to-list 'default-frame-alist '(alpha . (90 . 90)))
 
-;;(load-theme 'doom-one-light)
-;;(load-theme 'flatland t nil)
-
-;; (setq modus-themes-italic-constructs t
-;;       modus-themes-bold-constructs t
-;;       modus-themes-region '(bg-only no-extend))
-;; (modus-themes-load-themes)
-;; (modus-themes-load-operandi)
-;;(load-theme 'doom-snazzy t nil)
-;; (define-key global-map (kbd "<f5>") #'modus-themes-toggle)
 (provide 'tealeg--appearance)
 ;;; tealeg--appearance.el ends here

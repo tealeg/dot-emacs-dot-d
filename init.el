@@ -21,7 +21,6 @@
 (require 'tealeg--markdown)
 (require 'tealeg--typescript)
 (require 'tealeg--yaml)
-(require 'tealeg--org)
 (require 'tealeg--lisp)
 (require 'tealeg--go)
 (require 'tealeg--racket)
@@ -36,6 +35,7 @@
 (require 'tealeg--appearance)
 
 (require 'tealeg--scheme)
+(require 'tealeg--org)
 
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
