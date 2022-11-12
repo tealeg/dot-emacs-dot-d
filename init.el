@@ -29,11 +29,9 @@
 (require 'tealeg--eshell)
 (require 'tealeg--guix)
 (require 'tealeg--pollen)
-(require 'tealeg--carp)
 ;; tabs have to come before appearance
 ;;(require 'tealeg--tabs)
 (require 'tealeg--appearance)
-
 (require 'tealeg--scheme)
 (require 'tealeg--org)
 
