@@ -45,7 +45,7 @@
 
 (add-hook 'prog-mode-hook #'prog-mode-helper-f)
 
-(load-theme 'doom-Iosvkem t nil)
+(load-theme 'doom-monokai-spectrum t nil)
 
 (set-frame-parameter (selected-frame) 'alpha '(97 . 100))
 (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
