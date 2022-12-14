@@ -5,9 +5,12 @@
 ;;;
 ;;; Code:
 
+(straight-use-package 'flyspell-correct-ivy)
 (require 'ispell)
 (require 'flyspell)
 
+ (require 'flyspell-correct-ivy)
+(define-key flyspell-mode-map (kbd "C-;") 'flyspell-correct-wrapper)
 
 (setq ispell-program-name "aspell"
  ispell-personal-dictionary "~/.emacs.d/personal-dictionary"

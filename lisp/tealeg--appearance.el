@@ -7,48 +7,56 @@
 
 (setq lexical-binding t)
 
-(straight-use-package 'pretty-mode)
-(straight-use-package 'solarized-emacs)
-(straight-use-package 'doom-themes)
-(straight-use-package 'weyland-yutani-theme)
-(straight-use-package 'hydandata-light-theme)
-(straight-use-package 'flatland-theme)
-(straight-use-package 'modus-themes)
-;; (straight-use-package 'telephone-line)
-(require 'pretty-mode)
-(require 'diff-mode)
+(straight-use-package 'smex)
+(straight-use-package
+  '(nano-emacs :type git :host github :repo "rougier/nano-emacs"))
 
-(defun tealeg--linux-p ()
-  "Return t when the current system is gnu/linux."
-  (string-equal system-type "gnu/linux"))
 
-(when (tealeg--linux-p) (menu-bar-mode -1))
+(require 'nano-layout)
 
-;; (set-face-attribute 'default nil :font "JetBrains Mono" :weight 'light :height 180)
-;; (set-face-attribute 'fixed-pitch nil :font "JetBrains Mono" :weight 'light :height 190)
-;; (set-face-attribute 'variable-pitch nil :font "Iosevka Aile" :weight 'light :height 1.3)
+;; Theming Command line options (this will cancel warning messages)
+(add-to-list 'command-switch-alist '("-dark"   . (lambda (args))))
+(add-to-list 'command-switch-alist '("-light"  . (lambda (args))))
+(add-to-list 'command-switch-alist '("-default"  . (lambda (args))))
+(add-to-list 'command-switch-alist '("-no-splash" . (lambda (args))))
+(add-to-list 'command-switch-alist '("-no-help" . (lambda (args))))
+(add-to-list 'command-switch-alist '("-compact" . (lambda (args))))
 
-;; 
-(set-frame-font "IBM Plex Mono-14")
-  ;; (set-frame-font "Victor Mono-14"))
+(require 'nano-theme-dark)
+(require 'nano-theme-light)
 
-(straight-use-package 'pretty-mode-plus)
-(scroll-bar-mode -1)
+(defface bookmark-menu-heading nil "defined just to please nano")
+
+(require 'nano-faces)
+(set-frame-font "IBM Plex Mono-16")
+(custom-set-default 'nano-font-size 16)
+(custom-set-default 'nano-font-family-monospaced "Iosevka")
+(custom-set-default 'nano-font-family-proportional "Iosevka Aile")
+
+(nano-faces)
+
+(require 'nano-theme)
+(nano-theme)
+
+;; Nano header & mode lines (optional)
+(require 'nano-modeline)
+
+(nano-theme-set-dark)
+(nano-toggle-theme)
+(nano-toggle-theme)
+(let ((inhibit-message t))
+  (message "Welcome to GNU Emacs / N Λ N O edition")
+  (message (format "Initialization time: %s" (emacs-init-time))))
+
+(require 'nano-splash)
+(require 'nano-help)
+
+(require 'smex)
+(require 'nano-counsel)
 (tool-bar-mode -1)
-(column-number-mode 1)
-(fringe-mode 20)
-(display-time-mode 1)
-;; (setq line-spacing 0.3)
-(defun prog-mode-helper-f ()
-  "Setup up all prog-modes a little bit ;-)"
-  (pretty-mode 1))
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
 
-(add-hook 'prog-mode-hook #'prog-mode-helper-f)
-
-(load-theme 'doom-monokai-spectrum t nil)
-
-(set-frame-parameter (selected-frame) 'alpha '(97 . 100))
-(add-to-list 'default-frame-alist '(alpha . (90 . 90)))
 
 (provide 'tealeg--appearance)
 ;;; tealeg--appearance.el ends here

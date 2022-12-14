@@ -10,7 +10,9 @@
 (straight-use-package 'mastodon)
 
 (require 'mastodon-discover)
+(require 'mastodon-alt-tl)
 (with-eval-after-load 'mastodon (mastodon-discover))
+(with-eval-after-load 'mastodon (mastodon-alt-tl-activate))
 
 (setq mastodon-instance-url "https://mastodon.online"
       mastodon-active-user "tealeg")

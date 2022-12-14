@@ -10,6 +10,7 @@
 (require 'tealeg--custom-file)
 (require 'tealeg--backups)
 (require 'tealeg--env)
+(require 'tealeg--counsel)
 (require 'tealeg--spelling)
 (require 'tealeg--edit)
 (require 'tealeg--syntax)
@@ -34,6 +35,7 @@
 (require 'tealeg--appearance)
 (require 'tealeg--scheme)
 (require 'tealeg--org)
+(require 'tealeg--mastodon)
 
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
