@@ -11,3 +11,6 @@ var
 .cache
 url
 org-persist
+*~
+.last-package-update-day
+icons-loaded
