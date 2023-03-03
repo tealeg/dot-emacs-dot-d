@@ -1,13 +1,10 @@
 
 (straight-use-package 'go-mode)
+(straight-use-package 'eglot)
 (require 'go-mode)
-(require 'lsp-mode)
-(require 'dap-go)
+(require 'eglot)
 
-(defun go-mode-setup ()
-  (lsp-mode 1))
-  
 
-(add-hook 'go-mode-hook #'go-mode-setup)
+(add-hook 'before-save-hook 'gofmt-before-save)
 
 (provide 'tealeg--go)

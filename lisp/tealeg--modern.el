@@ -13,18 +13,6 @@
 
 (which-key-mode 1)
 
-(straight-use-package 'lsp-mode)
-(straight-use-package 'lsp-ui)
-(straight-use-package 'dap-mode)
-
-(require 'lsp-mode)
-(require 'lsp-ui)
-(require 'dap-mode)
-
-(setq lsp-keymap-prefix "C-c l")
-
-(add-hook 'lsp-mode-hook (lambda () (lsp-ui-mode 1)))
-
 (straight-use-package 'marginalia)
 (require 'marginalia)
 (setq marginalia-max-relative-age 0)
@@ -92,7 +80,6 @@
 (straight-use-package 'cape)
 (require 'cape)
 (add-hook 'emacs-lisp-mode-hook  #'kb/cape-capf-setup-elisp)
-(add-hook 'lsp-completion-mode-hook #'kb/cape-capf-setup-lsp)
 (add-hook 'org-mode-hook #'kb/cape-capf-setup-org)
 (add-hook 'eshell-mode-hook #'kb/cape-capf-setup-eshell)
 (add-hook 'git-commit-mode-hook #'kb/cape-capf-setup-git-commit)
@@ -124,31 +111,17 @@ Additionally, add `cape-file' as early as possible to the list."
     ;; (add-to-list 'completion-at-point-functions (cape-company-to-capf #'company-yasnippet)
 		 )
 
- ;; LSP
-(defun kb/cape-capf-setup-lsp ()
-    "Replace the default `lsp-completion-at-point' with its
-`cape-capf-buster' version. Also add `cape-file' and
-`company-yasnippet' backends."
-    (setf (elt (cl-member 'lsp-completion-at-point completion-at-point-functions) 0)
-          (cape-capf-buster #'lsp-completion-at-point))
-    ;; TODO 2022-02-28: Maybe use `cape-wrap-predicate' to have candidates
-    ;; listed when I want?
-    ;; (add-to-list 'completion-at-point-functions (cape-company-to-capf #'company-yasnippet))
-    (add-to-list 'completion-at-point-functions #'cape-dabbrev t))
 
 ;; Org
 (defun kb/cape-capf-setup-org ()
-  (require 'org-roam)
-  (if (org-roam-file-p)
-        (org-roam--register-completion-functions-h)
-      (let (result)
-        (dolist (element (list
-                          (cape-super-capf #'cape-ispell #'cape-dabbrev)
-                          ;; (cape-company-to-capf #'company-yasnippet)
-			  )
-                         result)
-          (add-to-list 'completion-at-point-functions element)))
-      ))
+  (let (result)
+    (dolist (element (list
+                      (cape-super-capf #'cape-ispell #'cape-dabbrev)
+                      ;; (cape-company-to-capf #'company-yasnippet)
+		      )
+                     result)
+      (add-to-list 'completion-at-point-functions element)))
+  )
 
   ;; Eshell
   (defun kb/cape-capf-setup-eshell ()
@@ -200,7 +173,7 @@ Additionally, add `cape-file' as early as possible to the list."
 
 (straight-use-package 'corfu)
 (require 'corfu)
-(add-hook 'lsp-completion-mode-hook #'kb/corfu-setup-lsp) ; Use corfu for lsp completion
+
   ;; Works with `indent-for-tab-command'. Make sure tab doesn't indent when you
   ;; want to perform completion
 (setq tab-always-indent 'complete
@@ -229,8 +202,8 @@ Additionally, add `cape-file' as early as possible to the list."
   corfu-preselect t        ; Preselect first candidate?
 
   ;; Other
-  corfu-echo-documentation nil        ; Already use corfu-doc
-  lsp-completion-provider :none)       ; Use corfu instead for lsp completions
+  corfu-echo-documentation nil)        ; Already use corfu-doc
+
 
 
   (global-corfu-mode 1)
@@ -245,13 +218,6 @@ Additionally, add `cape-file' as early as possible to the list."
       (setq-local corfu-auto nil)       ; Ensure auto completion is disabled
       (corfu-mode 1)))
 (add-hook 'minibuffer-setup-hook #'corfu-enable-always-in-minibuffer 1)
-
-  ;; Setup lsp to use corfu for lsp completion
-(defun kb/corfu-setup-lsp ()
-  "Use orderless completion style with lsp-capf instead of the
-default lsp-passthrough."
-  (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
-        '(orderless)))
 
 
 (straight-use-package 'kind-icon)
