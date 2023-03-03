@@ -7,6 +7,8 @@
 
 (require 'package)
 
+(setq straight-repository-branch "develop")
+
 
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 ;; This block bootstraps straight:

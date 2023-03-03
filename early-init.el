@@ -12,6 +12,9 @@
 (add-hook 'after-init-hook (lambda ()
 			     (setq gc-cons-threshold 800000)))
 
+;; Stop built in package manager messing with straight
+(setq package-enable-at-startup nil)
+
 ;; Do not resize the frame at this early stage.
 (setq frame-inhibit-implied-resize t)
 
