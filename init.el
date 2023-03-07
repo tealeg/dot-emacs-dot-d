@@ -8,3 +8,6 @@
 (require 'tealeg--go)
 (require 'tealeg--org)
 (require 'tealeg--scheme)
+
+(if (not (boundp 'server-process))
+    (server-start))

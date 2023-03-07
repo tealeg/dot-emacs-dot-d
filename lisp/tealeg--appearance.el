@@ -43,8 +43,6 @@
 
 (add-hook 'fundamental-mode 'ruler-mode)
 (require 'sr-speedbar)
-(global-set-key (kbd "s-s") 'sr-speedbar-toggle)
-
-(sr-speedbar-open)
+(global-set-key (kbd "M-s M-s") 'sr-speedbar-toggle)
 
 (provide 'tealeg--appearance)

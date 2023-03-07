@@ -57,11 +57,11 @@
 (require 'orderless)
 (setq completion-styles '(orderless))
 (setq completion-category-defaults nil)    
-(setq completion-category-overrides
-   '((file (styles basic-remote ; For `tramp' hostname completion with `vertico'
-                   orderless
-                   ))
-     ))
+;; (setq completion-category-overrides
+;;    '((file (styles basic-remote ; For `tramp' hostname completion with `vertico'
+;;                    orderless
+;;                    ))
+;;      ))
 
 (setq orderless-component-separator 'orderless-escapable-split-on-space)
 (setq orderless-matching-styles
@@ -82,7 +82,7 @@
 (add-hook 'emacs-lisp-mode-hook  #'kb/cape-capf-setup-elisp)
 (add-hook 'org-mode-hook #'kb/cape-capf-setup-org)
 (add-hook 'eshell-mode-hook #'kb/cape-capf-setup-eshell)
-(add-hook 'git-commit-mode-hook #'kb/cape-capf-setup-git-commit)
+;; (add-hook 'git-commit-mode-hook #'kb/cape-capf-setup-git-commit)
 (add-hook 'LaTeX-mode-hook #'kb/cape-capf-setup-latex)
 (add-hook 'sh-mode-hook #'kb/cape-capf-setup-sh)
 
@@ -131,14 +131,14 @@ Additionally, add `cape-file' as early as possible to the list."
       ))
 
   ;; Git-commit
-  (defun kb/cape-capf-setup-git-commit ()
-    (general-define-key
-     :keymaps 'local
-     :states 'insert
-     "<tab>" 'completion-at-point)      ; Keybinding for `completion-at-point'
-    (let ((result))
-      (dolist (element '(cape-dabbrev cape-symbol) result)
-        (add-to-list 'completion-at-point-functions element))))
+  ;; (defun kb/cape-capf-setup-git-commit ()
+  ;;   (general-define-key
+  ;;    :keymaps 'local
+  ;;    :states 'insert
+  ;;    "<tab>" 'completion-at-point)      ; Keybinding for `completion-at-point'
+  ;;   (let ((result))
+  ;;     (dolist (element '(cape-dabbrev cape-symbol) result)
+  ;;       (add-to-list 'completion-at-point-functions element))))
 
   ;; LaTeX
   (defun kb/cape-capf-setup-latex ()
@@ -244,6 +244,7 @@ Additionally, add `cape-file' as early as possible to the list."
   ;; function unless you use something similar
 (add-hook 'kb/themes-hooks #'(lambda () (interactive) (kind-icon-reset-cache)))
 
+(add-to-list 'load-path "~/.config/emacs/straight/repos/corfu/extensions/")
 (require 'corfu-popupinfo)
 (corfu-popupinfo-mode 1)
 
