@@ -6,7 +6,7 @@
 (straight-use-package 'sr-speedbar)
 
 ;; (load-theme 'catppuccin t)
-(load-theme 'modus-operandi-tinted t)
+(load-theme 'modus-vivendi-deuteranopia t)
 
 
 (defun tealeg/on-theme-load () 

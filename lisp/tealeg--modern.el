@@ -5,8 +5,11 @@
 ;;;
 ;;; Code:
 
+(straight-use-package 'treemacs)
+
 (require 'straight)
 (require 'tealeg--litter)
+(require 'tealeg--treemacs)
 
 (straight-use-package 'which-key)
 (require 'which-key)
