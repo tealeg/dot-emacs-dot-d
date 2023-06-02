@@ -1,62 +1,40 @@
-;;; tealeg--appearance -- frame configuration  -*- lexical-binding: t; -*-
-;;;
-;;; Commentary:
-;;;	Make it puuuuurdy
-;;;
-;;; Code:
+(require 'custom)
 
-(setq lexical-binding t)
+(defun tealeg/on-theme-load () 
+  (set-frame-font "IntelOne Mono-14:Regular")
+  (setq line-spacing 5)
+  (fringe-mode (cons 15 15)))
 
-(straight-use-package 'smex)
-(straight-use-package
-  '(nano-emacs :type git :host github :repo "rougier/nano-emacs"))
+(defun tealeg/on-theme-disable ()
+  (tealeg/on-theme-load))
+
+(defvar after-load-theme-hook nil
+  "Hook run after a color theme is loaded using `load-theme'.")
+
+(defadvice load-theme (after run-after-load-theme-hook activate)
+    "Run `after-load-theme-hook'."
+    (run-hooks 'after-load-theme-hook))
+
+(defvar after-disable-theme-hook nil
+  "Hook run after a color theme is disabled using `disable-theme'.")
+
+(defadvice disable-theme (after run-after-disable-theme-hook activate)
+    "Run `after-disable-theme-hook'."
+    (run-hooks 'after-disable-theme-hook))
 
 
-(require 'nano-layout)
+(add-hook 'after-load-theme-hook 'tealeg/on-theme-load)
+(add-hook 'after-disable-theme-hook 'tealeg/on-theme-disable)
 
-;; Theming Command line options (this will cancel warning messages)
-(add-to-list 'command-switch-alist '("-dark"   . (lambda (args))))
-(add-to-list 'command-switch-alist '("-light"  . (lambda (args))))
-(add-to-list 'command-switch-alist '("-default"  . (lambda (args))))
-(add-to-list 'command-switch-alist '("-no-splash" . (lambda (args))))
-(add-to-list 'command-switch-alist '("-no-help" . (lambda (args))))
-(add-to-list 'command-switch-alist '("-compact" . (lambda (args))))
+(window-divider-mode -1)
+(column-number-mode 1)
 
-(require 'nano-theme-dark)
-(require 'nano-theme-light)
 
-(defface bookmark-menu-heading nil "defined just to please nano")
+(use-package acme-theme
+  :config (load-theme 'acme t nil)
+  )
 
-(require 'nano-faces)
-(set-frame-font "IBM Plex Mono-16")
-(custom-set-default 'nano-font-size 16)
-(custom-set-default 'nano-font-family-monospaced "Iosevka")
-(custom-set-default 'nano-font-family-proportional "Iosevka Aile")
 
-(nano-faces)
-
-(require 'nano-theme)
-(nano-theme)
-
-;; Nano header & mode lines (optional)
-(require 'nano-modeline)
-
-(nano-theme-set-dark)
-(nano-toggle-theme)
-(nano-toggle-theme)
-(let ((inhibit-message t))
-  (message "Welcome to GNU Emacs / N Λ N O edition")
-  (message (format "Initialization time: %s" (emacs-init-time))))
-
-(require 'nano-splash)
-(require 'nano-help)
-
-(require 'smex)
-(require 'nano-counsel)
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
 
 
 (provide 'tealeg--appearance)
-;;; tealeg--appearance.el ends here
