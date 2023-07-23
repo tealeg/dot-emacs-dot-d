@@ -1,7 +1,7 @@
 (require 'custom)
 
 (defun tealeg/on-theme-load () 
-  (set-frame-font "IntelOne Mono-14:Regular")
+  (set-frame-font "IBM Plex Mono-14:Regular")
   (setq line-spacing 5)
   (fringe-mode (cons 15 15)))
 
@@ -29,7 +29,9 @@
 (window-divider-mode -1)
 (column-number-mode 1)
 
-
+(use-package laguna-theme)
+(use-package liso-theme)
+(use-package inverse-acme-theme)
 (use-package acme-theme
   :config (load-theme 'acme t nil)
   )
