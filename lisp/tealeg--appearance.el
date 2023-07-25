@@ -1,7 +1,7 @@
 (require 'custom)
 
 (defun tealeg/on-theme-load () 
-  (set-frame-font "IntelOne Mono-14:Regular")
+  (set-frame-font "Monospac821 BT-16:Regular")
   (setq line-spacing 5)
   (fringe-mode (cons 15 15)))
 
@@ -30,10 +30,11 @@
 (column-number-mode 1)
 
 
-(use-package acme-theme
-  :config (load-theme 'acme t nil)
-  )
+;; (use-package acme-theme
+;;   :config (load-theme 'acme t nil)
+;;   )
 
+(load-theme 'deeper-blue t nil)
 
 
 

@@ -2,3 +2,9 @@
 
 (require 'tealeg--elpaca)
 (require 'tealeg--appearance)
+(require 'tealeg--lsp)
+(require 'tealeg--markdown)
+(require 'tealeg--vc)
+(require 'tealeg--go)
+(require 'tealeg--python)
+(require 'tealeg--eshell)
