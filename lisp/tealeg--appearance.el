@@ -1,7 +1,8 @@
 (require 'custom)
 
 (defun tealeg/on-theme-load () 
-  (set-frame-font "IBM Plex Mono-14:Regular")
+  (set-frame-font "Iosevka Curly Slab Medium-18")
+  (set-face-font 'variable-pitch "Iosevka Aile Medium-18")
   (setq line-spacing 5)
   (fringe-mode (cons 15 15)))
 
@@ -32,8 +33,10 @@
 (use-package laguna-theme)
 (use-package liso-theme)
 (use-package inverse-acme-theme)
-(use-package acme-theme
-  :config (load-theme 'acme t nil)
+
+(use-package acme-theme)
+(use-package ef-themes
+  :config (load-theme 'ef-elea-dark t nil)
   )
 
 

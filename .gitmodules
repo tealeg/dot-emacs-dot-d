@@ -1,0 +1,3 @@
+[submodule "lisp/3rdparty/xlsp"]
+	path = lisp/3rdparty/xlsp
+	url = git@github.com:commercial-emacs/xlsp.git
