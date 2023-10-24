@@ -8,4 +8,5 @@
 (require 'tealeg--vc)
 (require 'tealeg--go)
 (require 'tealeg--org)
+(require 'tealeg--eshell)
 

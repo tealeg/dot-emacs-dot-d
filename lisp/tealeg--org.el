@@ -1,4 +1,30 @@
 (require 'org)
+(require 'org-tempo)
+
+(use-package org-present
+  :config 
+  (progn
+     (add-hook 'org-present-mode-hook
+               (lambda ()
+                 (org-present-big)
+                 (org-display-inline-images)
+                 (org-present-hide-cursor)
+                 (org-present-read-only)))
+     (add-hook 'org-present-mode-quit-hook
+               (lambda ()
+                 (org-present-small)
+                 (org-remove-inline-images)
+                 (org-present-show-cursor)
+                 (org-present-read-write)))))
+
+(use-package svg-tag-mode
+  :config (progn
+	    (setq svg-tag-tags
+		  '(("DEADLINE:" . ((lambda (tag) (svg-tag-make "DEADLINE"))))
+		    ("SCHEDULED:" . ((lambda (tag) (svg-tag-make "SCHEDULED"))))
+		    ))))
+
+(add-hook 'org-mode-hook #'svg-tag-mode)
 
 (add-hook 'org-font-lock-hook #'tealeg/org-indent-quotes)
 
