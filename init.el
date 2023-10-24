@@ -9,4 +9,10 @@
 (require 'tealeg--go)
 (require 'tealeg--org)
 (require 'tealeg--eshell)
-
+(require 'tealeg--comint)
+(require 'tealeg--python)
+(require 'tealeg--vc)
+(require 'tealeg--go)
+(require 'tealeg--sway)
+(require 'tealeg--rainbow)
+(require 'tealeg--speedbar)

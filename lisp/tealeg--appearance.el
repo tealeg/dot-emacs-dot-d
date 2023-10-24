@@ -42,12 +42,50 @@
 
   (set-face-font 'org-date "Input Sans-16")
   (set-face-attribute 'org-date nil :inverse-video t :box '(:line-width 3 :style released-button))
-  ;; (set-face-font 'org-scheduled "Input Sans-10")
-  ;; (set-face-font 'org-scheduled "Input Sans-10")
-  
   
   (setq line-spacing 5)
   (fringe-mode (cons 15 15))
+
+(require 'custom)
+(require 'disp-table)
+
+(setq inhibit-startup-screen t
+      inhibit-startup-message t
+      inhibit-startup-echo-area-message t
+      initial-scratch-message nil)
+
+(global-hl-line-mode 1)
+
+;; (setq header-line-format mode-line-format)
+;; (setq-default mode-line-format nil)
+
+(setq x-underline-at-descent-line t)
+;; Vertical window divider
+(setq window-divider-default-right-width 24)
+(setq window-divider-default-places 'right-only)
+(window-divider-mode 1)
+;; No ugly button for checkboxes
+(setq widget-image-enable nil)
+
+;; Hide org markup for README
+(setq org-hide-emphasis-markers t)
+
+(defun tealeg/on-theme-load ()
+  (set-frame-font "IBM Plex Mono-16:Medium")
+  (set-face-font 'variable-pitch "IBM Plex Sans-16:Medium")
+  (set-face-font 'font-lock-comment-face "IBM Plex Serif-16")
+  (set-face-italic 'font-lock-comment-face 1)
+  (set-face-font 'font-lock-doc-face "IBM Plex Serif-16")
+  (set-face-italic 'font-lock-doc-face 1)
+  (setq line-spacing 5)
+  (fringe-mode (cons 15 15))
+  ;; Fall back font for glyph missing in Roboto
+  (defface fallback '((t :family "Fira Code"
+			 :inherit 'nano-face-faded)) "Fallback")
+  (set-display-table-slot standard-display-table 'truncation
+                          (make-glyph-code ?… 'fallback))
+  (set-display-table-slot standard-display-table 'wrap
+                         (make-glyph-code ?↩ 'fallback))
   )
 
 (defun tealeg/on-theme-disable ()
@@ -71,9 +109,17 @@
 (add-hook 'after-load-theme-hook 'tealeg/on-theme-load)
 (add-hook 'after-disable-theme-hook 'tealeg/on-theme-disable)
 
-(window-divider-mode -1)
-(column-number-mode 1)
+;; (window-divider-mode -1)
+;; (column-number-mode 1)
 
+(use-package laguna-theme)
+(use-package liso-theme)
+(use-package inverse-acme-theme)
+
+(use-package acme-theme)
+(use-package ef-themes)
+(use-package nord-theme
+	       :config (load-theme 'nord t nil))
 
 ;; (use-package minimal-theme
 ;;     :config (load-theme 'minimal-light t nil))
