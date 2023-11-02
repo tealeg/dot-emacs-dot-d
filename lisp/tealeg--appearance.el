@@ -1,3 +1,4 @@
+(require 'disp-table)
 (require 'custom)
 (require 'org-faces)
 
@@ -44,10 +45,8 @@
   (set-face-attribute 'org-date nil :inverse-video t :box '(:line-width 3 :style released-button))
   
   (setq line-spacing 5)
-  (fringe-mode (cons 15 15))
+  (fringe-mode (cons 15 15)))
 
-(require 'custom)
-(require 'disp-table)
 
 (setq inhibit-startup-screen t
       inhibit-startup-message t

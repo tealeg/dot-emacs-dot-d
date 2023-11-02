@@ -1,5 +1,14 @@
 (require 'org)
 (require 'org-tempo)
+(require 'ox)
+
+;; (use-package ox-html5slide) // no longer works
+(use-package ox-tufte)
+(use-package ox-reveal)
+(use-package ox-spectacle)
+(use-package ox-yaow)
+(use-package ox-slack)
+;; (use-package ox-ioslide) // seems broken
 
 (use-package org-present
   :config 
