@@ -1,18 +1,19 @@
 (add-to-list 'load-path (concat  user-emacs-directory "lisp"))
 
 (require 'tealeg--elpaca)
-
+(require 'tealeg--org)
+(require 'tealeg--dashboard)
 (use-package tree-sitter-langs)
 (require 'tealeg--appearance)
 (require 'tealeg--python)
 (require 'tealeg--vc)
 (require 'tealeg--go)
-(require 'tealeg--org)
 (require 'tealeg--eshell)
 (require 'tealeg--comint)
 (require 'tealeg--python)
 (require 'tealeg--vc)
 (require 'tealeg--go)
-(require 'tealeg--sway)
+;; (require 'tealeg--sway)
 (require 'tealeg--rainbow)
 (require 'tealeg--speedbar)
+
