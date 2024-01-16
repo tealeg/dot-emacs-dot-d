@@ -53,15 +53,15 @@ apps are not started from a shell."
   (scroll-bar-mode -1))
 
 (setq tealeg--frame-alist (list
-		 '(font . "Input Mono-16:Regular")
+		 '(font . "IBM Plex Mono-16:Regular")
 		 '(ns-transparent-titlebar . t)
 		 '(ns-appearance . light)
                  '(min-height . 1)  '(height . 45)
                  '(min-width  . 1)  '(width  . 81)
                  '(vertical-scroll-bars . nil)
-                 '(internal-border-width . 15)
-                 '(left-fringe . 15)
-                 '(right-fringe . 15)
+                 '(internal-border-width . 30)
+                 '(left-fringe . 30)
+                 '(right-fringe . 30)
                  '(undecorated-round . t) ;; emacs-plu@29 only
                  '(tool-bar-lines . 0)
                  '(menu-bar-lines . 0)))
@@ -69,13 +69,13 @@ apps are not started from a shell."
 (setq default-frame-alist tealeg--frame-alist)
 
   ;; Line spacing (in pixels)
-(setq line-spacing 5)
+(setq line-spacing 7)
 
   ;; Vertical window divider
-(setq window-divider-default-right-width 24)
-(setq window-divider-default-bottom-width 24)
+(setq window-divider-default-right-width 30)
+(setq window-divider-default-bottom-width 30)
 (setq window-divider-default-places 'right-only)
-(window-divider-mode 1)
+(window-divider-mode -1)
 
 
 (setq

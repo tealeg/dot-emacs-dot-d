@@ -2,6 +2,17 @@
 (require 'custom)
 (require 'org-faces)
 
+;; (use-package smart-mode-line-powerline-theme)
+;; (use-package smart-mode-line
+;;   :config
+;;   (setq sml/no-confirm-load-theme t)
+;;   (setq sml/theme 'respectful)
+;;   (sml/setup)
+;;   (smart-mode-line-enable))
+;; (use-package mini-modeline
+;;   :after smart-mode-line
+;;   :config
+;;   (mini-modeline-mode t))
 
 (setq inhibit-startup-screen t
       inhibit-startup-message t
@@ -10,8 +21,6 @@
 
 (global-hl-line-mode 1)
 
-;; (setq header-line-format mode-line-format)
-;; (setq-default mode-line-format nil)
 
 (setq x-underline-at-descent-line t)
 ;; Vertical window divider
@@ -31,7 +40,7 @@
   (set-face-italic 'font-lock-comment-face 1)
   (set-face-font 'font-lock-doc-face "IBM Plex Serif-16")
   (set-face-italic 'font-lock-doc-face 1)
-  (setq line-spacing 5)
+  (setq line-spacing 7)
   (fringe-mode (cons 15 15))
   ;; Fall back font for glyph missing in Roboto
   (defface fallback '((t :family "Fira Code"
@@ -63,17 +72,11 @@
 (add-hook 'after-load-theme-hook 'tealeg/on-theme-load)
 (add-hook 'after-disable-theme-hook 'tealeg/on-theme-disable)
 
-;; (window-divider-mode -1)
-;; (column-number-mode 1)
+(column-number-mode 1)
 
-;; (use-package laguna-theme
-;;   :config (load-theme 'laguna t))
-;; (use-package liso-theme)
-;; (use-package inverse-acme-theme)
-
-;; (use-package acme-theme)
 (use-package ef-themes
   :config (load-theme 'ef-elea-dark t))
 
+(bind-key "M-RET" #'toggle-frame-maximized)
 
 (provide 'tealeg--appearance)

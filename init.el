@@ -16,4 +16,5 @@
 ;; (require 'tealeg--sway)
 (require 'tealeg--rainbow)
 (require 'tealeg--speedbar)
+(require 'tealeg--markdown)
 

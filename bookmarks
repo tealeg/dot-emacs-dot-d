@@ -3,9 +3,9 @@
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
 (("org-capture-last-stored"
- (filename . "~/org-tree/20240103084420-2024_q1_okr.org")
- (front-context-string . "\n* Upvest leader")
- (rear-context-string . "le: 2024-Q1-OKR\n")
- (position . 89)
- (last-modified 26005 4204 211269 0))
+ (filename . "~/org-tree/20240109111731-disolve_governance_guild.org")
+ (front-context-string . "\nHi everyone,\n\nD")
+ (rear-context-string . "overnance-Guild\n")
+ (position . 102)
+ (last-modified 26014 42323 26193 0))
 )
