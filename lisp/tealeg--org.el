@@ -1,32 +1,3 @@
-(require 'org)
-(require 'org-macs)
-(require 'org-id)
-(require 'org-tempo)
-(require 'org-agenda)
-(require 'org-clock)
-(require 'ox)
-
-;; Time clock
-(setq org-clock-persist 'history)
-(org-clock-persistence-insinuate)
-;; Agenda
-(setq org-agenda-files (list "~/org-tree"))
-
-
-(bind-keys ("C-c a" . org-agenda))
-
-(defun tealeg/org-indent-quotes (limit)
-  (let ((case-fold-search t))
-    (while (search-forward-regexp "^[ \t]*#\\+begin_quote" limit t)
-      (let ((beg (1+ (match-end 0))))
-        ;; on purpose, we look further than LIMIT
-        (when (search-forward-regexp "^[ \t]*#\\+end_quote" nil t)
-          (let ((end (1- (match-beginning 0)))
-                (indent (propertize "    " 'face 'org-hide)))
-            (add-text-properties beg end (list 'line-prefix indent
-                                               'wrap-prefix indent
-					       'face 'org-quote))))))))
-
 
 ;; Second Brain
 (use-package org-roam
@@ -78,6 +49,38 @@
   :hook ((org-mode-hook . svg-tag-mode)
 	 (org-font-lock-hook . tealeg/org-indent-quotes))
   )
+
+
+(elpaca nil
+  (require 'org)
+  (require 'org-macs)
+  (require 'org-id)
+  (require 'org-tempo)
+  (require 'org-agenda)
+  (require 'org-clock)
+  (require 'ox)
+  
+  ;; Time clock
+  (setq org-clock-persist 'history)
+  (org-clock-persistence-insinuate)
+  ;; Agenda
+  (setq org-agenda-files (list "~/org-tree"))
+
+
+  (bind-keys ("C-c a" . org-agenda))
+  
+  (defun tealeg/org-indent-quotes (limit)
+    (let ((case-fold-search t))
+      (while (search-forward-regexp "^[ \t]*#\\+begin_quote" limit t)
+	(let ((beg (1+ (match-end 0))))
+          ;; on purpose, we look further than LIMIT
+          (when (search-forward-regexp "^[ \t]*#\\+end_quote" nil t)
+            (let ((end (1- (match-beginning 0)))
+                  (indent (propertize "    " 'face 'org-hide)))
+              (add-text-properties beg end (list 'line-prefix indent
+						 'wrap-prefix indent
+						 'face 'org-quote)))))))))
+
 
 
 

@@ -1,17 +1,17 @@
 
-(use-package rust-mode)
+(use-package rust-mode :ensure t)
 
-(add-hook 'rust-mode-hook
-	  (lambda () (setq indent-tabs-mode nil
-			   rust-format-on-save t)
-	    (prettify-symbols-mode 1)
-	    ))
 
-(use-package tree-sitter
-  :config
-  (require 'tree-sitter-langs)
-  (global-tree-sitter-mode 1)
-  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
+(elpaca nil
+  (require 'eldoc-box)
 
+
+  (defun tealeg--rust-mode-helper-f ()
+    (setq indent-tabs-mode nil
+	  rust-format-on-save t)
+    (prettify-symbols-mode 1)
+    (eldoc-box-hover-at-point-mode 1))
+
+  (add-hook 'rust-mode-hook #'tealeg--rust-mode-helper-f))
 
 (provide 'tealeg--rust)

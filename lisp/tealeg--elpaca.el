@@ -54,17 +54,20 @@
 ;;(elpaca-wait)
 
 ;; Expands to: (elpaca evil (use-package evil :demand t))
-(use-package evil :demand t)
+;; (use-package evil :demand t)
 
 ;;Turns off elpaca-use-package-mode current declartion
 ;;Note this will cause the declaration to be interpreted immediately (not deferred).
 ;;Useful for configuring built-in emacs features.
-(use-package emacs :elpaca nil :config (setq ring-bell-function #'ignore))
+(use-package emacs :elpaca nil
+  :config
+  (setq ring-bell-function #'ignore
+	custom-file (expand-file-name "customs.el" user-emacs-directory))
+  )
 
 ;; Don't install anything. Defer execution of BODY
-(elpaca nil (message "deferred"))
+;; (elpaca nil (message "deferred"))
 
-(setq custom-file (expand-file-name "customs.el" user-emacs-directory))
 (add-hook 'elpaca-after-init-hook (lambda () (load custom-file 'noerror)))
 
 (provide 'tealeg--elpaca)

@@ -1,10 +1,12 @@
+(elpaca nil
+  (require 'python)
+  (require 'eglot)
+  (require 'eldoc-box)
 
-(require 'python)
-(require 'eglot)
+  (defun tealeg--python-helper-f ()
+    (eglot-ensure)
+    (eldoc-box-hover-at-point-mode 1))
 
-(defun tealeg--python-helper-f ()
-  (eglot))
-
-(add-hook 'python-mode-hook #'tealeg--python-helper-f)
+  (add-hook 'python-mode-hook #'tealeg--python-helper-f))
 
 (provide 'tealeg--python)

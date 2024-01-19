@@ -56,7 +56,7 @@ apps are not started from a shell."
 		 '(font . "IBM Plex Mono-16:Regular")
 		 '(ns-transparent-titlebar . t)
 		 '(ns-appearance . light)
-                 '(min-height . 1)  '(height . 45)
+                 '(min-height . 1)  '(height . 25)
                  '(min-width  . 1)  '(width  . 81)
                  '(vertical-scroll-bars . nil)
                  '(internal-border-width . 30)

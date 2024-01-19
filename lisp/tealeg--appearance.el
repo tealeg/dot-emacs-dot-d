@@ -1,3 +1,6 @@
+(use-package eldoc-box :ensure t)
+(use-package sideline :ensure t)
+
 (require 'disp-table)
 (require 'custom)
 (require 'org-faces)
@@ -33,17 +36,35 @@
 ;; Hide org markup for README
 (setq org-hide-emphasis-markers t)
 
+(defun tealeg/font-set-ibm-plex ()
+    (set-frame-font "IBM Plex Mono-12:Medium")
+    (set-face-font 'variable-pitch "IBM Plex Sans-12:Medium")
+    (set-face-font 'font-lock-comment-face "IBM Plex Sans-12:Medium")
+    (set-face-font 'font-lock-doc-face "IBM Plex Serif-12"))
+
+(defun tealeg/font-set-input ()
+    (set-frame-font "Input Mono-12:Medium")
+    (set-face-font 'variable-pitch "Input Sans-12:Medium")
+    (set-face-font 'font-lock-comment-face "Input Sans-12:Medium")
+    (set-face-font 'font-lock-doc-face "Input Serif-12"))
+
+(defun tealeg/font-set-firacode ()
+    (set-frame-font "FiraCode Nerd Font Mono-12:Medium")
+    (set-face-font 'variable-pitch "FiraCode Nerd Font Propo-12:Medium")
+    (set-face-font 'font-lock-comment-face "FiraCode Nerd Font Propo-12:Medium")
+    (set-face-font 'font-lock-doc-face "FiraCode Nerd Font Propo-12:Medium"))
+  
+
 (defun tealeg/on-theme-load ()
-  (set-frame-font "IBM Plex Mono-16:Medium")
-  (set-face-font 'variable-pitch "IBM Plex Sans-16:Medium")
-  (set-face-font 'font-lock-comment-face "IBM Plex Serif-16")
+  ;; (tealeg/font-set-ibm-plex)
+  ;; (tealeg/font-set-input)
+  (tealeg/font-set-firacode)
   (set-face-italic 'font-lock-comment-face 1)
-  (set-face-font 'font-lock-doc-face "IBM Plex Serif-16")
   (set-face-italic 'font-lock-doc-face 1)
   (setq line-spacing 7)
   (fringe-mode (cons 15 15))
   ;; Fall back font for glyph missing in Roboto
-  (defface fallback '((t :family "Fira Code"
+  (defface fallback '((t :family "FiraCode Nerd Font"
 			 :inherit 'nano-face-faded)) "Fallback")
   (set-display-table-slot standard-display-table 'truncation
                           (make-glyph-code ?… 'fallback))
@@ -75,7 +96,7 @@
 (column-number-mode 1)
 
 (use-package ef-themes
-  :config (load-theme 'ef-elea-dark t))
+  :config (load-theme 'ef-spring t))
 
 (bind-key "M-RET" #'toggle-frame-maximized)
 
