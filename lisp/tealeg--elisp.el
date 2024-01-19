@@ -4,8 +4,6 @@
 ;;;
 ;;; Code:
 
-(use-package flymake)
-
 (elpaca nil
   (require 'elisp-mode)
   (require 'flymake)
@@ -18,7 +16,7 @@
     (flymake-mode 1)
     (eldoc-box-hover-at-point-mode 1)
     (sideline-mode 1)
-    (flyspell-prog-mode 1)
+    (flyspell-prog-mode)
     )
 
   (add-hook 'emacs-lisp-mode-hook #'tealeg--elisp-mode-helper-f))

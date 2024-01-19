@@ -21,10 +21,10 @@
 (require 'tealeg--go)
 (require 'tealeg--python)
 (require 'tealeg--rust)
+(require 'tealeg--markdown)
 ;; (require 'tealeg--sway)
 (require 'tealeg--rainbow)
 (require 'tealeg--speedbar)
-(require 'tealeg--markdown)
 
 (provide 'init)
 ;;; init.el ends here.
