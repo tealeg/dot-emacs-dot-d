@@ -16,3 +16,5 @@ tree-sitter
 recentf
 racket-mode
 tramp
+bookmarks
+org-clock-save.el
