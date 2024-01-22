@@ -14,6 +14,7 @@
 (require 'tealeg--appearance)
 (require 'tealeg--vc)
 
+(require 'tealeg--bash)
 (require 'tealeg--c)
 (require 'tealeg--comint)
 (require 'tealeg--elisp)
@@ -25,6 +26,7 @@
 ;; (require 'tealeg--sway)
 (require 'tealeg--rainbow)
 (require 'tealeg--speedbar)
+
 
 (provide 'init)
 ;;; init.el ends here.
