@@ -1,5 +1,4 @@
 (use-package eldoc-box :ensure t)
-(use-package sideline :ensure t)
 
 (require 'disp-table)
 (require 'custom)

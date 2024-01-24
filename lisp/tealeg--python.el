@@ -5,7 +5,9 @@
 
   (defun tealeg--python-helper-f ()
     (eglot-ensure)
-    (eldoc-box-hover-at-point-mode 1))
+    (unbind-key "C-?" python-mode-map)
+    (bind-key "C-?" #'eldoc-box-help-at-point python-mode-map))
+    
 
   (add-hook 'python-mode-hook #'tealeg--python-helper-f))
 

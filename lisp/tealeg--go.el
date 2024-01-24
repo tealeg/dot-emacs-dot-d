@@ -6,13 +6,14 @@
   (require 'eglot)
   (require 'eldoc-box)
   (require 'electric)
-  (require 'sideline)
 
   (defun tealeg--go-helper-f ()
     (eglot-ensure)
-    (eldoc-box-hover-at-point-mode 1)
     (eletric-pair-mode 1)
-    (sideline-mode 1)
+
+
+    (unbind-key "C-?" go-ts-mode-map)
+    (bind-key "C-?" #'eldoc-box-help-at-point go-ts-mode-map)
     )
 
   (add-hook 'go-ts-mode-hook #'tealeg--go-helper-f))

@@ -13,6 +13,7 @@
 (require 'tealeg--tree-sitter)
 (require 'tealeg--appearance)
 (require 'tealeg--vc)
+(require 'tealeg--flyspell)
 
 (require 'tealeg--bash)
 (require 'tealeg--c)
