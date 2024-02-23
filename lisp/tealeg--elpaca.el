@@ -39,7 +39,8 @@
 ;; Install use-package support
 (elpaca elpaca-use-package
   ;; Enable use-package :ensure support for Elpaca.
-	(elpaca-use-package-mode))
+  (elpaca-use-package-mode)
+  (setq elpaca-use-package-by-default t))
 
 (setq custom-file (expand-file-name "customs.el" user-emacs-directory))
 (add-hook 'elpaca-after-init-hook (lambda () (load custom-file 'noerror)))
