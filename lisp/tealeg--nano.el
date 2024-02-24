@@ -8,7 +8,7 @@
 (elpaca-wait)
 
 (use-package nano-base-colors
-  :ensure (:host "github" :repo "rougier/nano-emacs")
+  :ensure (:host "github.com" :repo "rougier/nano-emacs")
   :config
   ;; require mandatory files and whatever else is desired
 
@@ -26,14 +26,20 @@
   (require 'nano-session)
   (require 'nano-defaults)
   (require 'nano-colors)
-  (require 'nano-minibuffer)
+
   (nano-theme-set-light)
   (setq nano-light-foreground nano-color-foreground)
   (setq nano-light-background nano-color-background)
   (setq nano-light-subtle nano-color-subtle)
   ;; (require 'nano-command)
-  
-  (setq nano-font-size 20)
+
+  (if (string= system-type 'gnu/linux)
+      (progn
+        (setq nano-font-size 12)
+        (menu-bar-mode -1))
+    (progn
+      (require 'nano-minibuffer)
+      (setq nano-font-size 20)))
 
   (nano-faces)
   (nano-theme))
