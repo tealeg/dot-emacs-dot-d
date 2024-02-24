@@ -22,3 +22,4 @@ customs.el
 .org-id-locations
 org-roam.db
 *~
+ielm-history.eld
