@@ -5,6 +5,7 @@
 (require 'tealeg--performance)
 (require 'tealeg--bell)
 (require 'tealeg--nano)
+(require 'tealeg--emoji)
 (require 'tealeg--tree-sitter)
 (require 'tealeg--eldoc)
 (require 'tealeg--magit)
