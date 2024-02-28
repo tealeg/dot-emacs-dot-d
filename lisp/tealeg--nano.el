@@ -1,9 +1,9 @@
 (setq lexical-binding 1)
 
 
-;; (use-package mini-frame :ensure t)
+(use-package mini-frame :ensure t)
 
-(elpaca mini-frame)
+;; (elpaca mini-frame)
 
 (elpaca-wait)
 
@@ -21,7 +21,7 @@
   (require 'nano-theme-dark)
   (require 'nano-theme-light)
   (require 'nano-help)
-  (require 'nano-modeline)
+  ;; (require 'nano-modeline)
   (require 'nano-layout)
   (require 'nano-session)
   (require 'nano-defaults)
@@ -31,8 +31,7 @@
   (setq nano-light-foreground nano-color-foreground)
   (setq nano-light-background nano-color-background)
   (setq nano-light-subtle nano-color-subtle)
-  ;; (require 'nano-command)
-
+ 
   (if (string= system-type 'gnu/linux)
       (progn
         (setq nano-font-size 12)
