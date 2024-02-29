@@ -1,6 +1,6 @@
-(use-package toxi-theme
+(use-package catppuccin-theme
   :config
-  (load-theme 'toxi 't nil))
+  (load-theme 'catppuccin 't nil))
 
 (elpaca nil
 
