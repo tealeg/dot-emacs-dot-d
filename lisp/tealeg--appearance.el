@@ -82,7 +82,7 @@
   (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 
   ;; No menu bar
-  (if (display-graphic-p)
+  (if (and (display-graphic-p) (eq system-type 'darwin))
       (menu-bar-mode t) ;; When nil, focus problem on OSX
     (menu-bar-mode -1))
 
