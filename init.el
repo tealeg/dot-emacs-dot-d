@@ -12,5 +12,9 @@
 (require 'tealeg--magit)
 
 (require 'tealeg--python)
+
 (require 'tealeg--liquid)
 (require 'tealeg--languagetool)
+(require 'tealeg--go)
+
+
