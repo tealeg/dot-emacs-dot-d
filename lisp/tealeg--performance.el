@@ -1,5 +1,5 @@
 ;; Some performance 
-(use-package gcmh)
+(use-package gcmh :ensure t)
 
 (elpaca nil
   (require 'jsonrpc)
@@ -14,4 +14,3 @@
   (gcmh-mode 1))
 
 (provide 'tealeg--performance)
-

@@ -1,33 +1,20 @@
-;;; init --- Top level setup for Emacs.
-;;;
-;;; Commentary:
-;;;
-;;; Code:
 
-(add-to-list 'load-path (concat  user-emacs-directory "lisp"))
-
+(add-to-list 'load-path "~/.config/emacs/lisp")
 (require 'tealeg--elpaca)
+(elpaca-wait)
 (require 'tealeg--performance)
-(require 'tealeg--org)
-(require 'tealeg--dashboard)
-(require 'tealeg--tree-sitter)
+(require 'tealeg--bell)
+;; (require 'tealeg--nano)
 (require 'tealeg--appearance)
-(require 'tealeg--vc)
-(require 'tealeg--flyspell)
+(require 'tealeg--emoji)
+(require 'tealeg--tree-sitter)
+(require 'tealeg--eldoc)
+(require 'tealeg--magit)
 
-(require 'tealeg--bash)
-(require 'tealeg--c)
-(require 'tealeg--comint)
-(require 'tealeg--elisp)
-(require 'tealeg--eshell)
-(require 'tealeg--go)
 (require 'tealeg--python)
-(require 'tealeg--rust)
-(require 'tealeg--markdown)
-;; (require 'tealeg--sway)
-(require 'tealeg--rainbow)
-(require 'tealeg--speedbar)
+
+(require 'tealeg--liquid)
+(require 'tealeg--languagetool)
+(require 'tealeg--go)
 
 
-(provide 'init)
-;;; init.el ends here.
