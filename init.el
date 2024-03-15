@@ -18,3 +18,4 @@
 (require 'tealeg--go)
 
 
+(require 'tealeg--rest)
