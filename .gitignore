@@ -1,4 +1,5 @@
 .lsp-session-v1
+auto-save
 auto-save-list
 elpa
 eshell
@@ -23,3 +24,5 @@ customs.el
 org-roam.db
 *~
 ielm-history.eld
+games
+multisession
