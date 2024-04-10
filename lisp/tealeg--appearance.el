@@ -1,6 +1,10 @@
-(use-package catppuccin-theme
+(use-package ns-auto-titlebar
   :config
-  (load-theme 'catppuccin 't nil))
+  (ns-auto-titlebar-mode 1))
+
+(use-package the-matrix-theme
+  :config
+  (load-theme 'the-matrix 't nil))
 
 (elpaca nil
 
@@ -148,7 +152,7 @@
   (ad-activate 'term-sentinel)
 
   (when (eq system-type 'darwin)  
-    (set-frame-font "IBM Plex Mono-18"))
+    (set-frame-font "IBM Plex Mono-24"))
   )
 
 (provide 'tealeg--appearance)

@@ -21,3 +21,4 @@
 (require 'tealeg--go)
 
 (require 'tealeg--rest)
+(require 'tealeg--yas)
