@@ -14,6 +14,7 @@
 (require 'tealeg--magit)
 
 (require 'tealeg--python)
+(require 'tealeg--racket)
 
 ;; (require 'tealeg--liquid)
 (require 'tealeg--markdown)

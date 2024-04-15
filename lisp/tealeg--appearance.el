@@ -151,8 +151,9 @@
       ad-do-it))
   (ad-activate 'term-sentinel)
 
-  (when (eq system-type 'darwin)  
-    (set-frame-font "IBM Plex Mono-24"))
+  (when (eq system-type 'darwin)
+    (set-frame-font "iA Writer Mono V-24"))
+    ;; (set-frame-font "IBM Plex Mono-24"))
   )
 
 (provide 'tealeg--appearance)
