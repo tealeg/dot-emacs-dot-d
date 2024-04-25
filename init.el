@@ -20,6 +20,6 @@
 (require 'tealeg--markdown)
 (require 'tealeg--languagetool)
 (require 'tealeg--go)
-
+(require 'tealeg--rust)
 (require 'tealeg--rest)
 (require 'tealeg--yas)

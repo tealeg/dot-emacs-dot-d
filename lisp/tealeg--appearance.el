@@ -22,7 +22,7 @@
   (setq initial-buffer-choice nil)
 
   ;; No frame title
-  (setq frame-title-format nil)
+  ;; (setq frame-title-format nil)
 
   ;; No file dialog
   (setq use-file-dialog nil)
@@ -151,9 +151,9 @@
       ad-do-it))
   (ad-activate 'term-sentinel)
 
-  (when (eq system-type 'darwin)
-    (set-frame-font "iA Writer Mono V-24"))
-    ;; (set-frame-font "IBM Plex Mono-24"))
-  )
 
+  (if (eq system-type 'darwin)
+    (set-frame-font "iA Writer Mono V-24")
+    (set-frame-font "IBM Plex Mono-18")))
+  
 (provide 'tealeg--appearance)
