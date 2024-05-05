@@ -3,8 +3,6 @@
 
 (use-package mini-frame :ensure t)
 
-;; (elpaca mini-frame)
-
 (elpaca-wait)
 
 (use-package nano-base-colors

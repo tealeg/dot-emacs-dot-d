@@ -6,6 +6,7 @@
 (require 'tealeg--performance)
 (require 'tealeg--bell)
 (require 'tealeg--eshell)
+(require 'tealeg--compilation)
 ;; (require 'tealeg--nano)
 (require 'tealeg--appearance)
 (require 'tealeg--emoji)
@@ -23,3 +24,4 @@
 (require 'tealeg--rust)
 (require 'tealeg--rest)
 (require 'tealeg--yas)
+(require 'tealeg--nxml)

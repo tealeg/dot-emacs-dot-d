@@ -1,4 +1,4 @@
-(elpaca nil
+(use-package rust-mode
   (require 'rust-ts-mode)
   (require 'eglot)
   (require 'eldoc-box)

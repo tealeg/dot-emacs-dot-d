@@ -1,7 +1,7 @@
 ;; Some performance 
-(use-package gcmh :ensure t)
-
-(elpaca nil
+(use-package gcmh
+  :ensure t
+  :config 
   (require 'jsonrpc)
   (require 'eglot)
   (require 'gcmh)

@@ -1,6 +1,6 @@
-(use-package racket-mode)
+(use-package racket-mode
+  :config
 
-(elpaca nil
   (defun tealeg--racket-mode-helper-f ()
     (require 'racket-xp)
     (racket-xp-mode 1))

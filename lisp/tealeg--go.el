@@ -1,4 +1,5 @@
-(elpaca nil
+(use-package gotest
+  :config
   (require 'go-ts-mode)
   (require 'eglot)
   (require 'eldoc-box)

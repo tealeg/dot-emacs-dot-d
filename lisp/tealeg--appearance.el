@@ -2,11 +2,13 @@
   :config
   (ns-auto-titlebar-mode 1))
 
-(use-package the-matrix-theme
-  :config
-  (load-theme 'the-matrix 't nil))
+;; (use-package the-matrix-theme
+;;   :config
+;;   (load-theme 'the-matrix 't nil))
 
-(elpaca nil
+(use-package color-theme-sanityinc-tomorrow
+  :config
+  (load-theme 'sanityinc-tomorrow-blue 't nil)
 
   ;; No startup  screen
   (setq inhibit-startup-screen t)
@@ -154,6 +156,6 @@
 
   (if (eq system-type 'darwin)
     (set-frame-font "iA Writer Mono V-24")
-    (set-frame-font "IBM Plex Mono-18")))
+    (set-frame-font "IBM Plex Mono-12")))
   
 (provide 'tealeg--appearance)
