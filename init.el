@@ -7,6 +7,8 @@
 (require 'tealeg--bell)
 
 (require 'tealeg--tree-sitter)
+
+(require 'tealeg--spelling)
 (require 'tealeg--eshell)
 (require 'tealeg--compilation)
 ;; (require 'tealeg--nano)

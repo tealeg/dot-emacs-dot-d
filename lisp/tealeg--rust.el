@@ -1,4 +1,5 @@
 (use-package rust-mode
+  :config
   (require 'rust-ts-mode)
   (require 'eglot)
   (require 'eldoc-box)
