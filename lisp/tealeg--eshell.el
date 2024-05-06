@@ -3,7 +3,9 @@
   (eshell-git-prompt-use-theme 'powerline)
 
   (defun tealeg--eshell-helper-f ()
-    (setenv "TERM" "eterm"))
+    (setenv "TERM" "eterm")
+    (defalias 'docker 'podman)
+)
 
   (add-hook 'eshell-mode-hook 'tealeg--eshell-helper-f))
 

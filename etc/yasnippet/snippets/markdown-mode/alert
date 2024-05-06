@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: doctave-alert
+# key: dale
+# --
+{% include "_partials/alert.md" class: "$1", title: "$2", text: "`yas-selected-text`$3"%}$0

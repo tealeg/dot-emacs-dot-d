@@ -2,13 +2,34 @@
   :config
   (ns-auto-titlebar-mode 1))
 
-;; (use-package the-matrix-theme
-;;   :config
-;;   (load-theme 'the-matrix 't nil))
-
 (use-package color-theme-sanityinc-tomorrow
   :config
-  (load-theme 'sanityinc-tomorrow-blue 't nil)
+  (load-theme 'sanityinc-tomorrow-blue 't nil))
+
+
+(use-package spaceline
+  ;; :ensure t
+  ;; :disabled t
+  :init
+  (setq powerline-default-separator 'arrow-fade
+        spaceline-minor-modes-separator " ")
+  (require 'spaceline-config)
+  (spaceline-spacemacs-theme)
+  ;; (spaceline-helm-mode))
+  (spaceline-info-mode))
+
+(use-package fancy-battery
+  :ensure t
+  :init
+  (add-hook 'after-init-hook #'fancy-battery-mode)
+  (display-battery-mode -1))
+
+(use-package spaceline-all-the-icons
+  :after spaceline
+  :ensure t
+  :config
+  (spaceline-all-the-icons-theme)
+  (spaceline-all-the-icons--setup-anzu)
 
   ;; No startup  screen
   (setq inhibit-startup-screen t)
@@ -153,9 +174,8 @@
       ad-do-it))
   (ad-activate 'term-sentinel)
 
-
   (if (eq system-type 'darwin)
-    (set-frame-font "iA Writer Mono V-24")
+    (set-frame-font "IntelOne Mono-32")
     (set-frame-font "IBM Plex Mono-12")))
   
 (provide 'tealeg--appearance)
