@@ -8,6 +8,10 @@
 
 (require 'tealeg--tree-sitter)
 
+(require 'tealeg--completion)
+
+(require 'tealeg--dired)
+
 (require 'tealeg--spelling)
 (require 'tealeg--eshell)
 (require 'tealeg--compilation)

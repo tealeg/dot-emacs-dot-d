@@ -175,7 +175,7 @@
   (ad-activate 'term-sentinel)
 
   (if (eq system-type 'darwin)
-    (set-frame-font "IntelOne Mono-32")
+    (set-frame-font "IBM Plex Mono-28")
     (set-frame-font "IBM Plex Mono-12")))
   
 (provide 'tealeg--appearance)
