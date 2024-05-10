@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: doctave-model
+# key: dmod
+# --
+{% if DOCTAVE.user_preferences.operating_model == "$1" %}
+`yas-selected-text`
+{% endif %}
+$0
