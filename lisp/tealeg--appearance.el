@@ -1,35 +1,19 @@
-(use-package ns-auto-titlebar
-  :config
-  (ns-auto-titlebar-mode 1))
-
-(use-package color-theme-sanityinc-tomorrow
-  :config
-  (load-theme 'sanityinc-tomorrow-blue 't nil))
-
-
-(use-package spaceline
-  ;; :ensure t
-  ;; :disabled t
-  :init
-  (setq powerline-default-separator 'arrow-fade
-        spaceline-minor-modes-separator " ")
-  (require 'spaceline-config)
-  (spaceline-spacemacs-theme)
-  ;; (spaceline-helm-mode))
-  (spaceline-info-mode))
-
 (use-package fancy-battery
   :ensure t
   :init
   (add-hook 'after-init-hook #'fancy-battery-mode)
   (display-battery-mode -1))
 
-(use-package spaceline-all-the-icons
-  :after spaceline
-  :ensure t
+
+(use-package ns-auto-titlebar
   :config
-  (spaceline-all-the-icons-theme)
-  (spaceline-all-the-icons--setup-anzu)
+  (ns-auto-titlebar-mode 1))
+
+(use-package color-theme-sanityinc-tomorrow
+  :config
+  (load-theme 'sanityinc-tomorrow-blue 't nil)
+
+
 
   ;; No startup  screen
   (setq inhibit-startup-screen t)
@@ -80,6 +64,9 @@
   ;; Fill column at 80
   (setq fill-column 80)
 
+  ;; show column number
+  (setq column-number-mode 1)
+  
   ;; No confirmation for visiting non-existent files
   (setq confirm-nonexistent-file-or-buffer nil)
 
