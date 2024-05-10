@@ -1,5 +1,6 @@
+
 # -*- mode: snippet -*-
 # name: Doctave complete
 # key: dcomp
 # --
-{% include "_partials/complete.md" id: "$1", title: "$2", body: $3 %}$0
+{% include "_partials/complete.md" id: "$1", title: "$2", depth: $3, body: $4 %}$0
