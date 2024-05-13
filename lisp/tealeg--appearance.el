@@ -161,8 +161,13 @@
       ad-do-it))
   (ad-activate 'term-sentinel)
 
+
   (if (eq system-type 'darwin)
-    (set-frame-font "IBM Plex Mono-28")
-    (set-frame-font "IBM Plex Mono-12")))
+      (progn
+        (set-face-font 'default "IBM Plex Mono-28")
+        (set-frame-font "IBM Plex Mono-28"))
+    (progn
+      (set-face-font 'default "IBM Plex Mono-12")
+      (set-frame-font "IBM Plex Mono-12")))
   
 (provide 'tealeg--appearance)
