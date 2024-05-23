@@ -4,16 +4,13 @@
   (add-hook 'after-init-hook #'fancy-battery-mode)
   (display-battery-mode -1))
 
-
 (use-package ns-auto-titlebar
   :config
   (ns-auto-titlebar-mode 1))
 
-(use-package color-theme-sanityinc-tomorrow
+(use-package tardis-theme
   :config
-  (load-theme 'sanityinc-tomorrow-blue 't nil)
-
-
+  (load-theme 'tardis 't nil)
 
   ;; No startup  screen
   (setq inhibit-startup-screen t)
@@ -165,9 +162,10 @@
   (if (eq system-type 'darwin)
       (progn
         (set-face-font 'default "IBM Plex Mono-28")
+        (setf line-spacing 0.5)
         (set-frame-font "IBM Plex Mono-28"))
     (progn
       (set-face-font 'default "IBM Plex Mono-12")
-      (set-frame-font "IBM Plex Mono-12")))
+      (set-frame-font "IBM Plex Mono-12"))))
   
 (provide 'tealeg--appearance)
