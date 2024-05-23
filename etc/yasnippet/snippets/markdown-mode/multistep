@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: doctave-multistep
+# key: dmul
+# --
+{% include "_partials/multi-step.md" logo: "$1", title: "$2", intro: $3, steps: $4, outro: $5, depth: $6, id: "$7" %}$0 

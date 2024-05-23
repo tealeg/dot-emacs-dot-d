@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: doctave-substep
+# key: dsub
+# --
+{% include "_partials/substep.md" path: "$1", title: "$2", text: "`yas-selected-text`$3" %}
+$0
+
+
+
