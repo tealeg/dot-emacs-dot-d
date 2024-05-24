@@ -1,3 +1,10 @@
+;;; tealeg--appearance --- Look and feel of emacs
+;;;
+;;; Commentary:
+;;;     Make it puuuurdy
+;;;
+;;; Code:
+
 (use-package fancy-battery
   :ensure t
   :init
@@ -8,16 +15,61 @@
   :config
   (ns-auto-titlebar-mode 1))
 
+(use-package nano-modeline
+  :config
+  (setq-default mode-line-format nil)
+
+  (add-hook 'prog-mode-hook            #'nano-modeline-prog-mode)
+  (add-hook 'text-mode-hook            #'nano-modeline-text-mode)
+  (add-hook 'org-mode-hook             #'nano-modeline-org-mode)
+  (add-hook 'pdf-view-mode-hook        #'nano-modeline-pdf-mode)
+  (add-hook 'mu4e-headers-mode-hook    #'nano-modeline-mu4e-headers-mode)
+  (add-hook 'mu4e-view-mode-hook       #'nano-modeline-mu4e-message-mode)
+  (add-hook 'elfeed-show-mode-hook     #'nano-modeline-elfeed-entry-mode)
+  (add-hook 'elfeed-search-mode-hook   #'nano-modeline-elfeed-search-mode)
+  (add-hook 'term-mode-hook            #'nano-modeline-term-mode)
+  (add-hook 'xwidget-webkit-mode-hook  #'nano-modeline-xwidget-mode)
+  (add-hook 'messages-buffer-mode-hook #'nano-modeline-message-mode)
+  (add-hook 'org-capture-mode-hook     #'nano-modeline-org-capture-mode)
+  (add-hook 'org-agenda-mode-hook      #'nano-modeline-org-agenda-mode)
+  (nano-modeline-prog-mode t))
+
+(use-package mini-frame
+  :config
+  (custom-set-variables
+   '(mini-frame-show-parameters
+     '((top . 90)
+       (width . 0.7)
+       (left . 0.5))))
+  (mini-frame-mode 1))
+
 (use-package tardis-theme
   :config
   (load-theme 'tardis 't nil)
+  (set-face-background 'minibuffer-prompt "White" nil)
+  (require 'disp-table)
 
-  ;; No startup  screen
+  (setq default-frame-alist
+        (append (list
+	             '(min-height . 1)
+                 '(height     . 45)
+	             '(min-width  . 1)
+                 '(width      . 81)
+                 '(vertical-scroll-bars . nil)
+                 '(internal-border-width . 24)
+                 '(left-fringe    . 1)
+                 '(right-fringe   . 1)
+                 '(tool-bar-lines . 0)
+                 '(menu-bar-lines . 0))))
+
+  
+    ;; No startup  screen
   (setq inhibit-startup-screen t)
 
   ;; No startup message
   (setq inhibit-startup-message t)
   (setq inhibit-startup-echo-area-message t)
+ 
 
   ;; No message in scratch buffer
   (setq initial-scratch-message nil)
@@ -46,14 +98,8 @@
   ;; Text mode is initial mode
   (setq initial-major-mode 'text-mode)
 
-  ;; Text mode is default major mode
-  (setq default-major-mode 'text-mode)
-
   ;; Moderate font lock
   (setq font-lock-maximum-decoration nil)
-
-  ;; No limit on font lock
-  (setq font-lock-maximum-size nil)
 
   ;; No line break space points
   (setq auto-fill-mode nil)
@@ -158,7 +204,23 @@
       ad-do-it))
   (ad-activate 'term-sentinel)
 
+  ;; Vertical window divider
+  (setq window-divider-default-right-width 24)
+  (setq window-divider-default-places 'right-only)
+  (window-divider-mode 1)
 
+  ;; No ugly button for checkboxes
+  (setq widget-image-enable nil)
+
+  ;; Fall back font for glyph missing in some fonts
+  (defface fallback '((t :family "Fira Code"
+                         :inherit 'nano-face-faded
+                         )) "Fallback" :group 'basic-faces)
+  (set-display-table-slot standard-display-table 'truncation
+                          (make-glyph-code ?… 'fallback))
+  (set-display-table-slot standard-display-table 'wrap
+                          (make-glyph-code ?↩ 'fallback))
+  
   (if (eq system-type 'darwin)
       (progn
         (set-face-font 'default "IBM Plex Mono-28")
@@ -169,3 +231,5 @@
       (set-frame-font "IBM Plex Mono-12"))))
   
 (provide 'tealeg--appearance)
+;;; tealeg--appearance.el ends here
+

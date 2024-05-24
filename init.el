@@ -19,8 +19,7 @@
 (require 'tealeg--eldoc)
 (require 'tealeg--magit)
 
-
-
+(require 'tealeg--elisp)
 (require 'tealeg--python)
 (require 'tealeg--racket)
 (require 'tealeg--common-lisp)
@@ -31,4 +30,6 @@
 (require 'tealeg--rest)
 (require 'tealeg--css)
 (require 'tealeg--yas)
+
 (require 'tealeg--nxml)
+(require 'tealeg--yaml)

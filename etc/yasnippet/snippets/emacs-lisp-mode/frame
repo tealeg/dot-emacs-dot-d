@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# name: elisp-frame
+# key: frame
+# --
+;;; $1 --- $2
+;;;
+;;; Commentary:
+;;;     $3
+;;;
+;;; Code:
+
+`yas-selected-text`
+
+(provide 'tealeg--$4)
+;;; tealeg--$5.el ends here
+$0

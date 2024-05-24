@@ -11,7 +11,8 @@
   (require 'wdired)
   (require 'image-dired)
   (require 'casual-dired)
-
+  (when (eq system-type 'darwin)
+    (setq dired-use-ls-dired nil))
   :bind (:map dired-mode-map (("C-o" . 'casual-dired-tmenu)
                               ("M-o" . 'dired-omit-mode)
                               ("E" . 'wdired-change-to-wdired-mode)
