@@ -8,6 +8,7 @@
 (require 'tealeg--bell)
 (require 'tealeg--tree-sitter)
 (require 'tealeg--completion)
+(require 'tealeg--location)
 
 (require 'tealeg--dired)
 
@@ -19,6 +20,7 @@
 (require 'tealeg--eldoc)
 (require 'tealeg--magit)
 
+(require 'tealeg--rainbow)
 (require 'tealeg--elisp)
 (require 'tealeg--python)
 (require 'tealeg--racket)

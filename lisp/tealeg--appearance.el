@@ -34,22 +34,28 @@
   (add-hook 'org-agenda-mode-hook      #'nano-modeline-org-agenda-mode)
   (nano-modeline-prog-mode t))
 
-(use-package mini-frame
-  :config
-  (custom-set-variables
-   '(mini-frame-show-parameters
-     '((top . 90)
-       (width . 0.7)
-       (left . 0.5))))
-  (mini-frame-mode 1))
+(if (eq system-type 'darwin)
+    (use-package mini-frame
+      :config
+      (custom-set-variables
+       '(mini-frame-show-parameters
+         '((top . 90)
+           (width . 0.7)
+           (left . 0.5))))
+      (mini-frame-mode 1)))
 
-(use-package tardis-theme
+;; (use-package tardis-theme
+;;   :config
+;;   (load-theme 'tardis 't nil)
+
+(use-package modus-themes 
   :config
-  (load-theme 'tardis 't nil)
+  (load-theme 'modus-operandi-tinted 't nil)
+
   (set-face-background 'minibuffer-prompt "White" nil)
   (require 'disp-table)
 
-  (setq default-frame-alist
+  (modify-all-frames-parameters
         (append (list
 	             '(min-height . 1)
                  '(height     . 45)
@@ -60,7 +66,7 @@
                  '(left-fringe    . 1)
                  '(right-fringe   . 1)
                  '(tool-bar-lines . 0)
-                 '(menu-bar-lines . 0))))
+                 '(undecorated-round . 41))))
 
   
     ;; No startup  screen
@@ -223,9 +229,10 @@
   
   (if (eq system-type 'darwin)
       (progn
-        (set-face-font 'default "IBM Plex Mono-28")
-        (setf line-spacing 0.5)
-        (set-frame-font "IBM Plex Mono-28"))
+        (set-face-font 'default "Monospac821 BT-22")
+        (set-face-bold 'default nil)
+        (setf line-spacing 0.8)
+        (set-face-font 'default "Monospac821 BT-22"))
     (progn
       (set-face-font 'default "IBM Plex Mono-12")
       (set-frame-font "IBM Plex Mono-12"))))

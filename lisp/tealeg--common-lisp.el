@@ -1,6 +1,8 @@
 (use-package sly
   :config
-  (setq inferior-lisp-program "/opt/homebrew/bin/sbcl")
+  (if (eq system-type 'darwin)
+      (setq inferior-lisp-program "/opt/homebrew/bin/sbcl")
+    (setq inferior-lisp-program "/usr/bin/sbcl"))
   (eval-after-load 'sly
   `(define-key sly-prefix-map (kbd "M-h") 'sly-documentation-lookup)))
 
