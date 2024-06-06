@@ -58,7 +58,7 @@
   (modify-all-frames-parameters
         (append (list
 	             '(min-height . 1)
-                 '(height     . 45)
+                 '(height     . 30)
 	             '(min-width  . 1)
                  '(width      . 81)
                  '(vertical-scroll-bars . nil)
