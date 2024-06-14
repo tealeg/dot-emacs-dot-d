@@ -13,8 +13,12 @@
 
 (use-package seq :ensure `(seq :build ,(+elpaca-seq-build-steps)))
 
-(use-package magit 
+(use-package transient
   :after seq
+  :ensure)
+
+(use-package magit 
+  :after transient
   :ensure t)
 
 
