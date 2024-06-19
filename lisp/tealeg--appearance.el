@@ -50,7 +50,7 @@
 
 (use-package modus-themes 
   :config
-  (load-theme 'modus-operandi-tinted 't nil)
+  (load-theme 'modus-operandi 't nil)
 
   (set-face-background 'minibuffer-prompt "White" nil)
   (require 'disp-table)
@@ -229,10 +229,11 @@
   
   (if (eq system-type 'darwin)
       (progn
-        (set-face-font 'default "Monospac821 BT-22")
+        (set-face-font 'default "CMU Typewriter Text-24")
+        (set-face-font 'variable-pitch "CMU Concrete-24")
         (set-face-bold 'default nil)
-        (setf line-spacing 0.8)
-        (set-face-font 'default "Monospac821 BT-22"))
+        (setf line-spacing 0.2)
+        (set-face-font 'default "CMU Typewriter Text-24"))
     (progn
       (set-face-font 'default "IBM Plex Mono-12")
       (set-frame-font "IBM Plex Mono-12"))))
