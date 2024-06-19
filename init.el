@@ -1,4 +1,5 @@
-
+(when (eq system-type 'darwin)
+  (sleep-for 0.3)) ;; prevent a random crash on Mac OS X
 (add-to-list 'load-path "~/.config/emacs/lisp")
 (require 'tealeg--elpaca)
 (elpaca-wait)
@@ -35,3 +36,4 @@
 
 (require 'tealeg--nxml)
 (require 'tealeg--yaml)
+
