@@ -14,25 +14,26 @@
 (use-package ns-auto-titlebar
   :config
   (ns-auto-titlebar-mode 1))
+  ;; )
 
-(use-package nano-modeline
-  :config
-  (setq-default mode-line-format nil)
+;; (use-package nano-modeline
+;;   :config
+;;   (setq-default mode-line-format nil)
 
-  (add-hook 'prog-mode-hook            #'nano-modeline-prog-mode)
-  (add-hook 'text-mode-hook            #'nano-modeline-text-mode)
-  (add-hook 'org-mode-hook             #'nano-modeline-org-mode)
-  (add-hook 'pdf-view-mode-hook        #'nano-modeline-pdf-mode)
-  (add-hook 'mu4e-headers-mode-hook    #'nano-modeline-mu4e-headers-mode)
-  (add-hook 'mu4e-view-mode-hook       #'nano-modeline-mu4e-message-mode)
-  (add-hook 'elfeed-show-mode-hook     #'nano-modeline-elfeed-entry-mode)
-  (add-hook 'elfeed-search-mode-hook   #'nano-modeline-elfeed-search-mode)
-  (add-hook 'term-mode-hook            #'nano-modeline-term-mode)
-  (add-hook 'xwidget-webkit-mode-hook  #'nano-modeline-xwidget-mode)
-  (add-hook 'messages-buffer-mode-hook #'nano-modeline-message-mode)
-  (add-hook 'org-capture-mode-hook     #'nano-modeline-org-capture-mode)
-  (add-hook 'org-agenda-mode-hook      #'nano-modeline-org-agenda-mode)
-  (nano-modeline-prog-mode t))
+  ;; (add-hook 'prog-mode-hook            #'nano-modeline-prog-mode)
+  ;; (add-hook 'text-mode-hook            #'nano-modeline-text-mode)
+  ;; (add-hook 'org-mode-hook             #'nano-modeline-org-mode)
+  ;; (add-hook 'pdf-view-mode-hook        #'nano-modeline-pdf-mode)
+  ;; (add-hook 'mu4e-headers-mode-hook    #'nano-modeline-mu4e-headers-mode)
+  ;; (add-hook 'mu4e-view-mode-hook       #'nano-modeline-mu4e-message-mode)
+  ;; (add-hook 'elfeed-show-mode-hook     #'nano-modeline-elfeed-entry-mode)
+  ;; (add-hook 'elfeed-search-mode-hook   #'nano-modeline-elfeed-search-mode)
+  ;; (add-hook 'term-mode-hook            #'nano-modeline-term-mode)
+  ;; (add-hook 'xwidget-webkit-mode-hook  #'nano-modeline-xwidget-mode)
+  ;; (add-hook 'messages-buffer-mode-hook #'nano-modeline-message-mode)
+  ;; (add-hook 'org-capture-mode-hook     #'nano-modeline-org-capture-mode)
+  ;; (add-hook 'org-agenda-mode-hook      #'nano-modeline-org-agenda-mode)
+  ;; (nano-modeline-prog-mode t))
 
 (if (eq system-type 'darwin)
     (use-package mini-frame
@@ -229,11 +230,31 @@
   
   (if (eq system-type 'darwin)
       (progn
-        (set-face-font 'default "CMU Typewriter Text-24")
-        (set-face-font 'variable-pitch "CMU Concrete-24")
+        (set-face-font 'default "PT Mono-18")
+        (set-face-font 'variable-pitch "PT Sans-18")
         (set-face-bold 'default nil)
-        (setf line-spacing 0.2)
-        (set-face-font 'default "CMU Typewriter Text-24"))
+        (set-face-italic 'default nil)
+        (set-face-font 'font-lock-comment-face "PT Serif-18")
+        (set-face-italic 'font-lock-comment-face t)
+        (setf line-spacing 0.1))
+
+        
+        ;; (set-face-font 'default "InconsolataN-24")
+        ;; (set-face-font 'variable-pitch "Linux Libertine O-24")
+        ;; (set-face-bold 'default nil)
+        ;; (set-face-italic 'default nil)
+        ;; (set-face-font 'font-lock-comment-face "Linux Libertine O-24")
+        ;; (set-face-italic 'font-lock-comment-face t)
+        ;; (setf line-spacing 0.1))
+
+        ;; (set-face-font 'default "CMU Typewriter Text-24")
+        ;; (set-face-font 'variable-pitch "CMU Serif-24")
+        ;; (set-face-font 'default "CMU Typewriter Text-24")
+        ;; (set-face-bold 'default nil)
+        ;; (set-face-italic 'default nil)
+        ;; (set-face-font 'font-lock-comment-face "CMU Serif-24")
+        ;; (set-face-italic 'font-lock-comment-face t)
+        ;; (setf line-spacing 0.1))
     (progn
       (set-face-font 'default "IBM Plex Mono-12")
       (set-frame-font "IBM Plex Mono-12"))))
