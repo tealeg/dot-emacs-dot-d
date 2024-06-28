@@ -50,11 +50,35 @@
         completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))))
 
+(use-package cape
+  :ensure t
+  :custom
+
+  (require 'eglot)
+
+  (defun my/eglot-capf ()
+    (setq-local completion-at-point-functions
+                (list (cape-super-capf
+                       #'eglot-completion-at-point
+                       (cape-company-to-capf #'company-yasnippet)))))
+
+  (add-to-list 'completion-at-point-functions
+               (cape-company-to-capf #'company-yasnippet))
+
+  
+  (add-hook 'eglot-managed-mode-hook #'my/eglot-capf))
+  
+
+
+
+
 (use-package corfu
+  :ensure t
+  :after cape
   ;; Optional customizations
   :custom
   (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
-  ;; (corfu-auto t)                 ;; Enable auto completion
+  ;; (corfu-auto -1)                 ;; Enable auto completion
   (corfu-separator ?\s)          ;; Orderless field separator
   ;; (corfu-quit-at-boundary nil)   ;; Never quit at completion boundary
   ;; (corfu-quit-no-match nil)      ;; Never quit, even if there is no match
@@ -62,6 +86,7 @@
   ;; (corfu-preselect 'prompt)      ;; Preselect the prompt
   ;; (corfu-on-exact-match nil)     ;; Configure handling of exact matches
   (corfu-scroll-margin 5)        ;; Use scroll margin
+
 
   ;; Enable Corfu only for certain modes.
   ;; :hook ((prog-mode . corfu-mode)
@@ -73,6 +98,7 @@
   ;; `global-corfu-modes' to exclude certain modes.
   :init
   (global-corfu-mode)
+  (corfu-echo-mode t)
 
   ;; TAB cycle if there are only few candidates
   ;; (setq completion-cycle-threshold 3)
