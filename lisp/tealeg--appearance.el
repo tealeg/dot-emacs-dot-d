@@ -19,7 +19,7 @@
 
 (use-package modus-themes 
   :config
-  (load-theme 'modus-operandi 't nil)
+  (load-theme 'modus-operandi-deuteranopia 't nil)
 
   (set-face-background 'minibuffer-prompt "White" nil)
   (require 'disp-table)
@@ -198,34 +198,24 @@
   
   (if (eq system-type 'darwin)
       (progn
-        (set-face-font 'default "PT Mono-18")
-        (set-face-font 'variable-pitch "PT Sans-18")
+        (set-face-font 'default "Latin Modern Mono Light-25")
+        (set-face-font 'variable-pitch "Latin Modern Sans-25")
         (set-face-bold 'default nil)
         (set-face-italic 'default nil)
-        (set-face-font 'font-lock-comment-face "PT Serif-18")
+        (set-face-font 'font-lock-comment-face "Latin Modern Sans-25")
         (set-face-italic 'font-lock-comment-face t)
         (setf line-spacing 0.1))
-
-        
-        ;; (set-face-font 'default "InconsolataN-24")
-        ;; (set-face-font 'variable-pitch "Linux Libertine O-24")
-        ;; (set-face-bold 'default nil)
-        ;; (set-face-italic 'default nil)
-        ;; (set-face-font 'font-lock-comment-face "Linux Libertine O-24")
-        ;; (set-face-italic 'font-lock-comment-face t)
-        ;; (setf line-spacing 0.1))
-
-        ;; (set-face-font 'default "CMU Typewriter Text-24")
-        ;; (set-face-font 'variable-pitch "CMU Serif-24")
-        ;; (set-face-font 'default "CMU Typewriter Text-24")
-        ;; (set-face-bold 'default nil)
-        ;; (set-face-italic 'default nil)
-        ;; (set-face-font 'font-lock-comment-face "CMU Serif-24")
-        ;; (set-face-italic 'font-lock-comment-face t)
-        ;; (setf line-spacing 0.1))
     (progn
       (set-face-font 'default "IBM Plex Mono-12")
-      (set-frame-font "IBM Plex Mono-12"))))
+      (set-face-font 'variable-pitch "IBM Plex Sans-12")
+      (set-face-bold 'default nil)
+      (set-face-italic 'default nil)
+      (set-face-font 'font-lock-comment-face "IBM Plex Serif-12")
+      (set-face-italic 'font-lock-comment-face t)
+      (setf line-spacing 0.1)))
+
+  (set-face-attribute 'mode-line nil :box  (list :line-width (cons 10 10) :color (face-attribute 'mode-line :background)))
+)
   
 (provide 'tealeg--appearance)
 ;;; tealeg--appearance.el ends here
