@@ -11,15 +11,33 @@
   (add-hook 'after-init-hook #'fancy-battery-mode)
   (display-battery-mode -1))
 
-(use-package ns-auto-titlebar
-  :config
-  (ns-auto-titlebar-mode 1))
-  ;; )
+
+(when (eq system-type 'darwin)
+    (use-package ns-auto-titlebar
+      :config
+      (ns-auto-titlebar-mode 1)))
+
+
+
+(if (eq system-type 'darwin)
+    (use-package mini-frame
+      :config
+      (custom-set-variables
+       '(mini-frame-show-parameters
+         '((top . 90)
+           (width . 0.7)
+           (left . 0.5))))
+      (mini-frame-mode 1)))
+
+
+
 
 
 (use-package modus-themes 
   :config
-  (load-theme 'modus-operandi-deuteranopia 't nil)
+  (if (eq system-type 'darwin)
+      (load-theme 'modus-operandi-deuteranopia 't nil)
+          (load-theme 'modus-vivendi-tritanopia 't nil))
 
   (set-face-background 'minibuffer-prompt "White" nil)
   (require 'disp-table)
@@ -206,16 +224,16 @@
         (set-face-italic 'font-lock-comment-face t)
         (setf line-spacing 0.1))
     (progn
-      (set-face-font 'default "IBM Plex Mono-12")
-      (set-face-font 'variable-pitch "IBM Plex Sans-12")
-      (set-face-bold 'default nil)
-      (set-face-italic 'default nil)
-      (set-face-font 'font-lock-comment-face "IBM Plex Serif-12")
-      (set-face-italic 'font-lock-comment-face t)
-      (setf line-spacing 0.1)))
+      (set-face-font 'default "Hack-12")
+        (set-face-font 'variable-pitch "Noto Sans-12")
+        (set-face-bold 'default nil)
+        (setf line-spacing 0.2)
+        (set-face-font 'default "Hack-12"))
+    )
 
   (set-face-attribute 'mode-line nil :box  (list :line-width (cons 10 10) :color (face-attribute 'mode-line :background)))
-)
+  )
+
   
 (provide 'tealeg--appearance)
 ;;; tealeg--appearance.el ends here
