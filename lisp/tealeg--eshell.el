@@ -1,6 +1,6 @@
 (use-package eshell-git-prompt
   :init
-  (eshell-git-prompt-use-theme 'powerline)
+  (eshell-git-prompt-use-theme 'git-radar)
 
   (defun tealeg--eshell-helper-f ()
     (setenv "TERM" "eterm")

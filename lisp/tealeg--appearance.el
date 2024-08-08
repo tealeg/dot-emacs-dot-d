@@ -49,9 +49,9 @@
 	             '(min-width  . 1)
                  '(width      . 81)
                  '(vertical-scroll-bars . nil)
-                 '(internal-border-width . 24)
-                 '(left-fringe    . 1)
-                 '(right-fringe   . 1)
+                 '(internal-border-width . 0)
+                 '(left-fringe    . 10)
+                 '(right-fringe   . 10)
                  '(tool-bar-lines . 0)
                  '(undecorated-round . 41))))
 
@@ -198,7 +198,7 @@
   (ad-activate 'term-sentinel)
 
   ;; Vertical window divider
-  (setq window-divider-default-right-width 24)
+  (setq window-divider-default-right-width 6)
   (setq window-divider-default-places 'right-only)
   (window-divider-mode 1)
 
@@ -215,12 +215,12 @@
                           (make-glyph-code ?↩ 'fallback))
   
   (if (eq system-type 'darwin)
-      (progn
+      (progn        
         (set-face-font 'default "Latin Modern Mono Light-25")
-        (set-face-font 'variable-pitch "Latin Modern Sans-25")
+        (set-face-font 'variable-pitch "Latin Modern Roman Dunhill-25")
         (set-face-bold 'default nil)
         (set-face-italic 'default nil)
-        (set-face-font 'font-lock-comment-face "Latin Modern Sans-25")
+        (set-face-font 'font-lock-comment-face "Latin Modern Mono Light-25")
         (set-face-italic 'font-lock-comment-face t)
         (setf line-spacing 0.1))
     (progn

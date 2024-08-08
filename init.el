@@ -37,4 +37,4 @@
 
 (require 'tealeg--nxml)
 (require 'tealeg--yaml)
-
+(require 'tealeg--typespec)
