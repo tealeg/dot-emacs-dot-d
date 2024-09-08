@@ -1,3 +1,7 @@
+
+(use-package go-dlv
+  :after go-mode)
+
 (use-package go-mode
   :config
   (require 'go-ts-mode)

@@ -206,7 +206,7 @@
   (setq widget-image-enable nil)
 
   ;; Fall back font for glyph missing in some fonts
-  (defface fallback '((t :family "Fira Code"
+  (defface fallback '((t :family "Liberation Mono"
                          :inherit 'nano-face-faded
                          )) "Fallback" :group 'basic-faces)
   (set-display-table-slot standard-display-table 'truncation
@@ -224,11 +224,11 @@
         (set-face-italic 'font-lock-comment-face t)
         (setf line-spacing 0.1))
     (progn
-      (set-face-font 'default "Hack-12")
-        (set-face-font 'variable-pitch "Noto Sans-12")
+      (set-face-font 'default "Liberation Mono-14")
+        (set-face-font 'variable-pitch "Liberation Serif-15")
         (set-face-bold 'default nil)
         (setf line-spacing 0.2)
-        (set-face-font 'default "Hack-12"))
+        (set-face-font 'font-lock-comment-face "Liberation Serif-15"))
     )
 
   (set-face-attribute 'mode-line nil :box  (list :line-width (cons 10 10) :color (face-attribute 'mode-line :background)))
