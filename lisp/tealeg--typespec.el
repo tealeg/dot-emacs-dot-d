@@ -6,4 +6,5 @@
                '("\\.tsp?\\'" . js-ts-mode))
 
 
+(use-package nvm)
 (provide 'tealeg--typespec)

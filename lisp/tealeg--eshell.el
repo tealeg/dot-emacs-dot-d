@@ -4,6 +4,17 @@
 
   (defun tealeg--eshell-helper-f ()
     (setenv "TERM" "eterm")
+    (setenv "NVM_DIR" (format "%s%s" (getenv "HOME")  "/.nvm"))
+
+    (eshell/addpath (string-join (list
+                                  (getenv "HOME")
+                                  ".nvm"
+                                  "versions"
+                                  "node"
+                                  "v22.9.0" "bin")
+                                 "/"))
+
+    
     (defalias 'docker 'podman)
 )
 

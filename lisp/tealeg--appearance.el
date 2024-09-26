@@ -57,16 +57,16 @@
           (border-mode-line-inactive bg-mode-line-inactive)))
 
   ;; Blue background, neutral foreground, intense blue border
-  (setq modus-themes-common-palette-overrides
-	'((bg-mode-line-active bg-blue-intense)
-          (fg-mode-line-active fg-main)
-          (border-mode-line-active blue-intense)))
+  ;; (setq modus-themes-common-palette-overrides
+  ;;   '((bg-mode-line-active bg-blue-intense)
+  ;;         (fg-mode-line-active fg-main)
+  ;;         (border-mode-line-active blue-intense)))
 
   ;; Subtle blue background, neutral foreground, intense blue border
-  (setq modus-themes-common-palette-overrides
-	'((bg-mode-line-active bg-blue-subtle)
-          (fg-mode-line-active fg-main)
-          (border-mode-line-active blue-intense)))
+  ;; (setq modus-themes-common-palette-overrides
+  ;;   '((bg-mode-line-active bg-blue-subtle)
+  ;;         (fg-mode-line-active fg-main)
+  ;;         (border-mode-line-active blue-intense)))
 
   ;; Sage (green/cyan) background, neutral foreground, slightly distinct green border
   (setq modus-themes-common-palette-overrides
@@ -75,16 +75,16 @@
           (border-mode-line-active bg-green-intense)))
 
   ;; As above, but with a purple style
-  (setq modus-themes-common-palette-overrides
-	'((bg-mode-line-active bg-lavender)
-          (fg-mode-line-active fg-main)
-          (border-mode-line-active bg-magenta-intense)))
+  ;; (setq modus-themes-common-palette-overrides
+  ;;   '((bg-mode-line-active bg-lavender)
+  ;;         (fg-mode-line-active fg-main)
+  ;;         (border-mode-line-active bg-magenta-intense)))
 
   ;; As above, but with an earthly style
-  (setq modus-themes-common-palette-overrides
-	'((bg-mode-line-active bg-ochre)
-          (fg-mode-line-active fg-main)
-          (border-mode-line-active bg-yellow-intense)))        
+  ;; (setq modus-themes-common-palette-overrides
+  ;;   '((bg-mode-line-active bg-ochre)
+  ;;         (fg-mode-line-active fg-main)
+  ;;         (border-mode-line-active bg-yellow-intense)))        
   (load-theme 'modus-operandi 't nil)
 
   )
@@ -135,7 +135,10 @@
     ad-do-it))
 (ad-activate 'term-sentinel)
 
-(scroll-bar-mode nil)
+(scroll-bar-mode -1)
+(set-window-margins nil 0 3)
+(global-display-line-numbers-mode 1)
+(set-fringe-style '(24 . 0))
 
 (if (eq system-type 'darwin)
     (progn

@@ -29,7 +29,7 @@
 (require 'tealeg--magit)
 
 (require 'tealeg--rainbow)
-(require 'tealeg--elisp)
+;; (require 'tealeg--elisp)
 (require 'tealeg--python)
 (require 'tealeg--racket)
 (require 'tealeg--common-lisp)
