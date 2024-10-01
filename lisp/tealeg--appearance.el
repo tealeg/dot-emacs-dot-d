@@ -135,10 +135,17 @@
     ad-do-it))
 (ad-activate 'term-sentinel)
 
-(scroll-bar-mode -1)
-(set-window-margins nil 0 3)
+(if (boundp 'scroll-bar-mode)
+    (scroll-bar-mode -1))
+
+(if (boundp 'set-fringe-style)
+    (set-fringe-style '(24 . 0)))
+
+(if (boundp 'set-window-margins)
+    (set-window-margins nil 0 3))
+
 (global-display-line-numbers-mode 1)
-(set-fringe-style '(24 . 0))
+
 
 (if (eq system-type 'darwin)
     (progn

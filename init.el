@@ -5,7 +5,7 @@
 ;;;
 ;;; Code:
 (when (eq system-type 'darwin)
-  (sleep-for 0.3)) ;; prevent a random crash on Mac OS X
+  (sleep-for 1.0)) ;; prevent a random crash on Mac OS X
 (add-to-list 'load-path "~/.config/emacs/lisp")
 (setq user-mail-address "tealeg@t-online.de")
 (require 'tealeg--elpaca)
