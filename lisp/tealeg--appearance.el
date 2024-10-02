@@ -5,11 +5,7 @@
 ;;;
 ;;; Code:
 
-;; (use-package modus-themes 
-;;   :config
-;;   (load-theme 'modus-vivendi-tritanopia 't nil))
-
-(use-package modus-themes 
+(use-package modus-themes
   :config
   (require 'modus-themes)
   
@@ -70,7 +66,7 @@
 
   ;; Sage (green/cyan) background, neutral foreground, slightly distinct green border
   (setq modus-themes-common-palette-overrides
-	'((bg-mode-line-active bg-sage)
+    '((bg-mode-line-active bg-sage)
           (fg-mode-line-active fg-main)
           (border-mode-line-active bg-green-intense)))
 
@@ -80,21 +76,28 @@
   ;;         (fg-mode-line-active fg-main)
   ;;         (border-mode-line-active bg-magenta-intense)))
 
-  ;; As above, but with an earthly style
+  ;; ;; As above, but with an earthly style
   ;; (setq modus-themes-common-palette-overrides
   ;;   '((bg-mode-line-active bg-ochre)
   ;;         (fg-mode-line-active fg-main)
-  ;;         (border-mode-line-active bg-yellow-intense)))        
-  (load-theme 'modus-operandi 't nil)
-
+  ;;         (border-mode-line-active bg-yellow-intense)))
+  
+  (if (eq system-type 'darwin)
+      (load-theme 'modus-operandi t nil)
+    (load-theme 'modus-operandi t nil))
   )
-;; (load-theme 'modus-vivendi-tritanopia 't nil))
+  
 
-(when (eq system-type 'darwin)
+(if (eq system-type 'darwin)
   (setq mac-option-key-is-meta nil
         mac-command-key-is-meta t
         mac-command-modifier 'meta
-        mac-option-modifier nil))
+        mac-option-modifier nil)
+  (progn
+    (menu-bar-mode -1)
+    (tool-bar-mode -1)
+    (scroll-bar-mode -1)
+    ))
 
 ;; y/n for  answering yes/no questions
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -146,7 +149,6 @@
 
 (global-display-line-numbers-mode 1)
 
-
 (if (eq system-type 'darwin)
     (progn
       (set-face-font 'default "SF Mono-20")
@@ -158,11 +160,14 @@
       (set-face-bold 'font-lock-keyword-face t)
       (setf line-spacing 0.1))
   (progn
-    (set-face-font 'default "Hack-12")
-    (set-face-font 'variable-pitch "Noto Sans-12")
+    (set-face-font 'default "IBM Plex Mono-12")
+    (set-face-font 'variable-pitch "IBM Plex Serif-12")
+    (set-face-font 'font-lock-comment-face "IBM Plex Serif-12")
+    (set-face-italic 'font-lock-comment-face t)
+    (set-face-italic 'font-lock-keyword-face t)
+    (set-face-bold 'font-lock-keyword-face t)
     (set-face-bold 'default nil)
-    (setf line-spacing 0.2)
-    (set-face-font 'default "Hack-12")))
+    (setf line-spacing 0.15)))
 
 (provide 'tealeg--appearance)
 ;;; tealeg--appearance.el ends here
