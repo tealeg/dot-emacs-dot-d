@@ -44,7 +44,6 @@
 (require 'tealeg--nxml)
 (require 'tealeg--yaml)
 (require 'tealeg--typespec)
-(require 'tealeg--latex)
 
 (provide 'init)
 ;;; init.el ends here.
