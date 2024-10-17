@@ -45,5 +45,6 @@
 (require 'tealeg--yaml)
 (require 'tealeg--typespec)
 
+(require 'tealeg--mail)
 (provide 'init)
 ;;; init.el ends here.
