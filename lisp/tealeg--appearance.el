@@ -5,6 +5,23 @@
 ;;;
 ;;; Code:
 
+(require 'disp-table)
+
+(setq default-frame-alist
+      (append (list
+	           '(min-height . 1)
+               '(height     . 45)
+	           '(min-width  . 1)
+               '(width      . 81)
+               '(vertical-scroll-bars . nil)
+               '(internal-border-width . 24)
+               '(left-fringe    . 1)
+               '(right-fringe   . 1)
+               '(tool-bar-lines . 0)
+               '(menu-bar-lines . 0))))
+
+
+
 (use-package modus-themes
   :config
   (require 'modus-themes)
@@ -59,16 +76,16 @@
   ;;         (border-mode-line-active blue-intense)))
 
   ;; Subtle blue background, neutral foreground, intense blue border
-  ;; (setq modus-themes-common-palette-overrides
-  ;;   '((bg-mode-line-active bg-blue-subtle)
-  ;;         (fg-mode-line-active fg-main)
-  ;;         (border-mode-line-active blue-intense)))
+  (setq modus-themes-common-palette-overrides
+    '((bg-mode-line-active bg-blue-subtle)
+          (fg-mode-line-active fg-main)
+          (border-mode-line-active blue-intense)))
 
   ;; Sage (green/cyan) background, neutral foreground, slightly distinct green border
-  (setq modus-themes-common-palette-overrides
-    '((bg-mode-line-active bg-sage)
-          (fg-mode-line-active fg-main)
-          (border-mode-line-active bg-green-intense)))
+  ;; (setq modus-themes-common-palette-overrides
+  ;;   '((bg-mode-line-active bg-sage)
+  ;;         (fg-mode-line-active fg-main)
+  ;;         (border-mode-line-active bg-green-intense)))
 
   ;; As above, but with a purple style
   ;; (setq modus-themes-common-palette-overrides
@@ -147,7 +164,8 @@
 (if (boundp 'set-window-margins)
     (set-window-margins nil 0 3))
 
-(global-display-line-numbers-mode 1)
+(global-display-line-numbers-mode -1)
+(setq widget-image-enable nil)
 
 (if (eq system-type 'darwin)
     (progn
@@ -160,13 +178,17 @@
       (set-face-bold 'font-lock-keyword-face t)
       (setf line-spacing 0.1))
   (progn
-    (set-face-font 'default "IBM Plex Mono-12")
-    (set-face-font 'variable-pitch "IBM Plex Serif-12")
-    (set-face-font 'font-lock-comment-face "IBM Plex Serif-12")
-    (set-face-italic 'font-lock-comment-face t)
-    (set-face-italic 'font-lock-keyword-face t)
-    (set-face-bold 'font-lock-keyword-face t)
-    (set-face-bold 'default nil)
+    (set-face-font 'default "IBM Plex Mono-10:weight=Light")
+    (set-face-font 'fixed-pitch "IBM Plex Mono-10:weight=Light")
+    (set-face-font 'variable-pitch "IBM Plex Serif-10:weight=Light")
+    (set-face-font 'font-lock-keyword-face "IBM Plex Mono-10:weight=Medium")
+    (set-face-font 'font-lock-comment-face "IBM Plex Serif-10:weight=Light")
+    (set-face-font 'line-number "IBM Plex Mono-6:weight=ExtraLight")
+    ;; (set-face-attribute 'line-number nil :box '(:line-width (2 . 0)))
+    ;; (set-face-background 'line-number (face-background 'mode-line))
+    ;; (set-face-foreground 'line-number (face-foreground 'mode-line))
+    ;; (set-face-background 'line-number-current-line (face-background 'mode-line-emphasis))
+    ;; (set-face-foreground 'line-number-current-line (face-foreground 'mode-line-emphasis))
     (setf line-spacing 0.15)))
 
 (provide 'tealeg--appearance)
