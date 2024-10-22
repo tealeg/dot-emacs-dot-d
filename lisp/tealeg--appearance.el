@@ -83,7 +83,7 @@
   ;;         (border-mode-line-active bg-yellow-intense)))
   
   (if (eq system-type 'darwin)
-      (load-theme 'modus-operandi t nil)
+      (load-theme 'modus-vivendi t nil)
     (load-theme 'modus-operandi t nil))
   )
   
