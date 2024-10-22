@@ -5,6 +5,8 @@
 ;;;
 ;;; Code:
 
+(use-package rainbow-mode
+  :hook prog-mode)
 
 (provide 'tealeg--prog)
 ;;; tealeg--prog.el ends here
