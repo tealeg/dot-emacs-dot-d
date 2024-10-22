@@ -14,6 +14,6 @@
     (setq-local font-lock-defaults nil)
     (when (treesit-ready-p 'markdown)
       (treesit-parser-create 'markdown)
-      (markdown-ts-setup)))
+      (markdown-ts-setup))))
   
 (provide 'tealeg--markdown)

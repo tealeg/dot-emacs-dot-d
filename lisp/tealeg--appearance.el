@@ -77,7 +77,7 @@
 
   ;; Subtle blue background, neutral foreground, intense blue border
   (setq modus-themes-common-palette-overrides
-    '((bg-mode-line-active bg-blue-subtle)
+        '((bg-mode-line-active bg-blue-subtle)
           (fg-mode-line-active fg-main)
           (border-mode-line-active blue-intense)))
 
@@ -103,13 +103,13 @@
       (load-theme 'modus-vivendi t nil)
     (load-theme 'modus-operandi t nil))
   )
-  
+
 
 (if (eq system-type 'darwin)
-  (setq mac-option-key-is-meta nil
-        mac-command-key-is-meta t
-        mac-command-modifier 'meta
-        mac-option-modifier nil)
+    (setq mac-option-key-is-meta nil
+          mac-command-key-is-meta t
+          mac-command-modifier 'meta
+          mac-option-modifier nil)
   (progn
     (menu-bar-mode -1)
     (tool-bar-mode -1)
@@ -169,20 +169,20 @@
 
 (if (eq system-type 'darwin)
     (progn
-      (set-face-font 'default "SF Mono-20")
-      (set-face-font 'variable-pitch "SF Pro-20")
-      (set-face-font 'font-lock-comment-face "SF Pro-20")
-      (set-face-italic 'default nil)
-      (set-face-italic 'font-lock-comment-face t)
-      (set-face-italic 'font-lock-keyword-face t)
-      (set-face-bold 'font-lock-keyword-face t)
-      (setf line-spacing 0.1))
+      (set-face-font 'default "IBM Plex Mono-23:weight=Light")
+      (set-face-font 'fixed-pitch "IBM Plex Mono-23:weight=Light")
+      (set-face-font 'variable-pitch "IBM Plex Serif-23:weight=Light")
+      (set-face-font 'font-lock-keyword-face "IBM Plex Mono-23:weight=DemiBold")
+      (set-face-font 'font-lock-string-face "IBM Plex Sans-23:slant=italic:weight=Light")
+      (set-face-font 'font-lock-comment-face "IBM Plex Serif-23:weight=Light:slant=italic")
+      (set-face-font 'line-number "IBM Plex Mono-12:weight=ExtraLight")
+      (setf line-spacing 0.2))
   (progn
     (set-face-font 'default "IBM Plex Mono-10:weight=Light")
     (set-face-font 'fixed-pitch "IBM Plex Mono-10:weight=Light")
     (set-face-font 'variable-pitch "IBM Plex Serif-10:weight=Light")
     (set-face-font 'font-lock-keyword-face "IBM Plex Mono-10:weight=Medium")
-    (set-face-font 'font-lock-comment-face "IBM Plex Serif-10:weight=Light")
+    (set-face-font 'font-lock-comment-face "IBM Plex Serif-10:weight=Light:slant=italic")
     (set-face-font 'line-number "IBM Plex Mono-6:weight=ExtraLight")
     ;; (set-face-attribute 'line-number nil :box '(:line-width (2 . 0)))
     ;; (set-face-background 'line-number (face-background 'mode-line))
