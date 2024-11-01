@@ -10,6 +10,7 @@
 (setq user-mail-address "tealeg@t-online.de")
 (require 'tealeg--elpaca)
 (elpaca-wait)
+(require 'tealeg--term)
 (require 'tealeg--org)
 (require 'tealeg--litter)
 (require 'tealeg--performance)
