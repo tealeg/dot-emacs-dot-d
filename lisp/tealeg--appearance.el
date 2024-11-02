@@ -10,7 +10,7 @@
 (setq default-frame-alist
       (append (list
 	           '(min-height . 1)
-               '(height     . 45)
+               '(height     . 40)
 	           '(min-width  . 1)
                '(width      . 81)
                '(vertical-scroll-bars . nil)
@@ -178,6 +178,8 @@
       (set-face-font 'line-number "IBM Plex Mono-12:weight=ExtraLight")
       (setf line-spacing 0.2))
   (progn
+    ;; (set-face-font 'default "Go-10:weight=Light")
+    ;; (set-face-font 'default "Topaz a600a1200a400-12")
     (set-face-font 'default "IBM Plex Mono-10:weight=Light")
     (set-face-font 'fixed-pitch "IBM Plex Mono-10:weight=Light")
     (set-face-font 'variable-pitch "IBM Plex Serif-10:weight=Light")
@@ -189,7 +191,7 @@
     ;; (set-face-foreground 'line-number (face-foreground 'mode-line))
     ;; (set-face-background 'line-number-current-line (face-background 'mode-line-emphasis))
     ;; (set-face-foreground 'line-number-current-line (face-foreground 'mode-line-emphasis))
-    (setf line-spacing 0.15)))
+    (setf line-spacing 0.2)))
 
 (provide 'tealeg--appearance)
 ;;; tealeg--appearance.el ends here
