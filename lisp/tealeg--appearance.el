@@ -169,12 +169,12 @@
 
 (if (eq system-type 'darwin)
     (progn
-      (set-face-font 'default "IBM Plex Mono-23:weight=Light")
-      (set-face-font 'fixed-pitch "IBM Plex Mono-23:weight=Light")
-      (set-face-font 'variable-pitch "IBM Plex Serif-23:weight=Light")
-      (set-face-font 'font-lock-keyword-face "IBM Plex Mono-23:weight=DemiBold")
-      (set-face-font 'font-lock-string-face "IBM Plex Sans-23:slant=italic:weight=Light")
-      (set-face-font 'font-lock-comment-face "IBM Plex Serif-23:weight=Light:slant=italic")
+      (set-face-font 'default "IBM Plex Mono-18:weight=Light")
+      (set-face-font 'fixed-pitch "IBM Plex Mono-18:weight=Light")
+      (set-face-font 'variable-pitch "IBM Plex Serif-18:weight=Light")
+      (set-face-font 'font-lock-keyword-face "IBM Plex Mono-18:weight=DemiBold")
+      (set-face-font 'font-lock-string-face "IBM Plex Sans-18:slant=italic:weight=Light")
+      (set-face-font 'font-lock-comment-face "IBM Plex Serif-18:weight=Light:slant=italic")
       (set-face-font 'line-number "IBM Plex Mono-12:weight=ExtraLight")
       (setf line-spacing 0.2))
   (progn
