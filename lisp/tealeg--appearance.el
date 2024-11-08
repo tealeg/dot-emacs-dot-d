@@ -176,6 +176,11 @@
       (set-face-font 'font-lock-string-face "IBM Plex Sans-18:slant=italic:weight=Light")
       (set-face-font 'font-lock-comment-face "IBM Plex Serif-18:weight=Light:slant=italic")
       (set-face-font 'line-number "IBM Plex Mono-12:weight=ExtraLight")
+      (set-face-font 'org-level-1 "IBM Plex Sans-40:weight=Bold")
+      (set-face-font 'org-level-2 "IBM Plex Sans-34:weight=Bold")
+      (set-face-font 'org-level-3 "IBM Plex Sans-30:weight=Bold")
+      (set-face-font 'org-level-4 "IBM Plex Sans-26:weight=Bold")
+      (set-face-font 'org-level-5 "IBM Plex Sans-22:weight=Bold")
       (setf line-spacing 0.2))
   (progn
     ;; (set-face-font 'default "Go-10:weight=Light")
