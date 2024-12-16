@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: doctave-sequential
-# key: dseq
-# --
-{% include "_partials/sequential.md" prev: "$1", prevtitle: "$2", next: "$3", nexttitle: "$4" %}$0

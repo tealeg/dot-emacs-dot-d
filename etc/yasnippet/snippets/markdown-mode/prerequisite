@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: doctave-prerequisite
-# key: dpre
-# --
-{% include "_partials/prerequisite.md" title: "$1", body: $2 %}
-$0

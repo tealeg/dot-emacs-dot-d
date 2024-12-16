@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: doctave-capture
-# key: dcap
-# --
-{% capture $1 %}
-`yas-selected-text`
-{% endcapture %}$0

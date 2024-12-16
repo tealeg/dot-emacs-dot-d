@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: doctave-step
-# key: dstep
-# --
-{% include "_partials/step.md" id: "$1", number: "→$2", depth: $3, title: "$4", path: "$5", body: $6 %}$0
-
