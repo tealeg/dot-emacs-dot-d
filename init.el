@@ -3,7 +3,7 @@
 (setq auto-save-default nil
       make-backup-files nil)
 
-
+(setq visible-bell t)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
@@ -28,11 +28,11 @@
 
 ;;;; eglot
 ;; it needs to install `jsonrpc' from elpa
-(use-package jsonrpc)
-
-(use-package eglot
-  :after jsonrpc
+(use-package jsonrpc
   :config
+  (require eldoc)
+  (require eglot)
+  (setq eldoc-echo-area-use-multiline-p nil)
   (define-key eglot-mode-map (kbd "C-c <tab>") #'company-complete) ; initiate the completion manually
   (define-key eglot-mode-map (kbd "C-c e f n") #'flymake-goto-next-error)
   (define-key eglot-mode-map (kbd "C-c e f p") #'flymake-goto-prev-error)
@@ -47,7 +47,7 @@
 (use-package org-modern)
 (use-package epresent)
 
-(setq eldoc-echo-area-use-multiline-p nil)
+
 
 (require 'org-faces)
 (if (eq system-type 'darwin)
@@ -70,12 +70,14 @@
 
 
 ;; Go
-
-(defun tealeg--go-ts-mode-helper-f ()
-  (eglot-ensure))
+(use-package gotest
+  :after f
+  :config
+  (defun tealeg--go-ts-mode-helper-f ()
+    (eglot-ensure))
   
-(add-hook 'go-ts-mode-hook #'tealeg--go-ts-mode-helper-f)
-(add-hook 'before-save-hook 'gofmt-before-save)
+  (add-hook 'go-ts-mode-hook #'tealeg--go-ts-mode-helper-f)
+  (add-hook 'before-save-hook 'gofmt-before-save))
 
 
 ;; Notmuch
@@ -108,7 +110,12 @@
                        elpaca--pre-built-steps elpaca-build-steps))
           (list '+elpaca-unload-seq 'elpaca--activate-package)))
 
-(use-package seq :ensure `(seq :build ,(+elpaca-seq-build-steps)))
+(use-package s)
+(use-package f :after s)
+
+
+(use-package seq :after f :ensure `(seq :build ,(+elpaca-seq-build-steps)))
+
 
 (use-package transient
   :after seq
@@ -120,15 +127,17 @@
   :bind ("C-x g" . magit-status)
   )
 
-(use-package greenbar
-  :config (add-hook 'comint-mode-hook #'greenbar-mode)
-  (add-hook 'compilation-mode-hook #'greenbar-mode)
-  )
-
 ;; See: https://github.com/blahgeek/emacs-lsp-booster
 (use-package eglot-booster
+  :after (emacs jsonrpc eglot seq)
   :ensure (:host "github.com" :repo "jdtsmith/eglot-booster")
-  :after eglot
-  :config (eglot-booster-mode))
+  :preface
+  (require 'emacs)
+  (require 'jsonrpc)
+  (require 'eglot)
+  (require 'seq)
 
-(use-package gotest)
+  :config
+  (eglot-booster-mode))
+
+
