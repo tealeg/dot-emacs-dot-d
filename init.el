@@ -30,8 +30,8 @@
 ;; it needs to install `jsonrpc' from elpa
 (use-package jsonrpc
   :config
-  (require eldoc)
-  (require eglot)
+  (require 'eldoc)
+  (require 'eglot)
   (setq eldoc-echo-area-use-multiline-p nil)
   (define-key eglot-mode-map (kbd "C-c <tab>") #'company-complete) ; initiate the completion manually
   (define-key eglot-mode-map (kbd "C-c e f n") #'flymake-goto-next-error)
@@ -81,26 +81,30 @@
 
 
 ;; Notmuch
-(when (string= system-type "darwin")
-    (progn
-      (add-to-list 'load-path "/opt/homebrew/share/emacs/site-lisp/notmuch")
-      (require 'notmuch)
-      (setq notmuch-fcc-dirs "INBOX.Sent")))
+;; (when (string= system-type "darwin")
+;;     (progn
+;;       (add-to-list 'load-path "/opt/homebrew/share/emacs/site-lisp/notmuch")
+;;       (require 'notmuch)
+;;       (setq notmuch-fcc-dirs "INBOX.Sent")))
 
-(setq send-mail-function 'smtpmail-send-it
-      smtpmail-smtp-server "smtpauth.mailroute.net"
-      smtpmail-stream-type 'starttls
-      smtpmail-smtp-service 587
-      user-full-name "gteale"
-      smtpmail-local-domain "acm.org"
-      user-mail-address "gteale@acm.org"
-      )
+;; (setq send-mail-function 'smtpmail-send-it
+;;       smtpmail-smtp-server "smtpauth.mailroute.net"
+;;       smtpmail-stream-type 'starttls
+;;       smtpmail-smtp-service 587
+;;       user-full-name "gteale"
+;;       smtpmail-local-domain "acm.org"
+;;       user-mail-address "gteale@acm.org"
+;;       )
 
-(add-hook 'notmuch-hello-refresh-hook (lambda () (shell-command "notmuch new")))
+;; (add-hook 'notmuch-hello-refresh-hook (lambda () (shell-command "notmuch new")))
 
 
 
 ;; Magit
+
+(use-package s)
+(use-package f :after s)
+
 (defun +elpaca-unload-seq (e)
   (and (featurep 'seq) (unload-feature 'seq t))
   (elpaca--continue-build e))
@@ -110,12 +114,10 @@
                        elpaca--pre-built-steps elpaca-build-steps))
           (list '+elpaca-unload-seq 'elpaca--activate-package)))
 
-(use-package s)
-(use-package f :after s)
-
 
 (use-package seq :after f :ensure `(seq :build ,(+elpaca-seq-build-steps)))
 
+;; (use-package seq :after f)
 
 (use-package transient
   :after seq
@@ -128,16 +130,16 @@
   )
 
 ;; See: https://github.com/blahgeek/emacs-lsp-booster
-(use-package eglot-booster
-  :after (emacs jsonrpc eglot seq)
-  :ensure (:host "github.com" :repo "jdtsmith/eglot-booster")
-  :preface
-  (require 'emacs)
-  (require 'jsonrpc)
-  (require 'eglot)
-  (require 'seq)
+;; (use-package eglot-booster
+;;   :after (emacs jsonrpc eglot seq)
+;;   :ensure (:host "github.com" :repo "jdtsmith/eglot-booster")
+;;   :preface
+;;   (require 'emacs)
+;;   (require 'jsonrpc)
+;;   (require 'eglot)
+;;   (require 'seq)
 
-  :config
-  (eglot-booster-mode))
+;;   :config
+;;   (eglot-booster-mode))
 
 
