@@ -37,7 +37,12 @@
   (define-key eglot-mode-map (kbd "C-c e f n") #'flymake-goto-next-error)
   (define-key eglot-mode-map (kbd "C-c e f p") #'flymake-goto-prev-error)
   (define-key eglot-mode-map (kbd "C-c e r") #'eglot-rename)
+  (add-to-list 'auto-mode-alist (cons "\\.go\\'" 'go-ts-mode)) 
   )
+
+(use-package eldoc-box
+  :config
+  (eldoc-box-hover-mode 1))
 
 (use-package company
   :config
@@ -78,6 +83,9 @@
   
   (add-hook 'go-ts-mode-hook #'tealeg--go-ts-mode-helper-f)
   (add-hook 'before-save-hook 'gofmt-before-save))
+
+(use-package dape
+  :after gotest)
 
 
 ;; Notmuch
@@ -140,5 +148,6 @@
 
   :config
   (eglot-booster-mode))
+
 
 
