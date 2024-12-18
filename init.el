@@ -60,11 +60,11 @@
       (setf line-spacing 0.3)
       )
   (progn
-      (set-face-font 'default "IBM Plex Mono-14:weight=regular")
-      (set-face-font 'fixed-pitch "IBM Plex Mono-14:weight=regular")
-      (set-face-font 'variable-pitch "IBM Plex Serif-14:weight=regular")
-      (set-face-font 'font-lock-comment-face "IBM Plex Serif-14:weight=regular:slant=italic")
-      (setf line-spacing 0.3)
+    (set-face-font 'default "IBM Plex Mono-14:weight=regular")
+    (set-face-font 'fixed-pitch "IBM Plex Mono-14:weight=regular")
+    (set-face-font 'variable-pitch "IBM Plex Serif-14:weight=regular")
+    (set-face-font 'font-lock-comment-face "IBM Plex Serif-14:weight=regular:slant=italic")
+    (setf line-spacing 0.3)
 
     ))
 
@@ -81,22 +81,22 @@
 
 
 ;; Notmuch
-;; (when (string= system-type "darwin")
-;;     (progn
-;;       (add-to-list 'load-path "/opt/homebrew/share/emacs/site-lisp/notmuch")
-;;       (require 'notmuch)
-;;       (setq notmuch-fcc-dirs "INBOX.Sent")))
+(when (string= system-type "darwin")
+  (progn
+    (add-to-list 'load-path "/opt/homebrew/share/emacs/site-lisp/notmuch")
+    (require 'notmuch)
+    (setq notmuch-fcc-dirs "INBOX.Sent")
 
-;; (setq send-mail-function 'smtpmail-send-it
-;;       smtpmail-smtp-server "smtpauth.mailroute.net"
-;;       smtpmail-stream-type 'starttls
-;;       smtpmail-smtp-service 587
-;;       user-full-name "gteale"
-;;       smtpmail-local-domain "acm.org"
-;;       user-mail-address "gteale@acm.org"
-;;       )
+    (setq send-mail-function 'smtpmail-send-it
+	  smtpmail-smtp-server "smtpauth.mailroute.net"
+	  smtpmail-stream-type 'starttls
+	  smtpmail-smtp-service 587
+	  user-full-name "gteale"
+	  smtpmail-local-domain "acm.org"
+	  user-mail-address "gteale@acm.org"
+	  )
 
-;; (add-hook 'notmuch-hello-refresh-hook (lambda () (shell-command "notmuch new")))
+    (add-hook 'notmuch-hello-refresh-hook (lambda () (shell-command "notmuch new")))))
 
 
 
@@ -130,16 +130,15 @@
   )
 
 ;; See: https://github.com/blahgeek/emacs-lsp-booster
-;; (use-package eglot-booster
-;;   :after (emacs jsonrpc eglot seq)
-;;   :ensure (:host "github.com" :repo "jdtsmith/eglot-booster")
-;;   :preface
-;;   (require 'emacs)
-;;   (require 'jsonrpc)
-;;   (require 'eglot)
-;;   (require 'seq)
+(use-package eglot-booster
+  :ensure (:host "github.com" :repo "jdtsmith/eglot-booster")
+  :preface
+  (require 'emacs)
+  (require 'jsonrpc)
+  (require 'eglot)
+  (require 'seq)
 
-;;   :config
-;;   (eglot-booster-mode))
+  :config
+  (eglot-booster-mode))
 
 
