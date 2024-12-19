@@ -65,10 +65,10 @@
       (setf line-spacing 0.3)
       )
   (progn
-    (set-face-font 'default "IBM Plex Mono-14:weight=regular")
-    (set-face-font 'fixed-pitch "IBM Plex Mono-14:weight=regular")
-    (set-face-font 'variable-pitch "IBM Plex Serif-14:weight=regular")
-    (set-face-font 'font-lock-comment-face "IBM Plex Serif-14:weight=regular:slant=italic")
+    (set-face-font 'default "IBM Plex Mono-10:weight=regular")
+    (set-face-font 'fixed-pitch "IBM Plex Mono-10:weight=regular")
+    (set-face-font 'variable-pitch "IBM Plex Serif-10:weight=regular")
+    (set-face-font 'font-lock-comment-face "IBM Plex Serif-10:weight=regular:slant=italic")
     (setf line-spacing 0.3)
 
     ))
@@ -145,7 +145,8 @@
   (require 'jsonrpc)
   (require 'eglot)
   (require 'seq)
-
+  (add-to-list 'exec-path (concat (getenv "HOME") "/bin"))
+  
   :config
   (eglot-booster-mode))
 
