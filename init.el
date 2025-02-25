@@ -4,9 +4,18 @@
       make-backup-files nil)
 
 (setq visible-bell t)
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
+(if (eq system-type 'haiku)
+    (progn
+      ;; for some reason I like this on haiku
+      (setq indicate-buffer-boundaries 'right
+	    indicate-empty-lines t)
+      (tool-bar-mode 1)
+      (menu-bar-mode 1)
+      (scroll-bar-mode 1))
+  (progn
+    (tool-bar-mode -1)
+    (menu-bar-mode -1)
+    (scroll-bar-mode -1)))
 
 
 (if (eq system-type 'darwin)
@@ -15,16 +24,17 @@
           mac-command-modifier 'meta
           mac-option-modifier nil))
 
-
-(add-to-list 'load-path "~/.config/emacs/lisp")
+(if (eq system-type 'haiku)
+    (add-to-list 'load-path "~/config/settings/emacs/lisp")
+  (add-to-list 'load-path "~/.config/emacs/lisp"))
 
 (require 'tealeg--elpaca)
 (elpaca-wait)
 
 ;;; look and feel
-(use-package orangey-bits-theme
-  :config
-  (load-theme 'orangey-bits 'no-confirm))
+;; (use-package orangey-bits-theme
+;;   :config
+;;   (load-theme 'orangey-bits 'no-confirm))
 
 ;;;; eglot
 ;; it needs to install `jsonrpc' from elpa
@@ -55,23 +65,28 @@
 
 
 (require 'org-faces)
-(if (eq system-type 'darwin)
-    (progn
-      (set-face-font 'default "IBM Plex Mono-23:weight=regular:slant=italic")
-      (set-face-font 'fixed-pitch "IBM Plex Mono-23:weight=regular")
-      (set-face-font 'variable-pitch "IBM Plex Serif-23:weight=regular")
-      (set-face-font 'font-lock-comment-face "IBM Plex Serif-23:weight=regular:slant=normal")
-      (set-face-font 'font-lock-string-face "IBM Plex Serif-23:weight=regular:slant=normal")
-      (setf line-spacing 0.3)
+(cond ((eq system-type 'darwin)
+       (progn
+	 (set-face-font 'default "IBM Plex Mono-23:weight=regular:slant=italic")
+	 (set-face-font 'fixed-pitch "IBM Plex Mono-23:weight=regular")
+	 (set-face-font 'variable-pitch "IBM Plex Serif-23:weight=regular")
+	 (set-face-font 'font-lock-comment-face "IBM Plex Serif-23:weight=regular:slant=normal")
+	 (set-face-font 'font-lock-string-face "IBM Plex Serif-23:weight=regular:slant=normal")
+	 (setf line-spacing 0.3)
+	 'darwin
+	 ))
+      ((eq system-type 'haiku)
+	 'haiku)
+      (t 
+       (progn
+	 (set-face-font 'default "IBM Plex Mono-10:weight=regular")
+	 (set-face-font 'fixed-pitch "IBM Plex Mono-10:weight=regular")
+	 (set-face-font 'variable-pitch "IBM Plex Serif-10:weight=regular")
+	 (set-face-font 'font-lock-comment-face "IBM Plex Serif-10:weight=regular:slant=italic")
+	 (setf line-spacing 0.3)
+	 t
+	 ))
       )
-  (progn
-    (set-face-font 'default "IBM Plex Mono-10:weight=regular")
-    (set-face-font 'fixed-pitch "IBM Plex Mono-10:weight=regular")
-    (set-face-font 'variable-pitch "IBM Plex Serif-10:weight=regular")
-    (set-face-font 'font-lock-comment-face "IBM Plex Serif-10:weight=regular:slant=italic")
-    (setf line-spacing 0.3)
-
-    ))
 
 
 ;; Go
@@ -137,18 +152,19 @@
   :bind ("C-x g" . magit-status)
   )
 
-;; See: https://github.com/blahgeek/emacs-lsp-booster
-(use-package eglot-booster
-  :ensure (:host "github.com" :repo "jdtsmith/eglot-booster")
-  :preface
-  (require 'emacs)
-  (require 'jsonrpc)
-  (require 'eglot)
-  (require 'seq)
-  (add-to-list 'exec-path (concat (getenv "HOME") "/bin"))
-  
-  :config
-  (eglot-booster-mode))
+(when (file-exists-p (concat (getenv "HOME") "/bin/eglot-booster"))
+  ;; See: https://github.com/blahgeek/emacs-lsp-booster
+  (use-package eglot-booster
+    :ensure (:host "github.com" :repo "jdtsmith/eglot-booster")
+    :preface
+    (require 'emacs)
+    (require 'jsonrpc)
+    (require 'eglot)
+    (require 'seq)
+    (add-to-list 'exec-path (concat (getenv "HOME") "/bin"))
+    
+    :config
+    (eglot-booster-mode)))
 
 
 
