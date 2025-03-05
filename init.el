@@ -226,7 +226,8 @@
     (scroll-bar-mode -1)))
 
 ;; Final setup
-(load custom-file)
+(if (file-exists-p custom-file)
+    (load custom-file))
 
 ;;; look and feel
 
@@ -235,4 +236,6 @@
 ;;   :config
 ;;   (load-theme 'orangey-bits 'no-confirm))
 
-(load-theme 'deeper-blue 'no-confirm)
+(if (eq system-type 'haiku)
+    (load-theme 'leuven 'no-confirm)
+  (load-theme 'deeper-blue 'no-confirm))

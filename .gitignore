@@ -4,6 +4,7 @@ auto-save-list
 elpa
 eshell
 straight
+custom.el
 emacs-custom.el
 eln-cache
 request
