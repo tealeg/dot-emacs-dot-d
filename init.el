@@ -12,9 +12,12 @@
           mac-command-modifier 'meta
           mac-option-modifier nil))
 (if (eq system-type 'haiku)
-    (add-to-list 'load-path "~/config/settings/emacs/lisp")
-  (add-to-list 'load-path "~/.config/emacs/lisp"))
-
+    (progn 
+      (add-to-list 'load-path "~/config/settings/emacs/lisp")
+      (setq custom-file "~/config/settings/emacs/custom.el"))
+  (progn
+    (add-to-list 'load-path "~/.config/emacs/lisp")
+    (setq custom-file "~/.config/emacs/custom.el")))
 
 ;; Fix path
 (use-package exec-path-from-shell
@@ -50,13 +53,6 @@
   (keymap-set completion-preview-active-mode-map "M-p" #'completion-preview-prev-candidate)
   ;; Convenient alternative to C-i after typing one of the above
   (keymap-set completion-preview-active-mode-map "M-i" #'completion-preview-insert))
-
-
-;;; look and feel
-(use-package orangey-bits-theme
-  :ensure t
-  :config
-  (load-theme 'orangey-bits 'no-confirm))
 
 
 ;;;;
@@ -228,3 +224,15 @@
     (tool-bar-mode -1)
     (menu-bar-mode -1)
     (scroll-bar-mode -1)))
+
+;; Final setup
+(load custom-file)
+
+;;; look and feel
+
+;; (use-package orangey-bits-theme
+;;   :ensure t
+;;   :config
+;;   (load-theme 'orangey-bits 'no-confirm))
+
+(load-theme 'deeper-blue 'no-confirm)
