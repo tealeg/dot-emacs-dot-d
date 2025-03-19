@@ -126,7 +126,7 @@
 (require 'org-faces)
 (defun tealeg--on-monitor-change (terminal) 
   (progn
-    (let* ((size-mm (font-size-at-res 4))
+    (let* ((size-mm (font-size-at-res 3))
 	   (size (int-to-string size-mm)))
       (set-face-font 'default
 		     (concat "IBM Plex Mono-" size ":weight=regular"))
