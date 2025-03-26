@@ -1,5 +1,6 @@
 ;;;; basics
 
+(setq inhibit-startup-screen t)
 (setq package-enable-at-startup nil)
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
@@ -19,6 +20,7 @@
     (add-to-list 'load-path "~/.config/emacs/lisp")
     (setq custom-file "~/.config/emacs/custom.el")))
 
+
 ;; Fix path
 (use-package exec-path-from-shell
   :ensure t
@@ -26,6 +28,55 @@
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)))
 
+
+(use-package nlinum
+  :ensure t
+  :config
+  (defun linum-mode (arg)
+    (interactive "P")
+    (nlinum-mode arg))
+  )
+;; Org-mode
+(use-package org
+  :ensure t
+  :init
+  (require 'org-agenda)
+  (require 'org-habit)
+  :config
+  (setq org-todo-keywords (list "TODO" "IN-PROGRESS" "|" "DONE" "CANCELED")
+	org-log-done 'time
+	org-log-into-drawer t
+	org-agenda-files '("todo.org" "habits.org" "completed.org"))
+  (defun tealeg--org-mode-helper-f ()
+      (org-modern-mode 1)
+    (flyspell-mode 1)
+    )
+  
+  (add-hook 'org-mode-hook #'tealeg--org-mode-helper-f)
+
+  (defun tealeg--org-commit-and-push-todos ()
+    (interactive)
+    (require 'magit)
+    (require 'magit-process)
+    (dolist (fname org-agenda-files)
+      (magit-run-git "add" fname))
+    (magit-run-git "commit" "-m" "'Update TODOs'")
+    (magit-run-git "push" "origin" "main"))
+
+  (defun tealeg--todo-save-helper-f ()
+    (interactive)
+    (let ((bname (buffer-file-name (current-buffer)))
+	  (res nil))
+      (when (dolist (aname org-agenda-files res)
+	      (setq res (or res (string-suffix-p aname bname))))
+	(tealeg--org-commit-and-push-todos))))
+
+  (add-hook 'after-save-hook #'tealeg--todo-save-helper-f)
+  )
+
+
+	
+  
 
 ;; Enable Completion Preview mode in code buffers
 (add-hook 'prog-mode-hook #'completion-preview-mode)
@@ -181,6 +232,14 @@
 (use-package racket-mode
   :ensure t)
 
+(use-package flycheck
+  :ensure t)
+
+(use-package idris-mode
+  :ensure t
+  :config (setq idris-interpreter-path (shell-command-to-string "which idris2"))
+  )
+
 ;; Support opening new minibuffers from inside existing minibuffers.
 (setq enable-recursive-minibuffers t
       ;; Hide commands in M-x which do not work in the current mode.  Vertico
@@ -235,7 +294,14 @@
 ;;   :ensure t
 ;;   :config
 ;;   (load-theme 'orangey-bits 'no-confirm))
-
-(if (eq system-type 'haiku)
+;; (use-package dark-mint-theme
+;;   :ensure t
+;;   :config
+;;   (load-theme 'dark-mint 'no-confirm))
+(use-package prassee-theme
+  :ensure t
+  :config
+  (if (eq system-type 'haiku)
     (load-theme 'leuven 'no-confirm)
-  (load-theme 'deeper-blue 'no-confirm))
+    (load-theme 'prassee 'no-confirm)))
+
