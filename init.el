@@ -61,6 +61,7 @@
     (dolist (fname org-agenda-files)
       (magit-run-git "add" fname))
     (magit-run-git "commit" "-m" "'Update TODOs'")
+    (magit-run-git-with-editor "pull" "-r" "origin" "main")
     (magit-run-git "push" "origin" "main"))
 
   (defun tealeg--todo-save-helper-f ()
