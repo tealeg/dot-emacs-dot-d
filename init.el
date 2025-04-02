@@ -28,7 +28,7 @@
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)))
 
-
+;; Fix linum
 (use-package nlinum
   :ensure t
   :config
@@ -36,6 +36,17 @@
     (interactive "P")
     (nlinum-mode arg))
   )
+
+;; Spelling
+
+(use-package flyspell
+  :ensure t
+  :config
+  (require 'ispell)
+  (setq ispell-dictionary "en_GB"))
+
+
+
 ;; Org-mode
 (use-package org
   :ensure t
@@ -48,22 +59,50 @@
 	org-log-into-drawer t
 	org-agenda-files '("todo.org" "habits.org" "completed.org"))
   (defun tealeg--org-mode-helper-f ()
-      (org-modern-mode 1)
+      ;; (org-modern-mode 1)
     (flyspell-mode 1)
     )
   
   (add-hook 'org-mode-hook #'tealeg--org-mode-helper-f)
 
+
+  (defun tealeg--is-file-modified (fname)
+    (when (magit-run-git "status" "--porcelain" fname)
+    (string-prefix-p "M" (string-trim
+			      (save-excursion
+				(with-current-buffer (magit-process-buffer)
+				  (end-of-buffer)
+				  (set-mark (point-max))
+				  (beginning-of-line)
+				  (while (and (not (string-prefix-p "  0" (buffer-substring (point) (mark))))
+					      (not (= (point) (point-min))))
+				    (previous-line))
+				  (if (string-prefix-p "  0" (buffer-substring (point) (mark)))
+				      (progn
+					(next-line)
+					(beginning-of-line)
+					(set-mark (point))
+					(end-of-line)
+					(buffer-substring (mark) (point)))
+				    "")))))))
+	
+      
+
   (defun tealeg--org-commit-and-push-todos ()
     (interactive)
     (require 'magit)
     (require 'magit-process)
-    (dolist (fname org-agenda-files)
-      (magit-run-git "add" fname))
-    (magit-run-git "commit" "-m" "'Update TODOs'")
-    (magit-run-git-with-editor "pull" "-r" "origin" "main")
-    (magit-run-git "push" "origin" "main"))
 
+    (let ((modified nil))
+      (dolist (fname org-agenda-files modified)
+	(when (tealeg--is-file-modified fname)
+	  (magit-run-git "add" fname)
+	  (setq modified t)))
+      (when modified
+	(magit-run-git "commit" "-m" (concat "'Update TODOs " (current-time-string) "'"))
+	(magit-run-git-with-editor "pull" "-r" "origin" "main")
+	(magit-run-git "push" "origin" "main"))))
+		   
   (defun tealeg--todo-save-helper-f ()
     (interactive)
     (let ((bname (buffer-file-name (current-buffer)))
@@ -149,50 +188,82 @@
 (use-package org-modern
   :ensure t
   :config
+  (global-org-modern-mode)
   (require 'org-tempo)
   (org-tempo-setup)
+
+  
+  (setq
+   ;; Edit settings
+   org-auto-align-tags nil
+   org-tags-column 0
+   org-catch-invisible-edits 'show-and-error
+   org-special-ctrl-a/e t
+   org-insert-heading-respect-content t
+   
+   ;; Org styling, hide markup etc.
+   org-hide-emphasis-markers t
+   org-pretty-entities t
+   org-agenda-tags-column 0
+   org-ellipsis "…")
+
   )
 
 (use-package epresent
   :ensure t)
 
-(defconst mm-per-point 0.3527777778)
 
-(defun point-size-to-mm (point-size)
-  (* point-size mm-per-point))
+  
 
-(defun mm-to-point-size (mm)
-  (/ mm mm-per-point))
+;; (defconst mm-per-point 0.3527777778)
 
-(defun font-size-at-res (point-size)
-  (truncate (let* ((font-mm (point-size-to-mm point-size))
-		   (screen (frame-monitor-attributes))
-		   (screen-mm (alist-get 'mm-size screen))
-		   (screen-pixels (alist-get 'geometry screen))
-		   (screen-pixel-height (nth 3 screen-pixels))
-		   (screen-mm-height (cadr screen-mm))
-		   (pixels-per-mm (/  screen-pixel-height (* screen-mm-height 1.0))))
-	      (mm-to-point-size (* font-mm pixels-per-mm)))))
+;; (defun point-size-to-mm (point-size)
+;;   (* point-size mm-per-point))
+
+;; (defun mm-to-point-size (mm)
+;;   (/ mm mm-per-point))
+
+;; (defun font-size-at-res (point-size)
+;;   (truncate (let* ((font-mm (point-size-to-mm point-size))
+;; 		   (screen (frame-monitor-attributes))
+;; 		   (screen-mm (alist-get 'mm-size screen))
+;; 		   (screen-pixels (alist-get 'geometry screen))
+;; 		   (screen-pixel-height (nth 3 screen-pixels))
+;; 		   (screen-mm-height (cadr screen-mm))
+;; 		   (pixels-per-mm (/  screen-pixel-height (* screen-mm-height 1.0))))
+;; 	      (mm-to-point-size (* font-mm pixels-per-mm)))))
 
 
 (require 'org-faces)
-(defun tealeg--on-monitor-change (terminal) 
-  (progn
-    (let* ((size-mm (font-size-at-res 3))
-	   (size (int-to-string size-mm)))
+(defun tealeg--set-faces (mono-face variable-face size) 
       (set-face-font 'default
-		     (concat "IBM Plex Mono-" size ":weight=regular"))
+		     (concat mono-face "-" size ":weight=regular"))
       (set-face-font 'variable-pitch
-		     (concat "IBM Plex Serif-" size ":weight=regular"))
+		     (concat variable-face "-" size ":weight=regular"))
       (set-face-font 'font-lock-comment-face
-		     (concat "IBM Plex Serif-" size ":weight=regular:slant=normal"))
+		     (concat variable-face "-" size ":weight=regular:slant=normal"))
       (set-face-font 'font-lock-string-face
-		     (concat "IBM Plex Mono-" size ":weight=regular:slant=italic"))
-      (setf line-spacing (/ size-mm 100.0))
-      )))
+		     (concat mono-face "-" size ":weight=regular:slant=italic"))
+      (set-face-font 'org-modern-symbol (concat mono-face "-" size ":weight=regular"))
+     (setf line-spacing (/ size-mm 100.0))
+      )
 
-(add-hook 'display-monitors-changed-functions #'tealeg--on-monitor-change)
-(tealeg--on-monitor-change 1)
+      
+;;       ;; (set-face-font 'default
+;;       ;; 		     (concat "IBM Plex Mono-" size ":weight=regular"))
+;;       ;; (set-face-font 'variable-pitch
+;;       ;; 		     (concat "IBM Plex Serif-" size ":weight=regular"))
+;;       ;; (set-face-font 'font-lock-comment-face
+;;       ;; 		     (concat "IBM Plex Serif-" size ":weight=regular:slant=normal"))
+;;       ;; (set-face-font 'font-lock-string-face
+;;       ;; 		     (concat "IBM Plex Mono-" size ":weight=regular:slant=italic"))
+;;       ;; (set-face-font 'org-modern-symbol (concat "IBM Plex Mono-" size ":weight=regular"))
+
+;;       (setf line-spacing (/ size-mm 100.0))
+;;       )))
+
+;; (add-hook 'display-monitors-changed-functions #'tealeg--on-monitor-change)
+;; (tealeg--on-monitor-change 1)
 
 
 ;; Go
@@ -299,10 +370,32 @@
 ;;   :ensure t
 ;;   :config
 ;;   (load-theme 'dark-mint 'no-confirm))
-(use-package prassee-theme
+;; (use-package prassee-theme
+;;   :ensure t
+;;   :config
+;;   (if (eq system-type 'haiku)
+;;     (load-theme 'leuven 'no-confirm)
+;;     (load-theme 'prassee 'no-confirm)))
+
+(use-package modus-themes
   :ensure t
   :config
-  (if (eq system-type 'haiku)
-    (load-theme 'leuven 'no-confirm)
-    (load-theme 'prassee 'no-confirm)))
+  (defun tealeg--on-theme-change-f ()
+    
+    ;; Add frame borders and window dividers
+    (modify-all-frames-parameters
+     '((right-divider-width . 40)
+       (internal-border-width . 40)))
+    (tealeg--set-faces "Go Mono" "Go" "22")
+    (dolist (face '(window-divider
+                    window-divider-first-pixel
+                    window-divider-last-pixel))
+      (face-spec-reset-face face)
+      (set-face-foreground face (face-attribute 'default :background)))
+    (set-face-background 'fringe (face-attribute 'default :background)))
 
+  (add-hook 'modus-themes-post-load-hook #'tealeg--on-theme-change-f)
+  (modus-themes-load-theme 'modus-vivendi-tritanopia)
+
+  
+)
