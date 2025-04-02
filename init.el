@@ -245,7 +245,7 @@
       (set-face-font 'font-lock-string-face
 		     (concat mono-face "-" size ":weight=regular:slant=italic"))
       (set-face-font 'org-modern-symbol (concat mono-face "-" size ":weight=regular"))
-     (setf line-spacing (/ size-mm 100.0))
+     (setf line-spacing 0.4)
       )
 
       
@@ -395,7 +395,7 @@
     (set-face-background 'fringe (face-attribute 'default :background)))
 
   (add-hook 'modus-themes-post-load-hook #'tealeg--on-theme-change-f)
-  (modus-themes-load-theme 'modus-vivendi-tritanopia)
+  (modus-themes-load-theme 'modus-operandi)
 
   
 )
