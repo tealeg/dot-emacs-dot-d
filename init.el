@@ -248,24 +248,6 @@
      (setf line-spacing 0.4)
       )
 
-      
-;;       ;; (set-face-font 'default
-;;       ;; 		     (concat "IBM Plex Mono-" size ":weight=regular"))
-;;       ;; (set-face-font 'variable-pitch
-;;       ;; 		     (concat "IBM Plex Serif-" size ":weight=regular"))
-;;       ;; (set-face-font 'font-lock-comment-face
-;;       ;; 		     (concat "IBM Plex Serif-" size ":weight=regular:slant=normal"))
-;;       ;; (set-face-font 'font-lock-string-face
-;;       ;; 		     (concat "IBM Plex Mono-" size ":weight=regular:slant=italic"))
-;;       ;; (set-face-font 'org-modern-symbol (concat "IBM Plex Mono-" size ":weight=regular"))
-
-;;       (setf line-spacing (/ size-mm 100.0))
-;;       )))
-
-;; (add-hook 'display-monitors-changed-functions #'tealeg--on-monitor-change)
-;; (tealeg--on-monitor-change 1)
-
-
 ;; Go
 (use-package gotest
   :ensure t
@@ -386,7 +368,9 @@
     (modify-all-frames-parameters
      '((right-divider-width . 40)
        (internal-border-width . 40)))
-    (tealeg--set-faces "Go Mono" "Go" "22")
+    ;; (tealeg--set-faces "Go Mono" "Go" "22")
+    (tealeg--set-faces "CMU Typewriter Text" "CMU Typewriter Text" "22")
+
     (dolist (face '(window-divider
                     window-divider-first-pixel
                     window-divider-last-pixel))
