@@ -212,28 +212,6 @@
 (use-package epresent
   :ensure t)
 
-
-  
-
-;; (defconst mm-per-point 0.3527777778)
-
-;; (defun point-size-to-mm (point-size)
-;;   (* point-size mm-per-point))
-
-;; (defun mm-to-point-size (mm)
-;;   (/ mm mm-per-point))
-
-;; (defun font-size-at-res (point-size)
-;;   (truncate (let* ((font-mm (point-size-to-mm point-size))
-;; 		   (screen (frame-monitor-attributes))
-;; 		   (screen-mm (alist-get 'mm-size screen))
-;; 		   (screen-pixels (alist-get 'geometry screen))
-;; 		   (screen-pixel-height (nth 3 screen-pixels))
-;; 		   (screen-mm-height (cadr screen-mm))
-;; 		   (pixels-per-mm (/  screen-pixel-height (* screen-mm-height 1.0))))
-;; 	      (mm-to-point-size (* font-mm pixels-per-mm)))))
-
-
 (require 'org-faces)
 (defun tealeg--set-faces (mono-face variable-face size) 
       (set-face-font 'default
@@ -245,6 +223,22 @@
       (set-face-font 'font-lock-string-face
 		     (concat mono-face "-" size ":weight=regular:slant=italic"))
       (set-face-font 'org-modern-symbol (concat mono-face "-" size ":weight=regular"))
+      (set-face-font 'org-level-1
+		     (concat variable-face "-" (number-to-string (+ (string-to-number size) 9)) ":weight=bold"))
+      (set-face-font 'org-level-2
+		     (concat variable-face "-" (number-to-string (+ (string-to-number size) 8)) ":weight=bold"))
+      (set-face-font 'org-level-3
+		     (concat variable-face "-" (number-to-string (+ (string-to-number size) 7)) ":weight=bold"))
+      (set-face-font 'org-level-4
+		     (concat variable-face "-" (number-to-string (+ (string-to-number size) 6)) ":weight=bold"))
+      (set-face-font 'org-level-5
+		     (concat variable-face "-" (number-to-string (+ (string-to-number size) 5)) ":weight=bold"))
+      (set-face-font 'org-level-6
+		     (concat variable-face "-" (number-to-string (+ (string-to-number size) 4)) ":weight=bold"))
+      (set-face-font 'org-level-7
+		     (concat variable-face "-" (number-to-string (+ (string-to-number size) 3)) ":weight=bold"))
+      (set-face-font 'org-level-8
+		     (concat variable-face "-" (number-to-string (+ (string-to-number size) 2)) ":weight=bold"))
      (setf line-spacing 0.4)
       )
 
@@ -369,8 +363,8 @@
      '((right-divider-width . 40)
        (internal-border-width . 40)))
     ;; (tealeg--set-faces "Go Mono" "Go" "22")
-    (tealeg--set-faces "CMU Typewriter Text" "CMU Typewriter Text" "22")
-
+    ;; (tealeg--set-faces "CMU Typewriter Text" "CMU Typewriter Text" "22")
+    (tealeg--set-faces "IBM Plex Mono" "IBM Plex Sans" "12")
     (dolist (face '(window-divider
                     window-divider-first-pixel
                     window-divider-last-pixel))
