@@ -57,9 +57,24 @@
   (setq org-todo-keywords (list "TODO" "IN-PROGRESS" "|" "DONE" "CANCELED")
 	org-log-done 'time
 	org-log-into-drawer t
-	org-agenda-files '("todo.org" "habits.org" "completed.org"))
+	org-agenda-files '("todo.org" "habits.org" "completed.org")
+
+	;; Edit settings
+	org-auto-align-tags nil
+	org-tags-column 0
+	org-catch-invisible-edits 'show-and-error
+	org-special-ctrl-a/e t
+	org-insert-heading-respect-content t
+	
+	;; Org styling, hide markup etc.
+	org-hide-emphasis-markers t
+	org-pretty-entities t
+	org-agenda-tags-column 0
+	org-ellipsis "…")
+
+
   (defun tealeg--org-mode-helper-f ()
-      ;; (org-modern-mode 1)
+    ;; (org-modern-mode 1)
     (flyspell-mode 1)
     )
   
@@ -68,25 +83,25 @@
 
   (defun tealeg--is-file-modified (fname)
     (when (magit-run-git "status" "--porcelain" fname)
-    (string-prefix-p "M" (string-trim
-			      (save-excursion
-				(with-current-buffer (magit-process-buffer)
-				  (end-of-buffer)
-				  (set-mark (point-max))
-				  (beginning-of-line)
-				  (while (and (not (string-prefix-p "  0" (buffer-substring (point) (mark))))
-					      (not (= (point) (point-min))))
-				    (previous-line))
-				  (if (string-prefix-p "  0" (buffer-substring (point) (mark)))
-				      (progn
-					(next-line)
-					(beginning-of-line)
-					(set-mark (point))
-					(end-of-line)
-					(buffer-substring (mark) (point)))
-				    "")))))))
-	
-      
+      (string-prefix-p "M" (string-trim
+			    (save-excursion
+			      (with-current-buffer (magit-process-buffer)
+				(end-of-buffer)
+				(set-mark (point-max))
+				(beginning-of-line)
+				(while (and (not (string-prefix-p "  0" (buffer-substring (point) (mark))))
+					    (not (= (point) (point-min))))
+				  (previous-line))
+				(if (string-prefix-p "  0" (buffer-substring (point) (mark)))
+				    (progn
+				      (next-line)
+				      (beginning-of-line)
+				      (set-mark (point))
+				      (end-of-line)
+				      (buffer-substring (mark) (point)))
+				  "")))))))
+  
+  
 
   (defun tealeg--org-commit-and-push-todos ()
     (interactive)
@@ -102,7 +117,7 @@
 	(magit-run-git "commit" "-m" (concat "'Update TODOs " (current-time-string) "'"))
 	(magit-run-git-with-editor "pull" "-r" "origin" "main")
 	(magit-run-git "push" "origin" "main"))))
-		   
+  
   (defun tealeg--todo-save-helper-f ()
     (interactive)
     (let ((bname (buffer-file-name (current-buffer)))
@@ -115,8 +130,8 @@
   )
 
 
-	
-  
+
+
 
 ;; Enable Completion Preview mode in code buffers
 (add-hook 'prog-mode-hook #'completion-preview-mode)
@@ -160,19 +175,36 @@
   :ensure t)
 
 
+(use-package copilot
+  :vc (:url "https://github.com/copilot-emacs/copilot.el"
+	    :rev :newest
+	    :branch "main")
+  :hook ((prog-mode-hook . copilot-mode))
+  :bind (
+	 ("C-<tab>" . copilot-accept-completion-by-word)
+	 ("C-<return>" . copilot-accept-completion-by-word)
+	 ("C-<backtab>" . copilot-next-completion)
+	 ("C-<left>" . copilot-previous-completion)
+	 ("C-<right>" . copilot-next-completion)
+	 ("C-<up>" . copilot-next-completion)
+	 ("C-<down>" . copilot-previous-completion))
+  )
+
+
+
 ;;;; eglot
 
-(require 'go-ts-mode)
+;; (require 'go-ts-mode)
 
-(use-package eglot
-  :ensure t
-  ;; :defer t
-  :bind (:map eglot-mode-map
-	      ("C-c e f n" . flymake-goto-next-error)
-	      ("C-c e f p" . flymake-goto-previous-error)
-	      ("C-c e r" . eglot-rename)
-	      ("C-c e b" . eglot-format-buffer))
-  :hook (go-ts-mode . eglot-ensure))
+;; (use-package eglot
+;;   :ensure t
+;;   ;; :defer t
+;;   :bind (:map eglot-mode-map
+;; 	      ("C-c e f n" . flymake-goto-next-error)
+;; 	      ("C-c e f p" . flymake-goto-previous-error)
+;; 	      ("C-c e r" . eglot-rename)
+;; 	      ("C-c e b" . eglot-format-buffer))
+;;   :hook (go-ts-mode . eglot-ensure))
 
 
 (use-package eldoc-box
@@ -180,67 +212,35 @@
   :config
   (eldoc-box-hover-mode 1))
 
-;; (use-package company
-;;   :config
-;;   (global-company-mode))
-
-
-(use-package org-modern
+(use-package slime
   :ensure t
   :config
-  (global-org-modern-mode)
-  (require 'org-tempo)
-  (org-tempo-setup)
-
-  
-  (setq
-   ;; Edit settings
-   org-auto-align-tags nil
-   org-tags-column 0
-   org-catch-invisible-edits 'show-and-error
-   org-special-ctrl-a/e t
-   org-insert-heading-respect-content t
-   
-   ;; Org styling, hide markup etc.
-   org-hide-emphasis-markers t
-   org-pretty-entities t
-   org-agenda-tags-column 0
-   org-ellipsis "…")
-
+  (when (eq system-type 'darwin)
+    (setq inferior-lisp-program "/opt/homebrew/bin/sbcl"))
   )
+
 
 (use-package epresent
   :ensure t)
 
 (require 'org-faces)
-(defun tealeg--set-faces (mono-face variable-face size) 
-      (set-face-font 'default
-		     (concat mono-face "-" size ":weight=regular"))
-      (set-face-font 'variable-pitch
-		     (concat variable-face "-" size ":weight=regular"))
-      (set-face-font 'font-lock-comment-face
-		     (concat variable-face "-" size ":weight=regular:slant=normal"))
-      (set-face-font 'font-lock-string-face
-		     (concat mono-face "-" size ":weight=regular:slant=italic"))
-      (set-face-font 'org-modern-symbol (concat mono-face "-" size ":weight=regular"))
-      (set-face-font 'org-level-1
-		     (concat variable-face "-" (number-to-string (+ (string-to-number size) 9)) ":weight=bold"))
-      (set-face-font 'org-level-2
-		     (concat variable-face "-" (number-to-string (+ (string-to-number size) 8)) ":weight=bold"))
-      (set-face-font 'org-level-3
-		     (concat variable-face "-" (number-to-string (+ (string-to-number size) 7)) ":weight=bold"))
-      (set-face-font 'org-level-4
-		     (concat variable-face "-" (number-to-string (+ (string-to-number size) 6)) ":weight=bold"))
-      (set-face-font 'org-level-5
-		     (concat variable-face "-" (number-to-string (+ (string-to-number size) 5)) ":weight=bold"))
-      (set-face-font 'org-level-6
-		     (concat variable-face "-" (number-to-string (+ (string-to-number size) 4)) ":weight=bold"))
-      (set-face-font 'org-level-7
-		     (concat variable-face "-" (number-to-string (+ (string-to-number size) 3)) ":weight=bold"))
-      (set-face-font 'org-level-8
-		     (concat variable-face "-" (number-to-string (+ (string-to-number size) 2)) ":weight=bold"))
-     (setf line-spacing 0.4)
-      )
+
+(defgroup tealeg--org-faces nil
+  "Faces defined by tealeg."
+  :tag "Tealeg Faces"
+  :group 'org-appearance)
+
+(defface tealeg--org-heading '((t :inherit variable-pitch))
+  "Face used by tealeg to override org-headings via Modus themes."
+  :group 'tealeg--org-faces)
+
+(defun tealeg--set-faces (mono-face variable-face heading-face size)
+  (set-face-font 'default (concat mono-face "-" size))
+  ;; (set-face-font 'italic nil (concat mono-face "-" size))
+  (set-face-font 'variable-pitch (concat variable-face "-" size))
+  (set-face-font 'fixed-pitch (concat mono-face "-" size))
+  (set-face-font 'tealeg--org-heading (concat heading-face "-" size))
+  (setf line-spacing 0.3))
 
 ;; Go
 (use-package gotest
@@ -338,33 +338,58 @@
 
 ;;; look and feel
 
-;; (use-package orangey-bits-theme
-;;   :ensure t
-;;   :config
-;;   (load-theme 'orangey-bits 'no-confirm))
-;; (use-package dark-mint-theme
-;;   :ensure t
-;;   :config
-;;   (load-theme 'dark-mint 'no-confirm))
-;; (use-package prassee-theme
-;;   :ensure t
-;;   :config
-;;   (if (eq system-type 'haiku)
-;;     (load-theme 'leuven 'no-confirm)
-;;     (load-theme 'prassee 'no-confirm)))
-
 (use-package modus-themes
   :ensure t
   :config
+
+  (set-face-font 'tealeg--org-heading "Latin Modern Roman Dunhill-24")
+  (setq modus-themes-italic-constructs t
+        modus-themes-bold-constructs nil
+        modus-themes-mixed-fonts t
+        modus-themes-variable-pitch-ui nil
+        modus-themes-custom-auto-reload t
+        modus-themes-disable-other-themes t
+
+        ;; Options for `modus-themes-prompts' are either nil (the
+        ;; default), or a list of properties that may include any of those
+        ;; symbols: `italic', `WEIGHT'
+        modus-themes-prompts '(italic bold)
+
+        ;; The `modus-themes-completions' is an alist that reads two
+        ;; keys: `matches', `selection'.  Each accepts a nil value (or
+        ;; empty list) or a list of properties that can include any of
+        ;; the following (for WEIGHT read further below):
+        ;;
+        ;; `matches'   :: `underline', `italic', `WEIGHT'
+        ;; `selection' :: `underline', `italic', `WEIGHT'
+        modus-themes-completions
+        '((matches . (extrabold))
+          (selection . (semibold italic text-also)))
+
+        modus-themes-org-blocks 'gray-background ; {nil,'gray-background,'tinted-background}
+
+        ;; The `modus-themes-headings' is an alist: read the manual's
+        ;; node about it or its doc string.  Basically, it supports
+        ;; per-level configurations for the optional use of
+        ;; `variable-pitch' typography, a height value as a multiple of
+        ;; the base font size (e.g. 1.5), and a `WEIGHT'.
+        modus-themes-headings
+        '((1 . (variable-pitch 1.5))
+          (2 . (variable-pitch 1.3))
+          (agenda-date . (1.3))
+          (agenda-structure . (variable-pitch light 1.8))
+          (t . (1.1))))
+
+  
   (defun tealeg--on-theme-change-f ()
-    
+
     ;; Add frame borders and window dividers
     (modify-all-frames-parameters
      '((right-divider-width . 40)
        (internal-border-width . 40)))
-    ;; (tealeg--set-faces "Go Mono" "Go" "22")
-    ;; (tealeg--set-faces "CMU Typewriter Text" "CMU Typewriter Text" "22")
-    (tealeg--set-faces "IBM Plex Mono" "IBM Plex Sans" "12")
+    (if (eq system-type 'darwin)
+	(tealeg--set-faces "Latin Modern Mono" "Latin Modern Roman Dunhill" "Latin Modern Roman Dunhill" "24")
+      (tealeg--set-faces "IBM Plex Mono" "IBM Plex Serif" "IBM Plex Sans" "12"))
     (dolist (face '(window-divider
                     window-divider-first-pixel
                     window-divider-last-pixel))
@@ -376,4 +401,4 @@
   (modus-themes-load-theme 'modus-operandi)
 
   
-)
+  )
