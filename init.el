@@ -133,32 +133,33 @@
 
 
 
-;; Enable Completion Preview mode in code buffers
-(add-hook 'prog-mode-hook #'completion-preview-mode)
-;; also in text buffers
-(add-hook 'text-mode-hook #'completion-preview-mode)
-;; and in \\[shell] and friends
-(with-eval-after-load 'comint
-  (add-hook 'comint-mode-hook #'completion-preview-mode))
+(when (featurep #'completion-preview)
+  ;; Enable Completion Preview mode in code buffers
+  (add-hook 'prog-mode-hook #'completion-preview-mode)
+  ;; also in text buffers
+  (add-hook 'text-mode-hook #'completion-preview-mode)
+  ;; and in \\[shell] and friends
+  (with-eval-after-load 'comint
+    (add-hook 'comint-mode-hook #'completion-preview-mode))
 
-(with-eval-after-load 'completion-preview
-  ;; Show the preview already after two symbol characters
-  (setq completion-preview-minimum-symbol-length 2)
+  (with-eval-after-load 'completion-preview
+    ;; Show the preview already after two symbol characters
+    (setq completion-preview-minimum-symbol-length 2)
 
   ;; Non-standard commands to that should show the preview:
 
-  ;; Org mode has a custom `self-insert-command'
-  (push 'org-self-insert-command completion-preview-commands)
-  ;; Paredit has a custom `delete-backward-char' command
-  (push 'paredit-backward-delete completion-preview-commands)
+    ;; Org mode has a custom `self-insert-command'
+    (push 'org-self-insert-command completion-preview-commands)
+    ;; Paredit has a custom `delete-backward-char' command
+    (push 'paredit-backward-delete completion-preview-commands)
 
-  ;; Bindings that take effect when the preview is shown:
+    ;; Bindings that take effect when the preview is shown:
 
-  ;; Cycle the completion candidate that the preview shows
-  (keymap-set completion-preview-active-mode-map "M-n" #'completion-preview-next-candidate)
-  (keymap-set completion-preview-active-mode-map "M-p" #'completion-preview-prev-candidate)
-  ;; Convenient alternative to C-i after typing one of the above
-  (keymap-set completion-preview-active-mode-map "M-i" #'completion-preview-insert))
+    ;; Cycle the completion candidate that the preview shows
+    (keymap-set completion-preview-active-mode-map "M-n" #'completion-preview-next-candidate)
+    (keymap-set completion-preview-active-mode-map "M-p" #'completion-preview-prev-candidate)
+    ;; Convenient alternative to C-i after typing one of the above
+    (keymap-set completion-preview-active-mode-map "M-i" #'completion-preview-insert)))
 
 
 ;;;;
@@ -175,20 +176,20 @@
   :ensure t)
 
 
-(use-package copilot
-  :vc (:url "https://github.com/copilot-emacs/copilot.el"
-	    :rev :newest
-	    :branch "main")
-  :hook ((prog-mode-hook . copilot-mode))
-  :bind (
-	 ("C-<tab>" . copilot-accept-completion-by-word)
-	 ("C-<return>" . copilot-accept-completion-by-word)
-	 ("C-<backtab>" . copilot-next-completion)
-	 ("C-<left>" . copilot-previous-completion)
-	 ("C-<right>" . copilot-next-completion)
-	 ("C-<up>" . copilot-next-completion)
-	 ("C-<down>" . copilot-previous-completion))
-  )
+;; (use-package copilot
+;;   :vc (:url "https://github.com/copilot-emacs/copilot.el"
+;; 	    :rev :newest
+;; 	    :branch "main")
+;;   :hook ((prog-mode-hook . copilot-mode))
+;;   :bind (
+;; 	 ("C-<tab>" . copilot-accept-completion-by-word)
+;; 	 ("C-<return>" . copilot-accept-completion-by-word)
+;; 	 ("C-<backtab>" . copilot-next-completion)
+;; 	 ("C-<left>" . copilot-previous-completion)
+;; 	 ("C-<right>" . copilot-next-completion)
+;; 	 ("C-<up>" . copilot-next-completion)
+;; 	 ("C-<down>" . copilot-previous-completion))
+;;   )
 
 
 
@@ -215,9 +216,9 @@
 (use-package slime
   :ensure t
   :config
-  (when (eq system-type 'darwin)
-    (setq inferior-lisp-program "/opt/homebrew/bin/sbcl"))
-  )
+  (cond ((eq system-type 'darwin) (setq inferior-lisp-program "/opt/homebrew/bin/sbcl"))
+	((eq system-type 'berkeley-unix) (setq inferior-lisp-program "/usr/local/bin/clisp"))
+  ))
 
 
 (use-package epresent
@@ -234,13 +235,13 @@
   "Face used by tealeg to override org-headings via Modus themes."
   :group 'tealeg--org-faces)
 
-(defun tealeg--set-faces (mono-face variable-face heading-face size)
+(defun tealeg--set-faces (mono-face variable-face heading-face size spacing)
   (set-face-font 'default (concat mono-face "-" size))
   ;; (set-face-font 'italic nil (concat mono-face "-" size))
   (set-face-font 'variable-pitch (concat variable-face "-" size))
   (set-face-font 'fixed-pitch (concat mono-face "-" size))
   (set-face-font 'tealeg--org-heading (concat heading-face "-" size))
-  (setf line-spacing 0.3))
+  (setf line-spacing spacing))
 
 ;; Go
 (use-package gotest
@@ -342,7 +343,6 @@
   :ensure t
   :config
 
-  (set-face-font 'tealeg--org-heading "Latin Modern Roman Dunhill-24")
   (setq modus-themes-italic-constructs t
         modus-themes-bold-constructs nil
         modus-themes-mixed-fonts t
@@ -387,9 +387,13 @@
     (modify-all-frames-parameters
      '((right-divider-width . 40)
        (internal-border-width . 40)))
-    (if (eq system-type 'darwin)
-	(tealeg--set-faces "Latin Modern Mono" "Latin Modern Roman Dunhill" "Latin Modern Roman Dunhill" "24")
-      (tealeg--set-faces "IBM Plex Mono" "IBM Plex Serif" "IBM Plex Sans" "12"))
+    (cond ((eq system-type 'darwin)
+	   (tealeg--set-faces "Latin Modern Mono" "Latin Modern Roman Dunhill" "Latin Modern Roman Dunhill" "24" 0.5))
+	  ((eq system-type 'linux)
+	   (tealeg--set-faces "IBM Plex Mono" "IBM Plex Serif" "IBM Plex Sans" "12" 0.3))
+	  ((eq system-type 'berkeley-unix)
+	   (tealeg--set-faces "Latin Modern Mono" "Latin Modern Roman Dunhill" "Latin Modern Roman Dunhill" "12" 0.1))
+	  )
     (dolist (face '(window-divider
                     window-divider-first-pixel
                     window-divider-last-pixel))
