@@ -8,6 +8,12 @@
 
 
 (if (eq system-type 'darwin)
+    (setq mail-host-address "upvest.co"
+	  user-mail-address "geoffrey@upvest.co")
+  (setq mail-host-address "teale.de"
+	user-mail-address "geoffrey@teale.de"))
+
+(if (eq system-type 'darwin)
     (setq mac-option-key-is-meta nil
           mac-command-key-is-meta t
           mac-command-modifier 'meta
@@ -110,6 +116,7 @@
 
     (let ((modified nil))
       (dolist (fname org-agenda-files modified)
+	(save-buffer (get-buffer fname))
 	(when (tealeg--is-file-modified fname)
 	  (magit-run-git "add" fname)
 	  (setq modified t)))
@@ -388,11 +395,11 @@
      '((right-divider-width . 40)
        (internal-border-width . 40)))
     (cond ((eq system-type 'darwin)
-	   (tealeg--set-faces "Latin Modern Mono" "Latin Modern Roman Dunhill" "Latin Modern Roman Dunhill" "24" 0.5))
+	   (tealeg--set-faces "Latin Modern Mono Light" "Latin Modern Roman Dunhill" "Latin Modern Roman Dunhill" "22" 0.5))
 	  ((eq system-type 'linux)
 	   (tealeg--set-faces "IBM Plex Mono" "IBM Plex Serif" "IBM Plex Sans" "12" 0.3))
 	  ((eq system-type 'berkeley-unix)
-	   (tealeg--set-faces "Latin Modern Mono" "Latin Modern Roman Dunhill" "Latin Modern Roman Dunhill" "12" 0.1))
+	   (tealeg--set-faces "Latin Modern Mono Light" "Latin Modern Roman Dunhill" "Latin Modern Roman Dunhill" "12" 0.1))
 	  )
     (dolist (face '(window-divider
                     window-divider-first-pixel
