@@ -416,7 +416,7 @@
     (set-face-background 'fringe (face-attribute 'default :background)))
 
   (add-hook 'modus-themes-post-load-hook #'tealeg--on-theme-change-f)
-  (modus-themes-load-theme 'modus-operandi)
+  (modus-themes-load-theme 'modus-vivendi-tritanopia)
 
   
   )
