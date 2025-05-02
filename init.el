@@ -175,7 +175,7 @@
   :ensure t
   :demand t
   :config
-  (setq treesit-auto-langs '(awk bash bibtex c cmake commonlisp cpp css dockerfile go gomod html javascript json lua make nix org perl proto python rust sql toml typescript yaml))
+  (setq treesit-auto-langs '(awk bash bibtex c cmake commonlisp cpp css dockerfile go gomod html javascript json lua make nix org perl proto python sql toml typescript yaml))
 
   (treesit-auto-install-all))
 
@@ -220,11 +220,18 @@
   :config
   (eldoc-box-hover-mode 1))
 
-(use-package slime
+;; (use-package slime
+;;   :ensure t
+;;   :config
+;;   (cond ((eq system-type 'darwin) (setq inferior-lisp-program "/opt/homebrew/bin/sbcl"))
+;; 	((eq system-type 'berkeley-unix) (setq inferior-lisp-program "/usr/local/bin/sbcl"))
+;;   ))
+
+(use-package sly
   :ensure t
-  :config
+  :config 
   (cond ((eq system-type 'darwin) (setq inferior-lisp-program "/opt/homebrew/bin/sbcl"))
-	((eq system-type 'berkeley-unix) (setq inferior-lisp-program "/usr/local/bin/clisp"))
+	((eq system-type 'berkeley-unix) (setq inferior-lisp-program "/usr/local/bin/sbcl"))
   ))
 
 
