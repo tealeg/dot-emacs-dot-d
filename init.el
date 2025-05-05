@@ -220,12 +220,6 @@
   :config
   (eldoc-box-hover-mode 1))
 
-;; (use-package slime
-;;   :ensure t
-;;   :config
-;;   (cond ((eq system-type 'darwin) (setq inferior-lisp-program "/opt/homebrew/bin/sbcl"))
-;; 	((eq system-type 'berkeley-unix) (setq inferior-lisp-program "/usr/local/bin/sbcl"))
-;;   ))
 
 (use-package sly
   :ensure t
@@ -402,7 +396,7 @@
      '((right-divider-width . 40)
        (internal-border-width . 40)))
     (cond ((eq system-type 'darwin)
-	   (tealeg--set-faces "Latin Modern Mono Light" "Latin Modern Roman Dunhill" "Latin Modern Roman Dunhill" "22" 0.5))
+	   (tealeg--set-faces "Menlo" "American Typewriter" "Gill Sans" "22" 0.5))
 	  ((eq system-type 'linux)
 	   (tealeg--set-faces "IBM Plex Mono" "IBM Plex Serif" "IBM Plex Sans" "12" 0.3))
 	  ((eq system-type 'berkeley-unix)
