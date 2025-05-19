@@ -1,6 +1,34 @@
+;;; init.el -- emacs config  -*- lexical-binding: t -*-
+;;; Commentary:
+;;; It all starts here.
+;;; Code:
+
 ;;;; basics
 
-(setq inhibit-startup-screen t)
+(require 'time)
+(setq auto-save-default nil
+      make-backup-files nil
+      inhibit-startup-screen t
+      inhibit-startup-message t
+      inhibit-startup-echo-area-message t
+      initial-buffer-choice t
+      initial-major-mode 'fundamental-mode
+      ring-bell-function 'ignore
+      display-time-default-load-average nil
+      scroll-margin 0
+      use-dialog-box nil
+      visible-bell t)
+(set-fringe-mode 10)
+(show-paren-mode t)
+(setq-default fringes-outside-margins nil)
+(setq-default indicate-buffer-boundaries nil)
+(setq-default indicate-empty-lines nil)
+(setq-default cursor-type 'bar)
+(set-face-attribute 'header-line t :inherit 'default)
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+
 (setq package-enable-at-startup nil)
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
@@ -19,7 +47,7 @@
           mac-command-modifier 'meta
           mac-option-modifier nil))
 (if (eq system-type 'haiku)
-    (progn 
+    (progn
       (add-to-list 'load-path "~/config/settings/emacs/lisp")
       (setq custom-file "~/config/settings/emacs/custom.el"))
   (progn
@@ -34,14 +62,11 @@
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)))
 
-;; Fix linum
-(use-package nlinum
+
+;; Delimeters
+(use-package rainbow-delimiters
   :ensure t
-  :config
-  (defun linum-mode (arg)
-    (interactive "P")
-    (nlinum-mode arg))
-  )
+  :hook (prog-mode-hook . rainbow-delimiters-mode))
 
 ;; Spelling
 
@@ -51,6 +76,25 @@
   (require 'ispell)
   (setq ispell-dictionary "en_GB"))
 
+;; Tabs or spaces
+
+(defun infer-indentation-style ()
+  "Default to no tabs, but use tabs if already in project."
+  (let ((space-count (how-many "^  " (point-min) (point-max)))
+        (tab-count   (how-many "^\t" (point-min) (point-max))))
+    (if (> space-count tab-count) (setq-default indent-tabs-mode nil))
+    (if (> tab-count space-count) (setq-default indent-tabs-mode t))))
+
+(setq-default indent-tabs-mode nil)
+(infer-indentation-style)
+(setq backward-delete-char-untabify-method 'hungry)
+
+
+(use-package mixed-pitch
+  :defer t
+  :ensure
+  :hook ((org-mode   . mixed-pitch-mode)
+         (LaTeX-mode . mixed-pitch-mode)))
 
 
 ;; Org-mode
@@ -59,29 +103,40 @@
   :init
   (require 'org-agenda)
   (require 'org-habit)
+  (require 'ox-md)
+  (require 'org-indent)
   :config
-  (setq org-todo-keywords (list "TODO" "IN-PROGRESS" "|" "DONE" "CANCELED")
-	org-log-done 'time
-	org-log-into-drawer t
-	org-agenda-files '("todo.org" "habits.org" "completed.org")
-
-	;; Edit settings
-	org-auto-align-tags nil
-	org-tags-column 0
-	org-catch-invisible-edits 'show-and-error
-	org-special-ctrl-a/e t
-	org-insert-heading-respect-content t
-	
-	;; Org styling, hide markup etc.
-	org-hide-emphasis-markers t
-	org-pretty-entities t
-	org-agenda-tags-column 0
-	org-ellipsis "…")
-
+  (org-indent-mode -1)
+  (setq
+   org-adapt-indentation t
+   org-agenda-files '("todo.org" "habits.org" "completed.org")
+   org-agenda-tags-column 0
+   org-auto-align-tags t
+   org-catch-invisible-edits 'show-and-error
+   org-edit-src-content-indentation 0
+   org-ellipsis "…"
+   org-fold-catch-invisible-edits 'show-and-error
+   org-hide-emphasis-markers t
+   org-hide-leading-stars t   
+   org-insert-heading-respect-content t
+   org-log-done 'time
+   org-log-into-drawer t
+   org-pretty-entities t
+   org-special-ctrl-a/e t
+   org-src-fontify-natively t
+   org-src-tab-acts-natively t
+   org-tags-column -80
+   org-todo-keywords (list "BLOCKED" "TODO" "IN-PROGRESS" "|" "DONE" "CANCELED" "DELEGATED"))
+  (font-lock-add-keywords 'org-mode
+                          '(("^ *\\([-]\\) "
+                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
   (defun tealeg--org-mode-helper-f ()
     ;; (org-modern-mode 1)
     (flyspell-mode 1)
+    ;; (org-bullets-mode 1)
+    (variable-pitch-mode 1)
+    (electric-indent-local-mode -1)
     )
   
   (add-hook 'org-mode-hook #'tealeg--org-mode-helper-f)
@@ -117,13 +172,13 @@
     (let ((modified nil))
       (dolist (fname org-agenda-files modified)
 	(save-buffer (get-buffer fname))
-	(when (tealeg--is-file-modified fname)
-	  (magit-run-git "add" fname)
-	  (setq modified t)))
-      (when modified
-	(magit-run-git "commit" "-m" (concat "'Update TODOs " (current-time-string) "'"))
-	(magit-run-git-with-editor "pull" "-r" "origin" "main")
-	(magit-run-git "push" "origin" "main"))))
+	(magit-run-git "add" fname)
+      ;; 	(when (tealeg--is-file-modified fname)
+	(setq modified t)))
+      ;; (when modified
+    (magit-run-git "commit" "-m" (concat "'Update TODOs " (current-time-string) "'"))
+    (magit-run-git-with-editor "pull" "-r" "origin" "main")
+    (magit-run-git "push" "origin" "main")) ;; ))
   
   (defun tealeg--todo-save-helper-f ()
     (interactive)
@@ -137,6 +192,25 @@
   )
 
 
+(defvar ligature-def '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
+                       ":::" "::=" "=:=" "===" "==>" "=!=" "=>>" "=<<" "=/=" "!=="
+                       "!!." ">=>" ">>=" ">>>" ">>-" ">->" "->>" "-->" "---" "-<<"
+                       "<~~" "<~>" "<*>" "<||" "<|>" "<$>" "<==" "<=>" "<=<" "<->"
+                       "<--" "<-<" "<<=" "<<-" "<<<" "<+>" "</>" "###" "#_(" "..<"
+                       "..." "+++" "/==" "///" "_|_" "www" "&&" "^=" "~~" "~@" "~="
+                       "~>" "~-" "**" "*>" "*/" "||" "|}" "|]" "|=" "|>" "|-" "{|"
+                       "[|" "]#" "::" ":=" ":>" ":<" "$>" "==" "=>" "!=" "!!" ">:"
+                       ">=" ">>" ">-" "-~" "-|" "->" "--" "-<" "<~" "<*" "<|" "<:"
+                       "<$" "<=" "<>" "<-" "<<" "<+" "</" "#{" "#[" "#:" "#=" "#!"
+                       "##" "#(" "#?" "#_" "%%" ".=" ".-" ".." ".?" "+>" "++" "?:"
+                       "?=" "?." "??" ";;" "/*" "/=" "/>" "//" "__" "~~" "(*" "*)"
+                       "\\\\" "://"))
+
+(use-package ligature
+  :ensure t
+  :config
+  (ligature-set-ligatures 'prog-mode ligature-def)
+  (global-ligature-mode t))
 
 
 
@@ -175,7 +249,7 @@
   :ensure t
   :demand t
   :config
-  (setq treesit-auto-langs '(awk bash bibtex c cmake commonlisp cpp css dockerfile go gomod html javascript json lua make nix org perl proto python sql toml typescript yaml))
+  (setq treesit-auto-langs '(awk bash c cmake commonlisp cpp css dockerfile go gomod html javascript json lua make nix org perl proto python sql toml typescript yaml))
 
   (treesit-auto-install-all))
 
@@ -249,6 +323,21 @@
   (set-face-font 'variable-pitch (concat variable-face "-" size))
   (set-face-font 'fixed-pitch (concat mono-face "-" size))
   (set-face-font 'tealeg--org-heading (concat heading-face "-" size))
+  (custom-theme-set-faces
+   'user
+   '(org-block ((t (:inherit fixed-pitch))))
+   '(org-code ((t (:inherit (shadow fixed-pitch)))))
+   '(org-document-info ((t (:foreground "dark orange"))))
+   '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
+   '(org-indent ((t (:inherit (org-hide fixed-pitch)))))
+   '(org-link ((t (:foreground "royal blue" :underline t))))
+   '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+   '(org-property-value ((t (:inherit fixed-pitch))) t)
+   '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+   '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
+   '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
+   '(org-verbatim ((t (:inherit (shadow fixed-pitch))))))
+  
   (setf line-spacing spacing))
 
 ;; Go
@@ -324,10 +413,7 @@
 (savehist-mode)
 
 ;; don't auto-save and back up files
-(setq auto-save-default nil
-      make-backup-files nil)
 
-(setq visible-bell t)
 (if (eq system-type 'haiku)
     (progn
       ;; for some reason I like this on haiku
@@ -339,13 +425,36 @@
   (progn
     (tool-bar-mode -1)
     (menu-bar-mode -1)
-    (scroll-bar-mode -1)))
+    (scroll-bar-mode -1)
+    (blink-cursor-mode -1)
+    ))
 
 ;; Final setup
 (if (file-exists-p custom-file)
     (load custom-file))
 
 ;;; look and feel
+
+(use-package focus
+  :defer t
+  :ensure t)
+
+(use-package beacon
+  :defer t
+  :ensure t
+  :init  (beacon-mode 1)
+  :config
+  (setq beacon-blink-when-window-scrolls nil))
+
+(use-package nerd-icons
+  :ensure t)
+
+(use-package emojify
+  :ensure t
+  :config
+  (when (member "Apple Color Emoji" (font-family-list))
+    (set-fontset-font
+      t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend)))
 
 (use-package modus-themes
   :ensure t
@@ -388,15 +497,15 @@
           (agenda-structure . (variable-pitch light 1.8))
           (t . (1.1))))
 
-  
+
   (defun tealeg--on-theme-change-f ()
 
     ;; Add frame borders and window dividers
     (modify-all-frames-parameters
-     '((right-divider-width . 40)
-       (internal-border-width . 40)))
+     '((right-divider-width . 8)
+       (internal-border-width . 8)))
     (cond ((eq system-type 'darwin)
-	   (tealeg--set-faces "Menlo" "American Typewriter" "Gill Sans" "22" 0.5))
+	   (tealeg--set-faces "Recursive Mono Linear Static" "Recursive Sans Linear Static" "Recursive Sans Linear Static" "16" 0.8))
 	  ((eq system-type 'linux)
 	   (tealeg--set-faces "IBM Plex Mono" "IBM Plex Serif" "IBM Plex Sans" "12" 0.3))
 	  ((eq system-type 'berkeley-unix)
@@ -410,7 +519,49 @@
     (set-face-background 'fringe (face-attribute 'default :background)))
 
   (add-hook 'modus-themes-post-load-hook #'tealeg--on-theme-change-f)
-  (modus-themes-load-theme 'modus-vivendi-tritanopia)
-
-  
+  (modus-themes-load-theme 'modus-operandi)
   )
+
+(defvar lsp-modeline--code-actions-string nil)
+
+(setq-default mode-line-format
+  '("%e"
+	(:propertize " " display (raise +0.4)) ;; Top padding
+	(:propertize " " display (raise -0.4)) ;; Bottom padding
+
+	(:propertize "λ " face font-lock-comment-face)
+	mode-line-frame-identification
+	mode-line-buffer-identification
+
+	;; Version control info
+	(:eval (when-let (vc vc-mode)
+			 ;; Use a pretty branch symbol in front of the branch name
+			 (list (propertize "   " 'face 'font-lock-comment-face)
+                   ;; Truncate branch name to 50 characters
+				   (propertize (truncate-string-to-width
+                                (substring vc 5) 50)
+							   'face 'font-lock-comment-face))))
+
+	;; Add space to align to the right
+	(:eval (propertize
+			 " " 'display
+			 `((space :align-to
+					  (-  (+ right right-fringe right-margin)
+						 ,(+ 3
+                             (string-width (or lsp-modeline--code-actions-string ""))
+                             (string-width "%4l:3%c")))))))
+
+    ;; LSP code actions
+    (:eval (or lsp-modeline--code-actions-string ""))
+	
+	;; Line and column numbers
+	(:propertize "%4l:%c" face mode-line-buffer-id)))
+
+(add-to-list 'font-lock-extra-managed-props 'display)
+(font-lock-add-keywords 'org-mode
+                        `(("^.*?\\( \\)\\(:[[:alnum:]_@#%:]+:\\)$"
+                           (1 `(face nil
+                                     display (space :align-to (- right ,(org-string-width (match-string 2)) 3)))
+                              prepend))) t)
+(provide 'init)
+;;; init.el ends here
