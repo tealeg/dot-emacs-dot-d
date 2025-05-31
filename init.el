@@ -28,6 +28,9 @@
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
+(require 'ansi-color)
+(require 'compile)
+(add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
 
 (setq package-enable-at-startup nil)
 (require 'package)
