@@ -109,18 +109,18 @@
   (require 'ox-md)
   (require 'org-indent)
   :config
-  (org-indent-mode -1)
+
   (setq
    org-adapt-indentation t
-   org-agenda-files '("todo.org" "habits.org" "completed.org")
+   org-agenda-files '("todo.org" "habits.org")
    org-agenda-tags-column 0
    org-auto-align-tags t
    org-catch-invisible-edits 'show-and-error
    org-edit-src-content-indentation 0
    org-ellipsis "…"
    org-fold-catch-invisible-edits 'show-and-error
-   org-hide-emphasis-markers t
-   org-hide-leading-stars t   
+   org-hide-emphasis-markers nil
+   org-hide-leading-stars nil
    org-insert-heading-respect-content t
    org-log-done 'time
    org-log-into-drawer t
@@ -140,6 +140,7 @@
     ;; (org-bullets-mode 1)
     (variable-pitch-mode 1)
     (electric-indent-local-mode -1)
+    (org-indent-mode 1)
     )
   
   (add-hook 'org-mode-hook #'tealeg--org-mode-helper-f)
@@ -339,8 +340,18 @@
    '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
    '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
    '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
-   '(org-verbatim ((t (:inherit (shadow fixed-pitch))))))
-  
+   '(org-verbatim ((t (:inherit (shadow fixed-pitch)))))
+   '(org-document-title ((t (:height 3 :box (:line-width 4)))))
+   '(outline-1          ((t (:height 2.5 :box (:line-width 4)))))
+   '(outline-2          ((t (:height 2.2 :box (:line-width 4)))))
+   '(outline-3          ((t (:height 2.0 :box (:line-width 4)))))
+   '(outline-4          ((t (:height 1.8 :box (:line-width 4)))))
+   '(outline-5          ((t (:height 1.6))))
+   '(outline-6          ((t (:height 1.5))))
+   '(outline-7          ((t (:height 1.4))))
+   '(outline-8          ((t (:height 1.3))))
+   '(outline-9          ((t (:height 1.2))))
+   )  
   (setf line-spacing spacing))
 
 ;; Go
@@ -452,6 +463,9 @@
 (use-package nerd-icons
   :ensure t)
 
+(use-package mermaid-ts-mode
+  :ensure t)
+
 (use-package emojify
   :ensure t
   :config
@@ -508,7 +522,7 @@
      '((right-divider-width . 8)
        (internal-border-width . 8)))
     (cond ((eq system-type 'darwin)
-	   (tealeg--set-faces "Recursive Mono Linear Static" "Recursive Sans Linear Static" "Recursive Sans Linear Static" "16" 0.8))
+	   (tealeg--set-faces "Recursive Mono Linear Static" "Recursive Sans Linear Static" "Recursive Sans Linear Static" "16" 0.3))
 	  ((eq system-type 'linux)
 	   (tealeg--set-faces "IBM Plex Mono" "IBM Plex Serif" "IBM Plex Sans" "12" 0.3))
 	  ((eq system-type 'berkeley-unix)
@@ -566,5 +580,13 @@
                            (1 `(face nil
                                      display (space :align-to (- right ,(org-string-width (match-string 2)) 3)))
                               prepend))) t)
+
+
+(use-package typescript-ts-mode
+  :ensure t)
+
+(use-package jtsx
+  :ensure t)
+
 (provide 'init)
 ;;; init.el ends here
