@@ -376,8 +376,7 @@
   :ensure t
   :bind ("C-x g" . magit-status)
   :custom
-  (magit-git-executable (cond ((eq system-type 'darwin) "/opt/homebrew/bin/git")
-                              (t "/usr/bin/git")))
+  (magit-git-executable (executable-find "git"))
   )
 
 
