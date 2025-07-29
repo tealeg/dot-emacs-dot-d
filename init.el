@@ -70,8 +70,9 @@
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)))
 
-(require 'info)
-(setopt Info-additional-directory-list (list "/opt/homebrew/share/info"))
+(when (eq system-type 'darwin)
+  (require 'info)
+  (setopt Info-additional-directory-list (list "/opt/homebrew/share/info")))
 
 
 ;; Delimeters
