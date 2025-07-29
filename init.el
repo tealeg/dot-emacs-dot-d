@@ -38,6 +38,11 @@
 (package-initialize)
 
 
+(use-package gcmh
+  :ensure t
+  :init
+  (gcmh-mode 1))
+
 (if (eq system-type 'darwin)
     (setq mail-host-address "upvest.co"
 	  user-mail-address "geoffrey@upvest.co")
@@ -64,6 +69,9 @@
   :config
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)))
+
+(require 'info)
+(setopt Info-additional-directory-list (list "/opt/homebrew/share/info"))
 
 
 ;; Delimeters
@@ -112,7 +120,7 @@
 
   (setq
    org-adapt-indentation t
-   org-agenda-files '("todo.org" "habits.org")
+   org-agenda-files '("todo.org" "habits.org" "archive.org")
    org-agenda-tags-column 0
    org-auto-align-tags t
    org-catch-invisible-edits 'show-and-error
@@ -135,9 +143,7 @@
                              (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
   (defun tealeg--org-mode-helper-f ()
-    ;; (org-modern-mode 1)
     (flyspell-mode 1)
-    ;; (org-bullets-mode 1)
     (variable-pitch-mode 1)
     (electric-indent-local-mode -1)
     (org-indent-mode 1)
@@ -262,38 +268,6 @@
   :ensure t)
 
 
-;; (use-package copilot
-;;   :vc (:url "https://github.com/copilot-emacs/copilot.el"
-;; 	    :rev :newest
-;; 	    :branch "main")
-;;   :hook ((prog-mode-hook . copilot-mode))
-;;   :bind (
-;; 	 ("C-<tab>" . copilot-accept-completion-by-word)
-;; 	 ("C-<return>" . copilot-accept-completion-by-word)
-;; 	 ("C-<backtab>" . copilot-next-completion)
-;; 	 ("C-<left>" . copilot-previous-completion)
-;; 	 ("C-<right>" . copilot-next-completion)
-;; 	 ("C-<up>" . copilot-next-completion)
-;; 	 ("C-<down>" . copilot-previous-completion))
-;;   )
-
-
-
-;;;; eglot
-
-;; (require 'go-ts-mode)
-
-;; (use-package eglot
-;;   :ensure t
-;;   ;; :defer t
-;;   :bind (:map eglot-mode-map
-;; 	      ("C-c e f n" . flymake-goto-next-error)
-;; 	      ("C-c e f p" . flymake-goto-previous-error)
-;; 	      ("C-c e r" . eglot-rename)
-;; 	      ("C-c e b" . eglot-format-buffer))
-;;   :hook (go-ts-mode . eglot-ensure))
-
-
 (use-package eldoc-box
   :ensure t
   :config
@@ -307,6 +281,10 @@
 	((eq system-type 'berkeley-unix) (setq inferior-lisp-program "/usr/local/bin/sbcl"))
   ))
 
+
+(when (display-graphic-p)
+  (use-package all-the-icons
+    :ensure t))
 
 (use-package epresent
   :ensure t)
@@ -323,6 +301,9 @@
   :group 'tealeg--org-faces)
 
 (defun tealeg--set-faces (mono-face variable-face heading-face size spacing)
+
+  (set-fontset-font t nil (font-spec :size (string-to-number size) :name "Symbol"))
+
   (set-face-font 'default (concat mono-face "-" size))
   ;; (set-face-font 'italic nil (concat mono-face "-" size))
   (set-face-font 'variable-pitch (concat variable-face "-" size))
@@ -525,7 +506,7 @@
      '((right-divider-width . 8)
        (internal-border-width . 8)))
     (cond ((eq system-type 'darwin)
-	   (tealeg--set-faces "Recursive Mono Linear Static" "Recursive Sans Linear Static" "Recursive Sans Linear Static" "16" 0.3))
+	   (tealeg--set-faces "IBM Plex Mono" "IBM Plex Serif" "IBM Plex Sans" "16" 0.3))
 	  ((eq system-type 'linux)
 	   (tealeg--set-faces "IBM Plex Mono" "IBM Plex Serif" "IBM Plex Sans" "12" 0.3))
 	  ((eq system-type 'berkeley-unix)
@@ -592,6 +573,9 @@
   :ensure t)
 
 (use-package treemacs
+  :ensure t)
+
+(use-package markdown-mode
   :ensure t)
 
 (provide 'init)
