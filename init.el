@@ -25,7 +25,7 @@
 (setq-default indicate-empty-lines nil)
 (setq-default cursor-type 'bar)
 (set-face-attribute 'header-line t :inherit 'default)
-(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+;; (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 (require 'ansi-color)
@@ -290,16 +290,16 @@
 (use-package epresent
   :ensure t)
 
-(require 'org-faces)
+;; (require 'org-faces)
 
-(defgroup tealeg--org-faces nil
-  "Faces defined by tealeg."
-  :tag "Tealeg Faces"
-  :group 'org-appearance)
+;; (defgroup tealeg--org-faces nil
+;;   "Faces defined by tealeg."
+;;   :tag "Tealeg Faces"
+;;   :group 'org-appearance)
 
-(defface tealeg--org-heading '((t :inherit variable-pitch))
-  "Face used by tealeg to override org-headings via Modus themes."
-  :group 'tealeg--org-faces)
+;; (defface tealeg--org-heading '((t :inherit variable-pitch))
+;;   "Face used by tealeg to override org-headings via Modus themes."
+;;   :group 'tealeg--org-faces)
 
 (defun tealeg--set-faces (mono-face variable-face heading-face size spacing)
 
@@ -309,7 +309,7 @@
   ;; (set-face-font 'italic nil (concat mono-face "-" size))
   (set-face-font 'variable-pitch (concat variable-face "-" size))
   (set-face-font 'fixed-pitch (concat mono-face "-" size))
-  (set-face-font 'tealeg--org-heading (concat heading-face "-" size))
+  ;; (set-face-font 'tealeg--org-heading (concat heading-face "-" size))
   (custom-theme-set-faces
    'user
    '(org-block ((t (:inherit fixed-pitch))))
@@ -458,48 +458,50 @@
     (set-fontset-font
       t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend)))
 
-(use-package modus-themes
+;; (use-package modus-themes
+;;   :ensure t
+;;   :config
+
+;;   (setq modus-themes-italic-constructs t
+;;         modus-themes-bold-constructs nil
+;;         modus-themes-mixed-fonts t
+;;         modus-themes-variable-pitch-ui nil
+;;         modus-themes-custom-auto-reload t
+;;         modus-themes-disable-other-themes t
+
+;;         ;; Options for `modus-themes-prompts' are either nil (the
+;;         ;; default), or a list of properties that may include any of those
+;;         ;; symbols: `italic', `WEIGHT'
+;;         modus-themes-prompts '(italic bold)
+
+;;         ;; The `modus-themes-completions' is an alist that reads two
+;;         ;; keys: `matches', `selection'.  Each accepts a nil value (or
+;;         ;; empty list) or a list of properties that can include any of
+;;         ;; the following (for WEIGHT read further below):
+;;         ;;
+;;         ;; `matches'   :: `underline', `italic', `WEIGHT'
+;;         ;; `selection' :: `underline', `italic', `WEIGHT'
+;;         modus-themes-completions
+;;         '((matches . (extrabold))
+;;           (selection . (semibold italic text-also)))
+
+;;         modus-themes-org-blocks 'gray-background ; {nil,'gray-background,'tinted-background}
+
+;;         ;; The `modus-themes-headings' is an alist: read the manual's
+;;         ;; node about it or its doc string.  Basically, it supports
+;;         ;; per-level configurations for the optional use of
+;;         ;; `variable-pitch' typography, a height value as a multiple of
+;;         ;; the base font size (e.g. 1.5), and a `WEIGHT'.
+;;         modus-themes-headings
+;;         '((1 . (variable-pitch 1.5))
+;;           (2 . (variable-pitch 1.3))
+;;           (agenda-date . (1.3))
+;;           (agenda-structure . (variable-pitch light 1.8))
+;;           (t . (1.1))))
+
+(use-package acme-theme
   :ensure t
-  :config
-
-  (setq modus-themes-italic-constructs t
-        modus-themes-bold-constructs nil
-        modus-themes-mixed-fonts t
-        modus-themes-variable-pitch-ui nil
-        modus-themes-custom-auto-reload t
-        modus-themes-disable-other-themes t
-
-        ;; Options for `modus-themes-prompts' are either nil (the
-        ;; default), or a list of properties that may include any of those
-        ;; symbols: `italic', `WEIGHT'
-        modus-themes-prompts '(italic bold)
-
-        ;; The `modus-themes-completions' is an alist that reads two
-        ;; keys: `matches', `selection'.  Each accepts a nil value (or
-        ;; empty list) or a list of properties that can include any of
-        ;; the following (for WEIGHT read further below):
-        ;;
-        ;; `matches'   :: `underline', `italic', `WEIGHT'
-        ;; `selection' :: `underline', `italic', `WEIGHT'
-        modus-themes-completions
-        '((matches . (extrabold))
-          (selection . (semibold italic text-also)))
-
-        modus-themes-org-blocks 'gray-background ; {nil,'gray-background,'tinted-background}
-
-        ;; The `modus-themes-headings' is an alist: read the manual's
-        ;; node about it or its doc string.  Basically, it supports
-        ;; per-level configurations for the optional use of
-        ;; `variable-pitch' typography, a height value as a multiple of
-        ;; the base font size (e.g. 1.5), and a `WEIGHT'.
-        modus-themes-headings
-        '((1 . (variable-pitch 1.5))
-          (2 . (variable-pitch 1.3))
-          (agenda-date . (1.3))
-          (agenda-structure . (variable-pitch light 1.8))
-          (t . (1.1))))
-
-
+  :init
   (defun tealeg--on-theme-change-f ()
 
     ;; Add frame borders and window dividers
@@ -520,8 +522,11 @@
       (set-face-foreground face (face-attribute 'default :background)))
     (set-face-background 'fringe (face-attribute 'default :background)))
 
-  (add-hook 'modus-themes-post-load-hook #'tealeg--on-theme-change-f)
-  (modus-themes-load-theme 'modus-operandi)
+  ;; (add-hook 'modus-themes-post-load-hook #'tealeg--on-theme-change-f)
+  ;; (modus-themes-load-theme 'modus-vivendi-tritanopia)
+
+  (load-theme 'acme t nil)
+  (tealeg--on-theme-change-f)
   )
 
 (defvar lsp-modeline--code-actions-string nil)
@@ -578,6 +583,27 @@
 
 (use-package markdown-mode
   :ensure t)
+
+(use-package geiser-guile
+  :ensure t
+  )
+
+(use-package macrostep-geiser
+  :ensure t)
+
+(use-package quack
+  :ensure t)
+
+(use-package paredit
+  :ensure t
+  :init
+  
+  (require 'eldoc) ; if not already loaded
+    (eldoc-add-command
+     'paredit-backward-delete
+     'paredit-close-round)
+
+    :hook scheme-mode)
 
 (provide 'init)
 ;;; init.el ends here
