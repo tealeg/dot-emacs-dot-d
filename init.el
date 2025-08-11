@@ -202,6 +202,9 @@
   (add-hook 'after-save-hook #'tealeg--todo-save-helper-f)
   )
 
+(use-package ob-mermaid
+  :ensure t)
+
 
 (defvar ligature-def '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
                        ":::" "::=" "=:=" "===" "==>" "=!=" "=>>" "=<<" "=/=" "!=="
