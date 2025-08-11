@@ -204,7 +204,15 @@
   )
 
 (use-package ob-mermaid
-  :ensure t)
+  :ensure t
+  :config
+  (org-babel-do-load-languages
+    'org-babel-load-languages
+    '((mermaid . t)
+      (scheme . t)
+      (emacs-lisp . t)))
+    
+  )
 
 
 (defvar ligature-def '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
