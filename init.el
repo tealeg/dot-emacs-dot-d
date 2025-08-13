@@ -86,7 +86,8 @@
   :ensure t
   :config
   (require 'ispell)
-  (setq ispell-dictionary "en_GB"))
+  (unless (eq system-type 'berkeley-unix)
+    (setq ispell-dictionary "en_GB")))
 
 ;; Tabs or spaces
 
@@ -265,7 +266,8 @@
   :config
   (setq treesit-auto-langs '(awk bash c cmake commonlisp cpp css dockerfile go gomod html javascript json lua make nix org perl proto python sql toml typescript yaml))
 
-  (treesit-auto-install-all)
+  (unless (eq system-type 'berkeley-unix)
+    (treesit-auto-install-all))
   (add-to-list 'auto-mode-alist  '("\\.go\\'" . go-ts-mode)))
 
 (use-package treesit-fold
@@ -516,7 +518,7 @@
 	  ((eq system-type 'linux)
 	   (tealeg--set-faces "IBM Plex Mono" "IBM Plex Serif" "IBM Plex Sans" "12" 0.3))
 	  ((eq system-type 'berkeley-unix)
-	   (tealeg--set-faces "Latin Modern Mono Light" "Latin Modern Roman Dunhill" "Latin Modern Roman Dunhill" "12" 0.1))
+           (tealeg--set-faces "IBM Plex Mono" "IBM Plex Serif" "IBM Plex Sans" "12" 0.3))
 	  )
     (dolist (face '(window-divider
                     window-divider-first-pixel
@@ -575,11 +577,11 @@
                               prepend))) t)
 
 
-(use-package typescript-ts-mode
-  :ensure t)
+;; (use-package typescript-ts-mode
+;;   :ensure t)
 
-(use-package jtsx
-  :ensure t)
+;; (use-package jtsx
+;;   :ensure t)
 
 (use-package treemacs
   :ensure t)
