@@ -1,4 +1,4 @@
-;;; init.el -- emacs config  -*- lexical-binding: t -*-
+[;;; init.el -- emacs config  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; It all starts here.
 ;;; Code:
@@ -140,6 +140,18 @@
    org-src-tab-acts-natively t
    org-tags-column -80
    org-todo-keywords (list "BLOCKED" "TODO" "IN-PROGRESS" "|" "DONE" "CANCELED" "DELEGATED"))
+
+  (setq org-agenda-custom-commands '(("n" "Agenda and all TODOs" ((agenda #1="") (alltodo #1#)))
+                                     ("c" . "Closed")
+                                     ("c1" tags "TODO=\"DONE\"&CLOSED>=\"<-1d>\"")
+                                     ("c2" tags "TODO=\"DONE\"&CLOSED>=\"<-2d>\"")
+                                     ("cw" tags "TODO=\"DONE\"&CLOSED>=\"<-1w>\"")
+                                     ("cm" tags "TODO=\"DONE\"&CLOSED>=\"<-1m>\"")
+                                     ("cy" tags "TODO=\"DONE\"&CLOSED>=\"<-1y>\"")
+
+                                     ))
+) 
+  
   (font-lock-add-keywords 'org-mode
                           '(("^ *\\([-]\\) "
                              (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
@@ -620,6 +632,9 @@
      'paredit-close-round)
 
     :hook scheme-mode)
+
+(use-package rainbow-mode
+  :ensure t)
 
 (provide 'init)
 ;;; init.el ends here
