@@ -1,47 +1,60 @@
-[;;; init.el -- emacs config  -*- lexical-binding: t -*-
-;;; Commentary:
-;;; It all starts here.
-;;; Code:
+;; (add-to-list 'default-frame-alist '(fullscreen . maximized)) ;; Maximize window after starting Emacs
+(setq inhibit-startup-message t) ;; Close Emacs launch screen
+(setq inhibit-splash-screen t)   ;; Close Emacs startup help screen
+(setq initial-scratch-message (concat ";; Happy hacking, " user-login-name " - Emacs \u2665 you!\n\n"))
+;; Show your last execute command
+(setq frame-title-format
+      '(:eval (format "Emacs - %s  [ %s ]"
+                      (buffer-name)
+                      last-command))
+      icon-title-format t)
 
-;;;; basics
-
-(require 'time)
-(setq auto-save-default nil
-      make-backup-files nil
-      inhibit-startup-screen t
-      inhibit-startup-message t
-      inhibit-startup-echo-area-message t
-      initial-buffer-choice t
-      initial-major-mode 'fundamental-mode
-      ring-bell-function 'ignore
-      display-time-default-load-average nil
-      scroll-margin 0
-      use-dialog-box nil
-      visible-bell t)
-(set-fringe-mode 10)
+;; (menu-bar-mode 0) ;; Emacs Text Toolbar above
+(tool-bar-mode 0) ;; Close Emacs icon toolbar above
+(scroll-bar-mode 0) ;; Close scrollbar
+(set-fringe-mode 10) ;; increase fringe width
 (show-paren-mode t)
 (setq-default fringes-outside-margins nil)
 (setq-default indicate-buffer-boundaries nil)
 (setq-default indicate-empty-lines nil)
 (setq-default cursor-type 'bar)
-(set-face-attribute 'header-line t :inherit 'default)
-;; (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+(setq make-backup-files nil)
+
+(setq ring-bell-function 'ignore) ;; Close Emacs warning sound
+
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 (require 'ansi-color)
 (require 'compile)
 (add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
 
-(setq package-enable-at-startup nil)
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-(package-initialize)
 
+;; File related: Backup, Delete Recycle Bin
+(setq make-backup-files nil        ;; Close the backup file
+      create-lockfiles nil         ;; Close Create a backup file
+      delete-by-moving-to-trash t) ;; Emacs moves to the recycling bin when deleting files
 
-(use-package gcmh
+;; (load-theme 'modus-operandi-tinted t nil)
+
+(use-package the-matrix-theme
   :ensure t
-  :init
-  (gcmh-mode 1))
+  :config (load-theme 'the-matrix t nil))
+
+(use-package unicode-fonts
+  :ensure t
+  :config
+  (unicode-fonts-setup))
+
+(set-frame-font "IBM Plex Mono-17:weight=Thin")
+ 
+(set-face-font 'default "IBM Plex Mono-17:weight=Thin")
+(set-face-font 'fixed-pitch "IBM Plex Mono-17:weight=Thin")
+(set-face-font 'fixed-pitch-serif "IBM Plex Mono-17:weight=Thin")
+(set-face-font 'variable-pitch "IBM Plex Sans-17:weight=Thin")
+(set-face-font 'variable-pitch-text "IBM Plex Serif-17:weight=Thin")
+(set-face-font 'font-lock-comment-face "IBM Plex Serif-17:weight=Thin:slant=italic") ;; hello world
+
+
 
 (if (eq system-type 'darwin)
     (setq mail-host-address "upvest.co"
@@ -63,6 +76,17 @@
     (setq custom-file "~/.config/emacs/custom.el")))
 
 
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")
+                         ("melpa" . "https://melpa.org/packages/")))
+
+;; Sometimes you want to keep the package available, so that it can be fixed in a certain version forever.
+;; (setq  package-archives '(("melpa" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/5a83cbae8df2c23a24b1509bfe808f6a89e5a645/melpa/");; 2025-02-25 8:00
+;;                           ("gnu" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/5a83cbae8df2c23a24b1509bfe808f6a89e5a645/gnu/");; 2025-07-25 8:00
+;;                           ("org" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/5a83cbae8df2c23a24b1509bfe808f6a89e5a645/org/");; 2025-07-25 8:00
+;;                           ("nongnu" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/5a83cbae8df2c23a24b1509bfe808f6a89e5a645/nongnu/");; 2025-07-25 8:00
+;;                           ))
+
 ;; Fix path
 (use-package exec-path-from-shell
   :ensure t
@@ -75,12 +99,10 @@
   (setopt Info-additional-directory-list (list "/opt/homebrew/share/info")))
 
 
-;; Delimeters
-(use-package rainbow-delimiters
+(use-package gcmh
   :ensure t
-  :hook (prog-mode-hook . rainbow-delimiters-mode))
-
-;; Spelling
+  :init
+  (gcmh-mode 1))
 
 (use-package flyspell
   :ensure t
@@ -89,31 +111,197 @@
   (unless (eq system-type 'berkeley-unix)
     (setq ispell-dictionary "en_GB")))
 
-;; Tabs or spaces
-
-(defun infer-indentation-style ()
-  "Default to no tabs, but use tabs if already in project."
-  (let ((space-count (how-many "^  " (point-min) (point-max)))
-        (tab-count   (how-many "^\t" (point-min) (point-max))))
-    (if (> space-count tab-count) (setq-default indent-tabs-mode nil))
-    (if (> tab-count space-count) (setq-default indent-tabs-mode t))))
-
-(setq-default indent-tabs-mode nil)
-(infer-indentation-style)
-(setq backward-delete-char-untabify-method 'hungry)
-
-
-(use-package mixed-pitch
-  :defer t
-  :ensure
-  :hook ((org-mode   . mixed-pitch-mode)
-         (LaTeX-mode . mixed-pitch-mode)))
-
-
-;; Org-mode
-(use-package org
+(use-package vertico
   :ensure t
-  :init
+  :hook (after-init . vertico-mode)
+  :bind (:map vertico-map
+              ("DEL" . vertico-directory-delete-char))
+  :custom
+  (vertico-count 10)
+  )
+
+(use-package orderless
+  :ensure t
+  :config
+  (setq completion-styles '(orderless basic)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
+
+;; Display information in Minibuffer
+(use-package marginalia
+  :ensure t
+  :hook (after-init . marginalia-mode))
+
+;; modelline display time
+(use-package time
+  :ensure nil
+  :hook (after-init . display-time-mode)
+  :custom
+  (display-time-24hr-format t);; 24-hour system
+  (display-time-format "%m-%d %a %H:%M")
+  (display-time-day-and-date t) ;; Show time, day, date
+  )
+
+;; Automatically update files after external changes
+(use-package autorevert
+  :ensure nil
+  :hook (after-init . global-auto-revert-mode))
+
+;; Where the cursor is located before saving each file
+(use-package saveplace
+  :ensure nil
+  :hook (after-init . save-place-mode)
+  :custom
+  (save-place-file "~/.emacs.d/places"))
+
+(use-package which-key
+  :ensure nil
+  :if (>= emacs-major-version 30)
+  :diminish
+  :hook (window-setup . which-key-mode))
+
+(use-package recentf
+  :ensure nil
+  :hook (after-init . recentf-mode)
+  :custom
+  (recentf-filename-handlers '(abbreviate-file-name))
+  (recentf-max-saved-items 400)
+  (recentf-max-menu-items 400)
+  (recentf-save-file "~/.emacs.d/recentf")
+  :config
+  (recentf-cleanup))
+
+(use-package project
+  :ensure nil)
+
+(use-package deadgrep
+  :ensure t
+  :bind
+  (([remap project-find-regexp] . deadgrep)))
+
+;; Fix path
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize)))
+
+(when (eq system-type 'darwin)
+  (require 'info)
+  (setopt Info-additional-directory-list (list "/opt/homebrew/share/info")))
+
+
+(use-package consult
+  :ensure t
+  :bind
+  (([remap imenu] . consult-imenu)
+   ([remap switch-to-buffer] . consult-buffer)
+   ([remap switch-to-buffer-other-window] . consult-buffer-other-window)
+   ([remap switch-to-buffer-other-frame] . consult-buffer-other-frame)
+   ("M-g M-g" . consult-line)
+   ("M-g g" . consult-goto-line)
+   ([remap bookmark-jump] . freedom/consult-bookmark)
+   ([remap repeat-complex-command] . consult-complex-command)
+   ([remap yank-pop] . consult-yank-pop)
+   ([remap Info-search] . consult-info)
+   ("C-c cf" . consult-recent-file)
+   ("C-c cF" . consult-flymake)
+   ("C-c cg" . consult-grep)
+   ("C-c cG" . consult-line-multi)
+   ("C-c ck" . consult-kmacro)
+   ("C-c cl" . consult-locate)
+   ("C-c co" . consult-outline)
+   ("C-c cr" . consult-ripgrep)
+   :map isearch-mode-map
+   ("C-c h" . consult-isearch-history)
+   :map minibuffer-local-map
+   ("C-c h" . consult-history)
+   :map org-mode-map
+   ([remap imenu] . consult-outline))
+  :custom
+  (register-preview-delay 0.5)
+  (register-preview-function #'consult-register-format)
+  (xref-search-program 'ripgrep)
+  (xref-show-xrefs-function #'consult-xref)
+  (xref-show-definitions-function #'consult-xref)
+  (consult-preview-key 'any) ;; Preview content, can be set to buttons
+  (consult-async-refresh-delay 1.0) ;; Prevent Emacs from being stuck by using external programs, for example: consult-ripgrep
+  (consult-async-min-input 2) ;; Start searching at the minimum number of characters
+  (consult-narrow-key "?") ;; Optional module buttons
+  :config
+
+  ;; Support Windows system `everythine.exe` software search file to use `conslut-locate`
+  (when (and (eq system-type 'windows-nt))
+    (setq consult-locate-args (encode-coding-string "es.exe -i -p -r" 'gbk)))
+
+  ;; Disable preview of certain features
+  (defmacro +no-consult-preview (&rest cmds)
+    `(consult-customize ,@cmds :preview-key "M-."))
+  (+no-consult-preview
+   consult-ripgrep consult-git-grep consult-grep
+   consult-bookmark consult-recent-file
+   consult--source-recent-file consult--source-project-recent-file consult--source-bookmark)
+  )
+
+(use-package eglot
+  :ensure nil
+  :if (>= emacs-major-version 29)
+  :hook
+  (eglot-managed-mode . (lambda () (eglot-inlay-hints-mode -1)));; No prompt is displayed
+  :hook
+  ;; NOTE: Please add your programming language here
+  ((c-mode c-ts-mode c++-mode c++-ts-mode rust-mode rust-ts-mode) . eglot-ensure)
+  :bind (:map eglot-mode-map
+              ("C-c la" . eglot-code-actions) ;; Automatically write/repair code.
+              ("C-c lr" . eglot-rename)
+              ("C-c lf" . eglot-format) ;; Format current buffer
+              ("C-c lc" . eglot-reconnect)
+              ("C-c ld" . eldoc)) ;; view document
+  :custom
+  (eglot-autoshutdown t) ;; Automatically stop after closing all projects buffer
+  (eglot-report-progress nil);; Hide all eglot event buffers
+  :config
+  (setq eglot-stay-out-of '(company));; No other complementary backend options are changed
+  )
+
+(defun freedom/compile-commands-json ()
+  "Generate compile_commands.json for all .c/.C files in the selected directory.
+Includes all directories containing .h/.H files as -I include paths."
+  (interactive)
+  (let* ((root (read-directory-name "Select project root: "))
+         (c-files (directory-files-recursively root "\\.\\(c\\|C\\)$"))
+         (h-dirs (let ((hs (directory-files-recursively root "\\.\\(h\\|H\\)$"))
+                       (dirs '()))
+                   (dolist (h hs)
+                     (let ((dir (file-relative-name (file-name-directory h) root)))
+                       (unless (member dir dirs)
+                         (push dir dirs))))
+                   dirs))
+         (json-file (expand-file-name "compile_commands.json" root))
+         (command-entries '()))
+
+    ;; Construct the compile_commands.json project for each c file
+    (dolist (c-file c-files)
+      (let* ((rel-file (file-relative-name c-file root))
+             (obj-file (concat (file-name-sans-extension rel-file) ".o"))
+             (args (append
+                    '("gcc" "-o")
+                    (list obj-file "-g")
+                    (mapcar (lambda (dir) (concat "-I" dir)) h-dirs)
+                    (list rel-file)))
+             (entry `(("directory" . ,(expand-file-name root))
+                      ("arguments" . ,args)
+                      ("file" . ,rel-file))))
+        (push entry command-entries)))
+
+    ;; Write JSON to compile_commands.json file
+    (with-temp-file json-file
+      (insert (json-encode command-entries)))
+    (message "compile_commands.json generated at: %s" json-file)))
+
+(use-package org
+  :ensure nil
+ :init
   (require 'org-agenda)
   (require 'org-habit)
   (require 'ox-md)
@@ -140,18 +328,13 @@
    org-src-tab-acts-natively t
    org-tags-column -80
    org-todo-keywords (list "BLOCKED" "TODO" "IN-PROGRESS" "|" "DONE" "CANCELED" "DELEGATED"))
+  (add-to-list 'org-agenda-custom-commands '("c" . "Closed"))
+  (add-to-list 'org-agenda-custom-commands '("c1" tags "TODO=\"DONE\"&CLOSED>=\"<-1d>\""))
+  (add-to-list 'org-agenda-custom-commands '("c2" tags "TODO=\"DONE\"&CLOSED>=\"<-2d>\""))
+  (add-to-list 'org-agenda-custom-commands '("cw" tags "TODO=\"DONE\"&CLOSED>=\"<-1w>\""))
+  (add-to-list 'org-agenda-custom-commands '("cm" tags "TODO=\"DONE\"&CLOSED>=\"<-1m>\""))
+  (add-to-list 'org-agenda-custom-commands '("cy" tags "TODO=\"DONE\"&CLOSED>=\"<-1y>\""))
 
-  (setq org-agenda-custom-commands '(("n" "Agenda and all TODOs" ((agenda #1="") (alltodo #1#)))
-                                     ("c" . "Closed")
-                                     ("c1" tags "TODO=\"DONE\"&CLOSED>=\"<-1d>\"")
-                                     ("c2" tags "TODO=\"DONE\"&CLOSED>=\"<-2d>\"")
-                                     ("cw" tags "TODO=\"DONE\"&CLOSED>=\"<-1w>\"")
-                                     ("cm" tags "TODO=\"DONE\"&CLOSED>=\"<-1m>\"")
-                                     ("cy" tags "TODO=\"DONE\"&CLOSED>=\"<-1y>\"")
-
-                                     ))
-) 
-  
   (font-lock-add-keywords 'org-mode
                           '(("^ *\\([-]\\) "
                              (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
@@ -161,6 +344,7 @@
     (variable-pitch-mode 1)
     (electric-indent-local-mode -1)
     (org-indent-mode 1)
+    (set-face-font 'org-table "IBM Plex Mono" nil)
     )
   
   (add-hook 'org-mode-hook #'tealeg--org-mode-helper-f)
@@ -213,428 +397,95 @@
 	(tealeg--org-commit-and-push-todos))))
 
   (add-hook 'after-save-hook #'tealeg--todo-save-helper-f)
+
   )
 
-(use-package ob-mermaid
+(use-package corfu
   :ensure t
-  :config
-  
-  (setq org-confirm-babel-evaluate nil)
-  
-  (org-babel-do-load-languages
-    'org-babel-load-languages
-    '((mermaid . t)
-      (scheme . t)
-      (emacs-lisp . t)))
-    
-  )
+  :custom
+  ;; Make the popup appear quicker
+  (corfu-popupinfo-delay '(0.5 . 0.5))
+  ;; Always have the same width
+  (corfu-min-width 80)
+  (corfu-max-width corfu-min-width)
+  (corfu-count 14)
+  (corfu-scroll-margin 4)
+  ;; Have Corfu wrap around when going up
+  (corfu-cycle t)
+  (corfu-preselect-first t)
+  :bind (:map corfu-map
+              ;; Match `corfu-quick-complete' keybinding to `avy-goto-line'
+              ("M-j" . corfu-quick-complete))
+  :init
+  ;; Enable Corfu
+  (global-corfu-mode t)
+  ;; Enable Corfu history mode to act like `prescient'
+  (corfu-history-mode t)
+  ;; Allow Corfu to show help text next to suggested completion
+  (corfu-popupinfo-mode t))
 
 
-(defvar ligature-def '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
-                       ":::" "::=" "=:=" "===" "==>" "=!=" "=>>" "=<<" "=/=" "!=="
-                       "!!." ">=>" ">>=" ">>>" ">>-" ">->" "->>" "-->" "---" "-<<"
-                       "<~~" "<~>" "<*>" "<||" "<|>" "<$>" "<==" "<=>" "<=<" "<->"
-                       "<--" "<-<" "<<=" "<<-" "<<<" "<+>" "</>" "###" "#_(" "..<"
-                       "..." "+++" "/==" "///" "_|_" "www" "&&" "^=" "~~" "~@" "~="
-                       "~>" "~-" "**" "*>" "*/" "||" "|}" "|]" "|=" "|>" "|-" "{|"
-                       "[|" "]#" "::" ":=" ":>" ":<" "$>" "==" "=>" "!=" "!!" ">:"
-                       ">=" ">>" ">-" "-~" "-|" "->" "--" "-<" "<~" "<*" "<|" "<:"
-                       "<$" "<=" "<>" "<-" "<<" "<+" "</" "#{" "#[" "#:" "#=" "#!"
-                       "##" "#(" "#?" "#_" "%%" ".=" ".-" ".." ".?" "+>" "++" "?:"
-                       "?=" "?." "??" ";;" "/*" "/=" "/>" "//" "__" "~~" "(*" "*)"
-                       "\\\\" "://"))
-
-(use-package ligature
-  :ensure t
-  :config
-  (ligature-set-ligatures 'prog-mode ligature-def)
-  (global-ligature-mode t))
-
-
-
-(when (featurep #'completion-preview)
-  ;; Enable Completion Preview mode in code buffers
-  (add-hook 'prog-mode-hook #'completion-preview-mode)
-  ;; also in text buffers
-  (add-hook 'text-mode-hook #'completion-preview-mode)
-  ;; and in \\[shell] and friends
-  (with-eval-after-load 'comint
-    (add-hook 'comint-mode-hook #'completion-preview-mode))
-
-  (with-eval-after-load 'completion-preview
-    ;; Show the preview already after two symbol characters
-    (setq completion-preview-minimum-symbol-length 2)
-
-  ;; Non-standard commands to that should show the preview:
-
-    ;; Org mode has a custom `self-insert-command'
-    (push 'org-self-insert-command completion-preview-commands)
-    ;; Paredit has a custom `delete-backward-char' command
-    (push 'paredit-backward-delete completion-preview-commands)
-
-    ;; Bindings that take effect when the preview is shown:
-
-    ;; Cycle the completion candidate that the preview shows
-    (keymap-set completion-preview-active-mode-map "M-n" #'completion-preview-next-candidate)
-    (keymap-set completion-preview-active-mode-map "M-p" #'completion-preview-prev-candidate)
-    ;; Convenient alternative to C-i after typing one of the above
-    (keymap-set completion-preview-active-mode-map "M-i" #'completion-preview-insert)))
-
-
-;;;;
-
-(use-package treesit-auto
-  :ensure t
+(use-package cape
   :demand t
+  :init
+  ;; Add `completion-at-point-functions', used by `completion-at-point'.
+  (setq-default completion-at-point-functions
+                (append (default-value 'completion-at-point-functions)
+                        (list #'cape-dabbrev #'cape-file #'cape-abbrev))))
+
+(use-package hydra
+  :ensure t
+  :init
+(defhydra my/cape
+  (:color blue :hint nil)
+  "
+^Complete^
+^--------^
+_i_ Completion at Point
+_d_abbrev
+_f_ile
+_h_istory
+_p_complete
+_e_moji
+"
+  ("i" completion-at-point)
+  ("p" (lambda () (interactive) (let ((completion-at-point-functions '(pcomplete-completions-at-point t))) (completion-at-point))))
+  ("d" cape-dabbrev)
+  ("f" cape-file)
+  ("h" cape-history)
+  ("e" cape-emoji)))
+
+
+
+(use-package em-cmpl
+  :ensure nil
   :config
-  (setq treesit-auto-langs '(awk bash c cmake commonlisp cpp css dockerfile go gomod html javascript json lua make nix org perl proto python sql toml typescript yaml))
-
-  (unless (eq system-type 'berkeley-unix)
-    (treesit-auto-install-all))
-  (add-to-list 'auto-mode-alist  '("\\.go\\'" . go-ts-mode)))
-
-(use-package treesit-fold
-  :ensure t)
+  (bind-key "C-M-i" nil eshell-cmpl-mode-map)
+  (defun my/em-cmpl-mode-hook ()
+    (setq completion-at-point-functions
+          (list #'cape-history #'cape-file #'cape-dabbrev)))
+  (add-hook 'eshell-cmpl-mode-hook #'my/em-cmpl-mode-hook))
 
 
-(use-package eldoc-box
-  :ensure t
-  :config
-  (eldoc-box-hover-mode 1))
-
-
-(use-package sly
-  :ensure t
-  :config 
-  (cond ((eq system-type 'darwin) (setq inferior-lisp-program "/opt/homebrew/bin/sbcl"))
-	((eq system-type 'berkeley-unix) (setq inferior-lisp-program "/usr/local/bin/sbcl"))
-  ))
-
-
-(when (display-graphic-p)
-  (use-package all-the-icons
-    :ensure t))
-
-(use-package epresent
-  :ensure t)
-
-;; (require 'org-faces)
-
-;; (defgroup tealeg--org-faces nil
-;;   "Faces defined by tealeg."
-;;   :tag "Tealeg Faces"
-;;   :group 'org-appearance)
-
-;; (defface tealeg--org-heading '((t :inherit variable-pitch))
-;;   "Face used by tealeg to override org-headings via Modus themes."
-;;   :group 'tealeg--org-faces)
-
-(defun tealeg--set-faces (mono-face variable-face heading-face size spacing)
-
-  (set-fontset-font t nil (font-spec :size (string-to-number size) :name "Symbol"))
-
-  (set-face-font 'default (concat mono-face "-" size))
-  ;; (set-face-font 'italic nil (concat mono-face "-" size))
-  (set-face-font 'variable-pitch (concat variable-face "-" size))
-  (set-face-font 'fixed-pitch (concat mono-face "-" size))
-  ;; (set-face-font 'tealeg--org-heading (concat heading-face "-" size))
-  (custom-theme-set-faces
-   'user
-   '(org-block ((t (:inherit fixed-pitch))))
-   '(org-code ((t (:inherit (shadow fixed-pitch)))))
-   '(org-document-info ((t (:foreground "dark orange"))))
-   '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
-   '(org-indent ((t (:inherit (org-hide fixed-pitch)))))
-   '(org-link ((t (:foreground "royal blue" :underline t))))
-   '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
-   '(org-property-value ((t (:inherit fixed-pitch))) t)
-   '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
-   '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
-   '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
-   '(org-verbatim ((t (:inherit (shadow fixed-pitch)))))
-   '(org-document-title ((t (:height 3 :box (:line-width 4)))))
-   '(outline-1          ((t (:height 2.5 :box (:line-width 4)))))
-   '(outline-2          ((t (:height 2.2 :box (:line-width 4)))))
-   '(outline-3          ((t (:height 2.0 :box (:line-width 4)))))
-   '(outline-4          ((t (:height 1.8 :box (:line-width 4)))))
-   '(outline-5          ((t (:height 1.6))))
-   '(outline-6          ((t (:height 1.5))))
-   '(outline-7          ((t (:height 1.4))))
-   '(outline-8          ((t (:height 1.3))))
-   '(outline-9          ((t (:height 1.2))))
-   )  
-  (setf line-spacing spacing))
-
-;; Go
-(use-package gotest
-  :ensure t
-  :config
-  (defun tealeg--go-ts-mode-helper-f ()
-    (eglot-ensure))
-  
-  (add-hook 'go-ts-mode-hook #'tealeg--go-ts-mode-helper-f)
-  (add-hook 'before-save-hook 'gofmt-before-save))
-
-(use-package dape
-  :ensure t
-  :after gotest)
-
-;; Magit
-
-(use-package magit 
-  ;; :after transient
-  :ensure t
-  :bind ("C-x g" . magit-status)
+(use-package completion-preview
+  :ensure nil
+  :bind (:map completion-preview-active-mode-map
+              ("M-f" . #'completion-preview-insert-word)
+              ("C-M-f" . #'completion-preview-insert-sexp))
   :custom
-  (magit-git-executable (executable-find "git"))
-  )
+  (completion-preview-minimum-symbol-length 2)
+  :init
+  (global-completion-preview-mode))
 
 
-;; Enable Vertico.
-(use-package vertico
+(bind-key "M-+" 'text-scale-increase)
+(bind-key "M--" 'text-scale-decrease)
+
+
+(use-package aidermacs
   :ensure t
+  :bind (("C-c a" . aidermacs-transient-menu))
+  ;; :config
   :custom
-  (vertico-scroll-margin 0) ;; Different scroll margin
-  (vertico-count 20) ;; Show more candidates
-  (vertico-resize t) ;; Grow and shrink the Vertico minibuffer
-  (vertico-cycle t) ;; Enable cycling for `vertico-next/previous'
-  :init
-  (vertico-mode))
-
-
-(use-package racket-mode
-  :ensure t)
-
-(use-package flycheck
-  :ensure t)
-
-(use-package idris-mode
-  :ensure t
-  :config (setq idris-interpreter-path (shell-command-to-string "which idris2"))
-  )
-
-;; Support opening new minibuffers from inside existing minibuffers.
-(setq enable-recursive-minibuffers t
-      ;; Hide commands in M-x which do not work in the current mode.  Vertico
-      ;; commands are hidden in normal buffers. This setting is useful beyond
-      ;; Vertico.
-      read-extended-command-predicate #'command-completion-default-include-p
-      ;; Do not allow the cursor in the minibuffer prompt
-      minibuffer-prompt-properties
-      '(read-only t cursor-intangible t face minibuffer-prompt)
-
-      ;; Enable indentation+completion using the TAB key.
-      ;; `completion-at-point' is often bound to M-TAB.
-      tab-always-indent 'complete
-
-      ;; Emacs 30 and newer: Disable Ispell completion function.
-      ;; Try `cape-dict' as an alternative.
-      text-mode-ispell-word-completion nil
-
-      ;; Hide commands in M-x which do not apply to the current mode.  Corfu
-      ;; commands are hidden, since they are not used via M-x. This setting is
-      ;; useful beyond Corfu.
-      read-extended-command-predicate #'command-completion-default-include-p)
-
-;; Save history between sessions
-(savehist-mode)
-
-;; don't auto-save and back up files
-
-(if (eq system-type 'haiku)
-    (progn
-      ;; for some reason I like this on haiku
-      (setq indicate-buffer-boundaries 'right
-	    indicate-empty-lines t)
-      (tool-bar-mode 1)
-      (menu-bar-mode 1)
-      (scroll-bar-mode 1))
-  (progn
-    (tool-bar-mode -1)
-    (menu-bar-mode -1)
-    (scroll-bar-mode -1)
-    (blink-cursor-mode -1)
-    ))
-
-;; Final setup
-(if (file-exists-p custom-file)
-    (load custom-file))
-
-;;; look and feel
-
-(use-package focus
-  :defer t
-  :ensure t)
-
-(use-package beacon
-  :defer t
-  :ensure t
-  :init  (beacon-mode 1)
-  :config
-  (setq beacon-blink-when-window-scrolls nil))
-
-(use-package nerd-icons
-  :ensure t)
-
-(use-package mermaid-ts-mode
-  :ensure t)
-
-(use-package emojify
-  :ensure t
-  :config
-  (when (member "Apple Color Emoji" (font-family-list))
-    (set-fontset-font
-      t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend)))
-
-;; (use-package modus-themes
-;;   :ensure t
-;;   :config
-
-;;   (setq modus-themes-italic-constructs t
-;;         modus-themes-bold-constructs nil
-;;         modus-themes-mixed-fonts t
-;;         modus-themes-variable-pitch-ui nil
-;;         modus-themes-custom-auto-reload t
-;;         modus-themes-disable-other-themes t
-
-;;         ;; Options for `modus-themes-prompts' are either nil (the
-;;         ;; default), or a list of properties that may include any of those
-;;         ;; symbols: `italic', `WEIGHT'
-;;         modus-themes-prompts '(italic bold)
-
-;;         ;; The `modus-themes-completions' is an alist that reads two
-;;         ;; keys: `matches', `selection'.  Each accepts a nil value (or
-;;         ;; empty list) or a list of properties that can include any of
-;;         ;; the following (for WEIGHT read further below):
-;;         ;;
-;;         ;; `matches'   :: `underline', `italic', `WEIGHT'
-;;         ;; `selection' :: `underline', `italic', `WEIGHT'
-;;         modus-themes-completions
-;;         '((matches . (extrabold))
-;;           (selection . (semibold italic text-also)))
-
-;;         modus-themes-org-blocks 'gray-background ; {nil,'gray-background,'tinted-background}
-
-;;         ;; The `modus-themes-headings' is an alist: read the manual's
-;;         ;; node about it or its doc string.  Basically, it supports
-;;         ;; per-level configurations for the optional use of
-;;         ;; `variable-pitch' typography, a height value as a multiple of
-;;         ;; the base font size (e.g. 1.5), and a `WEIGHT'.
-;;         modus-themes-headings
-;;         '((1 . (variable-pitch 1.5))
-;;           (2 . (variable-pitch 1.3))
-;;           (agenda-date . (1.3))
-;;           (agenda-structure . (variable-pitch light 1.8))
-;;           (t . (1.1))))
-
-(use-package acme-theme
-  :ensure t
-  :init
-  (defun tealeg--on-theme-change-f ()
-
-    ;; Add frame borders and window dividers
-    (modify-all-frames-parameters
-     '((right-divider-width . 8)
-       (internal-border-width . 8)))
-    (cond ((eq system-type 'darwin)
-	   (tealeg--set-faces "IBM Plex Mono" "IBM Plex Serif" "IBM Plex Sans" "16" 0.3))
-	  ((eq system-type 'linux)
-	   (tealeg--set-faces "IBM Plex Mono" "IBM Plex Serif" "IBM Plex Sans" "12" 0.3))
-	  ((eq system-type 'berkeley-unix)
-           (tealeg--set-faces "IBM Plex Mono" "IBM Plex Serif" "IBM Plex Sans" "12" 0.3))
-	  )
-    (dolist (face '(window-divider
-                    window-divider-first-pixel
-                    window-divider-last-pixel))
-      (face-spec-reset-face face)
-      (set-face-foreground face (face-attribute 'default :background)))
-    (set-face-background 'fringe (face-attribute 'default :background)))
-
-  ;; (add-hook 'modus-themes-post-load-hook #'tealeg--on-theme-change-f)
-  ;; (modus-themes-load-theme 'modus-vivendi-tritanopia)
-
-  (load-theme 'acme t nil)
-  (tealeg--on-theme-change-f)
-  )
-
-(defvar lsp-modeline--code-actions-string nil)
-
-;; (setq-default mode-line-format
-;;   '("%e"
-;; 	(:propertize " " display (raise +0.4)) ;; Top padding
-;; 	(:propertize " " display (raise -0.4)) ;; Bottom padding
-
-;; 	(:propertize "λ " face font-lock-comment-face)
-;; 	mode-line-frame-identification
-;; 	mode-line-buffer-identification
-
-;; 	;; Version control info
-;; 	(:eval (when-let (vc vc-mode)
-;; 			 ;; Use a pretty branch symbol in front of the branch name
-;; 			 (list (propertize "   " 'face 'font-lock-comment-face)
-;;                    ;; Truncate branch name to 50 characters
-;; 				   (propertize (truncate-string-to-width
-;;                                 (substring vc 5) 50)
-;; 							   'face 'font-lock-comment-face))))
-
-;; 	;; Add space to align to the right
-;; 	(:eval (propertize
-;; 			 " " 'display
-;; 			 `((space :align-to
-;; 					  (-  (+ right right-fringe right-margin)
-;; 						 ,(+ 3
-;;                              (string-width (or lsp-modeline--code-actions-string ""))
-;;                              (string-width "%4l:3%c")))))))
-
-;;     ;; LSP code actions
-;;     (:eval (or lsp-modeline--code-actions-string ""))
-	
-;; 	;; Line and column numbers
-;; 	(:propertize "%4l:%c" face mode-line-buffer-id)))
-
-(add-to-list 'font-lock-extra-managed-props 'display)
-(font-lock-add-keywords 'org-mode
-                        `(("^.*?\\( \\)\\(:[[:alnum:]_@#%:]+:\\)$"
-                           (1 `(face nil
-                                     display (space :align-to (- right ,(org-string-width (match-string 2)) 3)))
-                              prepend))) t)
-
-
-;; (use-package typescript-ts-mode
-;;   :ensure t)
-
-;; (use-package jtsx
-;;   :ensure t)
-
-(use-package treemacs
-  :ensure t)
-
-(use-package markdown-mode
-  :ensure t)
-
-(use-package geiser-guile
-  :ensure t
-  )
-
-(use-package macrostep-geiser
-  :ensure t)
-
-(use-package quack
-  :ensure t)
-
-(use-package paredit
-  :ensure t
-  :init
-  
-  (require 'eldoc) ; if not already loaded
-    (eldoc-add-command
-     'paredit-backward-delete
-     'paredit-close-round)
-
-    :hook scheme-mode)
-
-(use-package rainbow-mode
-  :ensure t)
-
-(provide 'init)
-;;; init.el ends here
+  (aidermacs-default-chat-mode 'architect)
+  (aidermacs-default-model "github_copilot/gpt-4.1"))
