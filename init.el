@@ -34,25 +34,25 @@
       create-lockfiles nil         ;; Close Create a backup file
       delete-by-moving-to-trash t) ;; Emacs moves to the recycling bin when deleting files
 
-;; (load-theme 'modus-operandi-tinted t nil)
+(load-theme 'modus-operandi-tinted t nil)
 
-(use-package the-matrix-theme
-  :ensure t
-  :config (load-theme 'the-matrix t nil))
+;; (use-package the-matrix-theme
+;;   :ensure t
+;;   :config (load-theme 'the-matrix t nil))
 
 (use-package unicode-fonts
   :ensure t
   :config
   (unicode-fonts-setup))
 
-(set-frame-font "IBM Plex Mono-17:weight=Thin")
+(set-frame-font "IBM Plex Mono-17:weight=Regular")
  
-(set-face-font 'default "IBM Plex Mono-17:weight=Thin")
-(set-face-font 'fixed-pitch "IBM Plex Mono-17:weight=Thin")
-(set-face-font 'fixed-pitch-serif "IBM Plex Mono-17:weight=Thin")
-(set-face-font 'variable-pitch "IBM Plex Sans-17:weight=Thin")
-(set-face-font 'variable-pitch-text "IBM Plex Serif-17:weight=Thin")
-(set-face-font 'font-lock-comment-face "IBM Plex Serif-17:weight=Thin:slant=italic") ;; hello world
+(set-face-font 'default "IBM Plex Mono-17:weight=Regular")
+(set-face-font 'fixed-pitch "IBM Plex Mono-17:weight=Regular")
+(set-face-font 'fixed-pitch-serif "IBM Plex Mono-17:weight=Regular")
+(set-face-font 'variable-pitch "IBM Plex Sans-17:weight=Regular")
+(set-face-font 'variable-pitch-text "IBM Plex Serif-17:weight=Regular")
+(set-face-font 'font-lock-comment-face "IBM Plex Serif-17:weight=Regular:slant=italic") ;; hello world
 
 
 
@@ -400,6 +400,12 @@ Includes all directories containing .h/.H files as -I include paths."
 
   )
 
+(use-package ox-typst
+  :after org
+  :ensure t
+  :init
+  (require 'ox-typst))
+
 (use-package corfu
   :ensure t
   :custom
@@ -423,6 +429,19 @@ Includes all directories containing .h/.H files as -I include paths."
   (corfu-history-mode t)
   ;; Allow Corfu to show help text next to suggested completion
   (corfu-popupinfo-mode t))
+
+
+;; Optionally use the `orderless' completion style.
+(use-package orderless
+  :ensure t
+  :custom
+  ;; Configure a custom style dispatcher (see the Consult wiki)
+  ;; (orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch))
+  ;; (orderless-component-separator #'orderless-escapable-split-on-space)
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles partial-completion))))
+  (completion-category-defaults nil) ;; Disable defaults, use our settings
+  (completion-pcm-leading-wildcard t)) ;; Emacs 31: partial-completion behaves like substring
 
 
 (use-package cape
@@ -467,6 +486,7 @@ _e_moji
   (add-hook 'eshell-cmpl-mode-hook #'my/em-cmpl-mode-hook))
 
 
+
 (use-package completion-preview
   :ensure nil
   :bind (:map completion-preview-active-mode-map
@@ -482,10 +502,21 @@ _e_moji
 (bind-key "M--" 'text-scale-decrease)
 
 
-(use-package aidermacs
+;; (use-package aidermacs
+;;   :ensure t
+;;   :bind (("C-c a" . aidermacs-transient-menu))
+;;   ;; :config
+;;   :custom
+;;   (aidermacs-default-chat-mode 'architect)
+;;   (aidermacs-default-model "github_copilot/gpt-4.1"))
+
+(use-package indent-bars
   :ensure t
-  :bind (("C-c a" . aidermacs-transient-menu))
-  ;; :config
-  :custom
-  (aidermacs-default-chat-mode 'architect)
-  (aidermacs-default-model "github_copilot/gpt-4.1"))
+  :hook ((yaml-ts-mode) . indent-bars-mode))
+
+(use-package typst-ts-mode
+  :ensure t)
+
+
+
+
