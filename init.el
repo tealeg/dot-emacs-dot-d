@@ -45,14 +45,24 @@
   :config
   (unicode-fonts-setup))
 
-(set-frame-font "IBM Plex Mono-17:weight=Regular")
- 
-(set-face-font 'default "IBM Plex Mono-17:weight=Regular")
-(set-face-font 'fixed-pitch "IBM Plex Mono-17:weight=Regular")
-(set-face-font 'fixed-pitch-serif "IBM Plex Mono-17:weight=Regular")
-(set-face-font 'variable-pitch "IBM Plex Sans-17:weight=Regular")
-(set-face-font 'variable-pitch-text "IBM Plex Serif-17:weight=Regular")
-(set-face-font 'font-lock-comment-face "IBM Plex Serif-17:weight=Regular:slant=italic") ;; hello world
+
+(if (eq system-type 'berkeley-unix)
+    (progn
+      (set-frame-font "Hack-12:weight=Regular")
+      (set-face-font 'default "Hack-12:weight=Regular")
+      (set-face-font 'fixed-pitch "Hack-12:weight=Regular")
+      (set-face-font 'fixed-pitch-serif "Hack-12:weight=Regular")
+      (set-face-font 'variable-pitch "Noto Sans-12:weight=Regular")
+      (set-face-font 'variable-pitch-text "Noto Serif-12:weight=Regular")
+      (set-face-font 'font-lock-comment-face "Noto Serif-12:weight=Regular:slant=italic"))
+  (progn
+    (set-frame-font "IBM Plex Mono-17:weight=Regular")
+    (set-face-font 'default "IBM Plex Mono-17:weight=Regular")
+    (set-face-font 'fixed-pitch "IBM Plex Mono-17:weight=Regular")
+    (set-face-font 'fixed-pitch-serif "IBM Plex Mono-17:weight=Regular")
+    (set-face-font 'variable-pitch "IBM Plex Sans-17:weight=Regular")
+    (set-face-font 'variable-pitch-text "IBM Plex Serif-17:weight=Regular")
+    (set-face-font 'font-lock-comment-face "IBM Plex Serif-17:weight=Regular:slant=italic")))
 
 
 
@@ -98,6 +108,9 @@
   (require 'info)
   (setopt Info-additional-directory-list (list "/opt/homebrew/share/info")))
 
+
+(use-package magit
+  :ensure t)
 
 (use-package gcmh
   :ensure t
