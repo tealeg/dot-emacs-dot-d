@@ -9,11 +9,14 @@
                       last-command))
       icon-title-format t)
 
-;; (menu-bar-mode 0) ;; Emacs Text Toolbar above
+(unless (eq system-type 'darwin)
+  (menu-bar-mode 0) ;; Emacs Text Toolbar above
+  )
 (tool-bar-mode 0) ;; Close Emacs icon toolbar above
 (scroll-bar-mode 0) ;; Close scrollbar
-(set-fringe-mode 10) ;; increase fringe width
+(set-fringe-mode 12) ;; increase fringe width
 (show-paren-mode t)
+
 (setq-default fringes-outside-margins nil)
 (setq-default indicate-buffer-boundaries nil)
 (setq-default indicate-empty-lines nil)
@@ -34,27 +37,33 @@
       create-lockfiles nil         ;; Close Create a backup file
       delete-by-moving-to-trash t) ;; Emacs moves to the recycling bin when deleting files
 
-(load-theme 'modus-operandi-tinted t nil)
+(defun my-modus-themes-invisible-dividers (&rest _)
+  "Make window dividers for THEME invisible."
+  (let ((bg (face-background 'default)))
+    (custom-set-faces
+     `(fringe ((t :background ,bg :foreground ,bg)))
+     `(window-divider ((t :background ,bg :foreground ,bg)))
+     `(window-divider-first-pixel ((t :background ,bg :foreground ,bg)))
+     `(window-divider-last-pixel ((t :background ,bg :foreground ,bg))))))
 
-;; (use-package the-matrix-theme
-;;   :ensure t
-;;   :config (load-theme 'the-matrix t nil))
+(add-hook 'enable-theme-functions #'my-modus-themes-invisible-dividers)
+
+(load-theme 'modus-vivendi-deuteranopia t nil)
 
 (use-package unicode-fonts
   :ensure t
   :config
   (unicode-fonts-setup))
 
-
 (if (eq system-type 'berkeley-unix)
     (progn
-      (set-frame-font "Hack-12:weight=Regular")
-      (set-face-font 'default "Hack-12:weight=Regular")
-      (set-face-font 'fixed-pitch "Hack-12:weight=Regular")
-      (set-face-font 'fixed-pitch-serif "Hack-12:weight=Regular")
-      (set-face-font 'variable-pitch "Noto Sans-12:weight=Regular")
-      (set-face-font 'variable-pitch-text "Noto Serif-12:weight=Regular")
-      (set-face-font 'font-lock-comment-face "Noto Serif-12:weight=Regular:slant=italic"))
+      (set-frame-font "Hack-15:weight=Regular")
+      (set-face-font 'default "Hack-15:weight=Regular")
+      (set-face-font 'fixed-pitch "Hack-15:weight=Regular")
+      (set-face-font 'fixed-pitch-serif "Hack-15:weight=Regular")
+      (set-face-font 'variable-pitch "Noto Sans-15:weight=Regular")
+      (set-face-font 'variable-pitch-text "Noto Serif-15:weight=Regular")
+      (set-face-font 'font-lock-comment-face "Noto Serif-15:weight=Regular:slant=italic"))
   (progn
     (set-frame-font "IBM Plex Mono-17:weight=Regular")
     (set-face-font 'default "IBM Plex Mono-17:weight=Regular")
@@ -63,7 +72,6 @@
     (set-face-font 'variable-pitch "IBM Plex Sans-17:weight=Regular")
     (set-face-font 'variable-pitch-text "IBM Plex Serif-17:weight=Regular")
     (set-face-font 'font-lock-comment-face "IBM Plex Serif-17:weight=Regular:slant=italic")))
-
 
 
 (if (eq system-type 'darwin)
@@ -97,6 +105,11 @@
 ;;                           ("nongnu" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/5a83cbae8df2c23a24b1509bfe808f6a89e5a645/nongnu/");; 2025-07-25 8:00
 ;;                           ))
 
+(use-package spacious-padding
+  :ensure t
+  :config
+  (spacious-padding-mode t))
+
 ;; Fix path
 (use-package exec-path-from-shell
   :ensure t
@@ -124,26 +137,6 @@
   (unless (eq system-type 'berkeley-unix)
     (setq ispell-dictionary "en_GB")))
 
-(use-package vertico
-  :ensure t
-  :hook (after-init . vertico-mode)
-  :bind (:map vertico-map
-              ("DEL" . vertico-directory-delete-char))
-  :custom
-  (vertico-count 10)
-  )
-
-(use-package orderless
-  :ensure t
-  :config
-  (setq completion-styles '(orderless basic)
-        completion-category-defaults nil
-        completion-category-overrides '((file (styles partial-completion)))))
-
-;; Display information in Minibuffer
-(use-package marginalia
-  :ensure t
-  :hook (after-init . marginalia-mode))
 
 ;; modelline display time
 (use-package time
@@ -160,37 +153,6 @@
   :ensure nil
   :hook (after-init . global-auto-revert-mode))
 
-;; Where the cursor is located before saving each file
-(use-package saveplace
-  :ensure nil
-  :hook (after-init . save-place-mode)
-  :custom
-  (save-place-file "~/.emacs.d/places"))
-
-(use-package which-key
-  :ensure nil
-  :if (>= emacs-major-version 30)
-  :diminish
-  :hook (window-setup . which-key-mode))
-
-(use-package recentf
-  :ensure nil
-  :hook (after-init . recentf-mode)
-  :custom
-  (recentf-filename-handlers '(abbreviate-file-name))
-  (recentf-max-saved-items 400)
-  (recentf-max-menu-items 400)
-  (recentf-save-file "~/.emacs.d/recentf")
-  :config
-  (recentf-cleanup))
-
-(use-package project
-  :ensure nil)
-
-(use-package deadgrep
-  :ensure t
-  :bind
-  (([remap project-find-regexp] . deadgrep)))
 
 ;; Fix path
 (use-package exec-path-from-shell
@@ -203,58 +165,6 @@
   (require 'info)
   (setopt Info-additional-directory-list (list "/opt/homebrew/share/info")))
 
-
-(use-package consult
-  :ensure t
-  :bind
-  (([remap imenu] . consult-imenu)
-   ([remap switch-to-buffer] . consult-buffer)
-   ([remap switch-to-buffer-other-window] . consult-buffer-other-window)
-   ([remap switch-to-buffer-other-frame] . consult-buffer-other-frame)
-   ("M-g M-g" . consult-line)
-   ("M-g g" . consult-goto-line)
-   ([remap bookmark-jump] . freedom/consult-bookmark)
-   ([remap repeat-complex-command] . consult-complex-command)
-   ([remap yank-pop] . consult-yank-pop)
-   ([remap Info-search] . consult-info)
-   ("C-c cf" . consult-recent-file)
-   ("C-c cF" . consult-flymake)
-   ("C-c cg" . consult-grep)
-   ("C-c cG" . consult-line-multi)
-   ("C-c ck" . consult-kmacro)
-   ("C-c cl" . consult-locate)
-   ("C-c co" . consult-outline)
-   ("C-c cr" . consult-ripgrep)
-   :map isearch-mode-map
-   ("C-c h" . consult-isearch-history)
-   :map minibuffer-local-map
-   ("C-c h" . consult-history)
-   :map org-mode-map
-   ([remap imenu] . consult-outline))
-  :custom
-  (register-preview-delay 0.5)
-  (register-preview-function #'consult-register-format)
-  (xref-search-program 'ripgrep)
-  (xref-show-xrefs-function #'consult-xref)
-  (xref-show-definitions-function #'consult-xref)
-  (consult-preview-key 'any) ;; Preview content, can be set to buttons
-  (consult-async-refresh-delay 1.0) ;; Prevent Emacs from being stuck by using external programs, for example: consult-ripgrep
-  (consult-async-min-input 2) ;; Start searching at the minimum number of characters
-  (consult-narrow-key "?") ;; Optional module buttons
-  :config
-
-  ;; Support Windows system `everythine.exe` software search file to use `conslut-locate`
-  (when (and (eq system-type 'windows-nt))
-    (setq consult-locate-args (encode-coding-string "es.exe -i -p -r" 'gbk)))
-
-  ;; Disable preview of certain features
-  (defmacro +no-consult-preview (&rest cmds)
-    `(consult-customize ,@cmds :preview-key "M-."))
-  (+no-consult-preview
-   consult-ripgrep consult-git-grep consult-grep
-   consult-bookmark consult-recent-file
-   consult--source-recent-file consult--source-project-recent-file consult--source-bookmark)
-  )
 
 (use-package eglot
   :ensure nil
@@ -276,41 +186,6 @@
   :config
   (setq eglot-stay-out-of '(company));; No other complementary backend options are changed
   )
-
-(defun freedom/compile-commands-json ()
-  "Generate compile_commands.json for all .c/.C files in the selected directory.
-Includes all directories containing .h/.H files as -I include paths."
-  (interactive)
-  (let* ((root (read-directory-name "Select project root: "))
-         (c-files (directory-files-recursively root "\\.\\(c\\|C\\)$"))
-         (h-dirs (let ((hs (directory-files-recursively root "\\.\\(h\\|H\\)$"))
-                       (dirs '()))
-                   (dolist (h hs)
-                     (let ((dir (file-relative-name (file-name-directory h) root)))
-                       (unless (member dir dirs)
-                         (push dir dirs))))
-                   dirs))
-         (json-file (expand-file-name "compile_commands.json" root))
-         (command-entries '()))
-
-    ;; Construct the compile_commands.json project for each c file
-    (dolist (c-file c-files)
-      (let* ((rel-file (file-relative-name c-file root))
-             (obj-file (concat (file-name-sans-extension rel-file) ".o"))
-             (args (append
-                    '("gcc" "-o")
-                    (list obj-file "-g")
-                    (mapcar (lambda (dir) (concat "-I" dir)) h-dirs)
-                    (list rel-file)))
-             (entry `(("directory" . ,(expand-file-name root))
-                      ("arguments" . ,args)
-                      ("file" . ,rel-file))))
-        (push entry command-entries)))
-
-    ;; Write JSON to compile_commands.json file
-    (with-temp-file json-file
-      (insert (json-encode command-entries)))
-    (message "compile_commands.json generated at: %s" json-file)))
 
 (use-package org
   :ensure nil
@@ -394,9 +269,7 @@ Includes all directories containing .h/.H files as -I include paths."
       (dolist (fname org-agenda-files modified)
 	(save-buffer (get-buffer fname))
 	(magit-run-git "add" fname)
-      ;; 	(when (tealeg--is-file-modified fname)
 	(setq modified t)))
-      ;; (when modified
     (magit-run-git "commit" "-m" (concat "'Update TODOs " (current-time-string) "'"))
     (magit-run-git-with-editor "pull" "-r" "origin" "main")
     (magit-run-git "push" "origin" "main")) ;; ))
@@ -418,97 +291,6 @@ Includes all directories containing .h/.H files as -I include paths."
   :ensure t
   :init
   (require 'ox-typst))
-
-(use-package corfu
-  :ensure t
-  :custom
-  ;; Make the popup appear quicker
-  (corfu-popupinfo-delay '(0.5 . 0.5))
-  ;; Always have the same width
-  (corfu-min-width 80)
-  (corfu-max-width corfu-min-width)
-  (corfu-count 14)
-  (corfu-scroll-margin 4)
-  ;; Have Corfu wrap around when going up
-  (corfu-cycle t)
-  (corfu-preselect-first t)
-  :bind (:map corfu-map
-              ;; Match `corfu-quick-complete' keybinding to `avy-goto-line'
-              ("M-j" . corfu-quick-complete))
-  :init
-  ;; Enable Corfu
-  (global-corfu-mode t)
-  ;; Enable Corfu history mode to act like `prescient'
-  (corfu-history-mode t)
-  ;; Allow Corfu to show help text next to suggested completion
-  (corfu-popupinfo-mode t))
-
-
-;; Optionally use the `orderless' completion style.
-(use-package orderless
-  :ensure t
-  :custom
-  ;; Configure a custom style dispatcher (see the Consult wiki)
-  ;; (orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch))
-  ;; (orderless-component-separator #'orderless-escapable-split-on-space)
-  (completion-styles '(orderless basic))
-  (completion-category-overrides '((file (styles partial-completion))))
-  (completion-category-defaults nil) ;; Disable defaults, use our settings
-  (completion-pcm-leading-wildcard t)) ;; Emacs 31: partial-completion behaves like substring
-
-
-(use-package cape
-  :demand t
-  :init
-  ;; Add `completion-at-point-functions', used by `completion-at-point'.
-  (setq-default completion-at-point-functions
-                (append (default-value 'completion-at-point-functions)
-                        (list #'cape-dabbrev #'cape-file #'cape-abbrev))))
-
-(use-package hydra
-  :ensure t
-  :init
-(defhydra my/cape
-  (:color blue :hint nil)
-  "
-^Complete^
-^--------^
-_i_ Completion at Point
-_d_abbrev
-_f_ile
-_h_istory
-_p_complete
-_e_moji
-"
-  ("i" completion-at-point)
-  ("p" (lambda () (interactive) (let ((completion-at-point-functions '(pcomplete-completions-at-point t))) (completion-at-point))))
-  ("d" cape-dabbrev)
-  ("f" cape-file)
-  ("h" cape-history)
-  ("e" cape-emoji)))
-
-
-
-(use-package em-cmpl
-  :ensure nil
-  :config
-  (bind-key "C-M-i" nil eshell-cmpl-mode-map)
-  (defun my/em-cmpl-mode-hook ()
-    (setq completion-at-point-functions
-          (list #'cape-history #'cape-file #'cape-dabbrev)))
-  (add-hook 'eshell-cmpl-mode-hook #'my/em-cmpl-mode-hook))
-
-
-
-(use-package completion-preview
-  :ensure nil
-  :bind (:map completion-preview-active-mode-map
-              ("M-f" . #'completion-preview-insert-word)
-              ("C-M-f" . #'completion-preview-insert-sexp))
-  :custom
-  (completion-preview-minimum-symbol-length 2)
-  :init
-  (global-completion-preview-mode))
 
 
 (bind-key "M-+" 'text-scale-increase)
