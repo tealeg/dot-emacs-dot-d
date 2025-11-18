@@ -312,6 +312,19 @@
 (use-package typst-ts-mode
   :ensure t)
 
+(use-package emojify
+  :ensure t)
 
+(use-package discover
+  :ensure t)
 
+;; (use-package mastodon
+;;   :ensure t
+;;   :after emojify
+;;   :config
+;;   (mastodon-discover)
+;;   (setq mastodon-instance-url "https://mastodon.online"
+;; 	mastodon-active-user "geoffrey@teale.de")
 
+;;   )
+  
