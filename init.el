@@ -21,6 +21,8 @@
 (setq-default indicate-buffer-boundaries nil)
 (setq-default indicate-empty-lines nil)
 (setq-default cursor-type 'bar)
+(setq scroll-conservatively 1000)
+(setq scroll-margin 3)
 (setq make-backup-files nil)
 
 (setq ring-bell-function 'ignore) ;; Close Emacs warning sound
@@ -37,23 +39,40 @@
       create-lockfiles nil         ;; Close Create a backup file
       delete-by-moving-to-trash t) ;; Emacs moves to the recycling bin when deleting files
 
-(defun my-modus-themes-invisible-dividers (&rest _)
-  "Make window dividers for THEME invisible."
-  (let ((bg (face-background 'default)))
-    (custom-set-faces
-     `(fringe ((t :background ,bg :foreground ,bg)))
-     `(window-divider ((t :background ,bg :foreground ,bg)))
-     `(window-divider-first-pixel ((t :background ,bg :foreground ,bg)))
-     `(window-divider-last-pixel ((t :background ,bg :foreground ,bg))))))
 
-(add-hook 'enable-theme-functions #'my-modus-themes-invisible-dividers)
+;; (defun my-modus-themes-invisible-dividers (&rest _)
+;;   "Make window dividers for THEME invisible."
+;;   (let ((bg (face-background 'default)))
+;;     (custom-set-faces
+;;      `(fringe ((t :background ,bg :foreground ,bg)))
+;;      `(window-divider ((t :background ,bg :foreground ,bg)))
+;;      `(window-divider-first-pixel ((t :background ,bg :foreground ,bg)))
+;;      `(window-divider-last-pixel ((t :background ,bg :foreground ,bg))))))
 
-(load-theme 'modus-vivendi-deuteranopia t nil)
+;; (add-hook 'enable-theme-functions #'my-modus-themes-invisible-dividers)
+
+;; (load-theme 'modus-vivendi-deuteranopia t nil)
+
+(use-package doom-themes
+  :ensure t
+  :config
+  (load-theme 'doom-outrun-electric t nil)
+;; (load-theme 'doom-flatwhite t nil)
+  )
+
+(use-package doom-modeline
+  :ensure t
+  :after doom-themes
+  :config
+  (doom-modeline-mode 1))
+
+(use-package use-package-ensure-system-package)
 
 (use-package unicode-fonts
   :ensure t
   :config
   (unicode-fonts-setup))
+
 
 (if (eq system-type 'berkeley-unix)
     (progn
@@ -72,6 +91,16 @@
     (set-face-font 'variable-pitch "IBM Plex Sans-17:weight=Regular")
     (set-face-font 'variable-pitch-text "IBM Plex Serif-17:weight=Regular")
     (set-face-font 'font-lock-comment-face "IBM Plex Serif-17:weight=Regular:slant=italic")))
+
+
+;; (set-face-font 'default "Go Mono-20:weight=Regular")
+;; (set-face-font 'fixed-pitch "Go Mono-20:weight=Regular")
+;; (set-face-font 'fixed-pitch-serif "Go Mono-20:weight=Regular")
+;; (set-face-font 'variable-pitch "Go-20:weight=Regular")
+;; (set-face-font 'variable-pitch-text "Go-20:weight=Regular")
+;; (set-face-font 'font-lock-comment-face "Go-20:weight=Regular:slant=italic") ;; hello world
+(setq line-spacing 0.1)
+
 
 
 (if (eq system-type 'darwin)
@@ -98,12 +127,6 @@
                          ("nongnu" . "https://elpa.nongnu.org/nongnu/")
                          ("melpa" . "https://melpa.org/packages/")))
 
-;; Sometimes you want to keep the package available, so that it can be fixed in a certain version forever.
-;; (setq  package-archives '(("melpa" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/5a83cbae8df2c23a24b1509bfe808f6a89e5a645/melpa/");; 2025-02-25 8:00
-;;                           ("gnu" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/5a83cbae8df2c23a24b1509bfe808f6a89e5a645/gnu/");; 2025-07-25 8:00
-;;                           ("org" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/5a83cbae8df2c23a24b1509bfe808f6a89e5a645/org/");; 2025-07-25 8:00
-;;                           ("nongnu" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/5a83cbae8df2c23a24b1509bfe808f6a89e5a645/nongnu/");; 2025-07-25 8:00
-;;                           ))
 
 (use-package spacious-padding
   :ensure t
@@ -154,38 +177,11 @@
   :hook (after-init . global-auto-revert-mode))
 
 
-;; Fix path
-(use-package exec-path-from-shell
-  :ensure t
-  :config
-  (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-initialize)))
-
 (when (eq system-type 'darwin)
   (require 'info)
   (setopt Info-additional-directory-list (list "/opt/homebrew/share/info")))
 
 
-(use-package eglot
-  :ensure nil
-  :if (>= emacs-major-version 29)
-  :hook
-  (eglot-managed-mode . (lambda () (eglot-inlay-hints-mode -1)));; No prompt is displayed
-  :hook
-  ;; NOTE: Please add your programming language here
-  ((c-mode c-ts-mode c++-mode c++-ts-mode rust-mode rust-ts-mode) . eglot-ensure)
-  :bind (:map eglot-mode-map
-              ("C-c la" . eglot-code-actions) ;; Automatically write/repair code.
-              ("C-c lr" . eglot-rename)
-              ("C-c lf" . eglot-format) ;; Format current buffer
-              ("C-c lc" . eglot-reconnect)
-              ("C-c ld" . eldoc)) ;; view document
-  :custom
-  (eglot-autoshutdown t) ;; Automatically stop after closing all projects buffer
-  (eglot-report-progress nil);; Hide all eglot event buffers
-  :config
-  (setq eglot-stay-out-of '(company));; No other complementary backend options are changed
-  )
 
 (use-package org
   :ensure nil
@@ -208,8 +204,9 @@
    org-hide-emphasis-markers nil
    org-hide-leading-stars nil
    org-insert-heading-respect-content t
-   org-log-done 'time
-   org-log-into-drawer t
+   org-log-done nil
+   org-log-repeat nil
+   org-log-into-drawer nil
    org-pretty-entities t
    org-special-ctrl-a/e t
    org-src-fontify-natively t
@@ -283,7 +280,6 @@
 	(tealeg--org-commit-and-push-todos))))
 
   (add-hook 'after-save-hook #'tealeg--todo-save-helper-f)
-
   )
 
 (use-package ox-typst
@@ -309,22 +305,56 @@
   :ensure t
   :hook ((yaml-ts-mode) . indent-bars-mode))
 
+
 (use-package typst-ts-mode
   :ensure t)
 
 (use-package emojify
   :ensure t)
 
+
 (use-package discover
   :ensure t)
 
-;; (use-package mastodon
-;;   :ensure t
-;;   :after emojify
-;;   :config
-;;   (mastodon-discover)
-;;   (setq mastodon-instance-url "https://mastodon.online"
-;; 	mastodon-active-user "geoffrey@teale.de")
 
-;;   )
+(use-package eglot
+  :ensure nil
+  :if (>= emacs-major-version 29)
+  :hook
+  (eglot-managed-mode . (lambda () (eglot-inlay-hints-mode -1)));; No prompt is displayed
+  :hook
+  ;; NOTE: Please add your programming language here
+  ((c-mode c-ts-mode c++-mode c++-ts-mode rust-mode rust-ts-mode go-ts-mode) . eglot-ensure)
+  :bind (:map eglot-mode-map
+              ("C-c la" . eglot-code-actions) ;; Automatically write/repair code.
+              ("C-c lr" . eglot-rename)
+              ("C-c lf" . eglot-format) ;; Format current buffer
+              ("C-c lc" . eglot-reconnect)
+              ("C-c ld" . eldoc)) ;; view document
+  :custom
+  (eglot-autoshutdown t) ;; Automatically stop after closing all projects buffer
+  (eglot-report-progress nil);; Hide all eglot event buffers
+)
+;; -  :config
+;; -  (setq eglot-stay-out-of '(company)));; No other complementary backend options are changed
+
+(use-package eglot-booster
+  :vc "github.com/jdtsmith/eglot-booster"
+    ;; :ensure-system-package
+    ;; (rust
+    ;;  cargo
+    ;;  ((emacs-lsp-booster . "cargo install emacs-lsp-booster")))
+    :ensure t
+    :after eglot
+    :config	(eglot-booster-mode))
+
+(use-package corfu
+  :ensure t
+  :init
+  (global-corfu-mode t))
+
+(use-package emacs
+  :init
+  (setq completion-cycle-threshold 3)
+  (setq corfu-auto-prefix 1))
   
