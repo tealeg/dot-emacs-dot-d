@@ -1,7 +1,7 @@
-;; (add-to-list 'default-frame-alist '(fullscreen . maximized)) ;; Maximize window after starting Emacs
 (setq inhibit-startup-message t) ;; Close Emacs launch screen
 (setq inhibit-splash-screen t)   ;; Close Emacs startup help screen
 (setq initial-scratch-message (concat ";; Happy hacking, " user-login-name " - Emacs \u2665 you!\n\n"))
+
 ;; Show your last execute command
 (setq frame-title-format
       '(:eval (format "Emacs - %s  [ %s ]"
@@ -12,6 +12,7 @@
 (unless (eq system-type 'darwin)
   (menu-bar-mode 0) ;; Emacs Text Toolbar above
   )
+
 (tool-bar-mode 0) ;; Close Emacs icon toolbar above
 (scroll-bar-mode 0) ;; Close scrollbar
 (set-fringe-mode 12) ;; increase fringe width
@@ -29,6 +30,7 @@
 
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
+
 (require 'ansi-color)
 (require 'compile)
 (add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
@@ -40,24 +42,13 @@
       delete-by-moving-to-trash t) ;; Emacs moves to the recycling bin when deleting files
 
 
-;; (defun my-modus-themes-invisible-dividers (&rest _)
-;;   "Make window dividers for THEME invisible."
-;;   (let ((bg (face-background 'default)))
-;;     (custom-set-faces
-;;      `(fringe ((t :background ,bg :foreground ,bg)))
-;;      `(window-divider ((t :background ,bg :foreground ,bg)))
-;;      `(window-divider-first-pixel ((t :background ,bg :foreground ,bg)))
-;;      `(window-divider-last-pixel ((t :background ,bg :foreground ,bg))))))
-
-;; (add-hook 'enable-theme-functions #'my-modus-themes-invisible-dividers)
-
-;; (load-theme 'modus-vivendi-deuteranopia t nil)
 
 (use-package doom-themes
   :ensure t
   :config
-  (load-theme 'doom-outrun-electric t nil)
-;; (load-theme 'doom-flatwhite t nil)
+  ;; (load-theme 'doom-outrun-electric t nil)
+  ;; (load-theme 'doom-flatwhite t nil)
+  (load-theme 'doom-feather-dark t nil)
   )
 
 (use-package doom-modeline
@@ -76,13 +67,13 @@
 
 (if (eq system-type 'berkeley-unix)
     (progn
-      (set-frame-font "Hack-15:weight=Regular")
-      (set-face-font 'default "Hack-15:weight=Regular")
-      (set-face-font 'fixed-pitch "Hack-15:weight=Regular")
-      (set-face-font 'fixed-pitch-serif "Hack-15:weight=Regular")
-      (set-face-font 'variable-pitch "Noto Sans-15:weight=Regular")
-      (set-face-font 'variable-pitch-text "Noto Serif-15:weight=Regular")
-      (set-face-font 'font-lock-comment-face "Noto Serif-15:weight=Regular:slant=italic"))
+      (set-frame-font "M+1VM+IPAG circle-10:weight=Regular")
+      (set-face-font 'default "M+1VM+IPAG circle-10:weight=Regular")
+      (set-face-font 'fixed-pitch "M+1VM+IPAG circle-10:weight=Regular")
+      (set-face-font 'fixed-pitch-serif "M+1VM+IPAG circle-10:weight=Regular")
+      (set-face-font 'variable-pitch "IPAUIGothic-10:weight=Regular")
+      (set-face-font 'variable-pitch-text "IPAPMincho-10:weight=Regular")
+      (set-face-font 'font-lock-comment-face "IPAPMincho-10:weight=Regular:slant=italic"))
   (progn
     (set-frame-font "IBM Plex Mono-17:weight=Regular")
     (set-face-font 'default "IBM Plex Mono-17:weight=Regular")
@@ -92,13 +83,6 @@
     (set-face-font 'variable-pitch-text "IBM Plex Serif-17:weight=Regular")
     (set-face-font 'font-lock-comment-face "IBM Plex Serif-17:weight=Regular:slant=italic")))
 
-
-;; (set-face-font 'default "Go Mono-20:weight=Regular")
-;; (set-face-font 'fixed-pitch "Go Mono-20:weight=Regular")
-;; (set-face-font 'fixed-pitch-serif "Go Mono-20:weight=Regular")
-;; (set-face-font 'variable-pitch "Go-20:weight=Regular")
-;; (set-face-font 'variable-pitch-text "Go-20:weight=Regular")
-;; (set-face-font 'font-lock-comment-face "Go-20:weight=Regular:slant=italic") ;; hello world
 (setq line-spacing 0.1)
 
 
@@ -180,7 +164,6 @@
 (when (eq system-type 'darwin)
   (require 'info)
   (setopt Info-additional-directory-list (list "/opt/homebrew/share/info")))
-
 
 
 (use-package org
@@ -338,23 +321,31 @@
 ;; -  :config
 ;; -  (setq eglot-stay-out-of '(company)));; No other complementary backend options are changed
 
-(use-package eglot-booster
-  :vc "github.com/jdtsmith/eglot-booster"
-    ;; :ensure-system-package
-    ;; (rust
-    ;;  cargo
-    ;;  ((emacs-lsp-booster . "cargo install emacs-lsp-booster")))
-    :ensure t
-    :after eglot
-    :config	(eglot-booster-mode))
+;; (use-package eglot-booster
+;;   :ensure t
+;;   :after eglot
+;;   :config	(eglot-booster-mode))
 
 (use-package corfu
   :ensure t
   :init
   (global-corfu-mode t))
 
+  
+(use-package pel-ert
+  :vc (:url "https://github.com/pierre-rouleau/pel" :main-file "pel-ert.el" :rev :newest)
+  :ensure t)
+
+(use-package seed7-mode
+  :after pel-ert
+  :vc (:url "https://github.com/pierre-rouleau/seed7-mode" :rev :newest)
+  :ensure t
+  :config 
+  (autoload 'seed7-mode "seed7-mode" nil :interactive)
+  (add-to-list 'auto-mode-alist '("\\.s\\(d7\\|7i\\)\\'" . seed7-mode))
+  )
+
 (use-package emacs
   :init
   (setq completion-cycle-threshold 3)
   (setq corfu-auto-prefix 1))
-  
