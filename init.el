@@ -17,6 +17,7 @@
 (scroll-bar-mode 0) ;; Close scrollbar
 (set-fringe-mode 12) ;; increase fringe width
 (show-paren-mode t)
+(display-battery-mode 1)
 
 (setq-default fringes-outside-margins nil)
 (setq-default indicate-buffer-boundaries nil)
@@ -48,32 +49,40 @@
   :config
   ;; (load-theme 'doom-outrun-electric t nil)
   ;; (load-theme 'doom-flatwhite t nil)
-  (load-theme 'doom-feather-dark t nil)
+  ;; (load-theme 'doom-feather-dark t nil)
+  (load-theme 'doom-challenger-deep t nil)
+
   )
 
 (use-package doom-modeline
   :ensure t
   :after doom-themes
   :config
+  (setq doom-modeline-hud t)
+  :init
   (doom-modeline-mode 1))
 
 (use-package use-package-ensure-system-package)
 
-(use-package unicode-fonts
-  :ensure t
-  :config
-  (unicode-fonts-setup))
+;; (use-package unicode-fonts
+;;   :ensure t
+;;   :config
+;;   (unicode-fonts-setup))
 
 
 (if (eq system-type 'berkeley-unix)
     (progn
-      (set-frame-font "M+1VM+IPAG circle-10:weight=Regular")
-      (set-face-font 'default "M+1VM+IPAG circle-10:weight=Regular")
-      (set-face-font 'fixed-pitch "M+1VM+IPAG circle-10:weight=Regular")
-      (set-face-font 'fixed-pitch-serif "M+1VM+IPAG circle-10:weight=Regular")
-      (set-face-font 'variable-pitch "IPAUIGothic-10:weight=Regular")
-      (set-face-font 'variable-pitch-text "IPAPMincho-10:weight=Regular")
-      (set-face-font 'font-lock-comment-face "IPAPMincho-10:weight=Regular:slant=italic"))
+      (set-frame-font "IBM Plex Mono-9:weight=Regular")
+      (set-face-font 'default "IBM Plex Mono-9:weight=Regular")
+      (set-face-font 'fixed-pitch "IBM Plex Mono-9:weight=Regular")
+      (set-face-font 'fixed-pitch-serif "IBM Plex Mono-9:weight=Regular")
+      (set-face-font 'variable-pitch "IBM Plex Sans-9:weight=Regular")
+      (set-face-font 'variable-pitch-text "IBM Plex Serif-9:weight=Regular")
+      (set-face-font 'font-lock-comment-face "IBM Plex Serif-9:bweight=Regular:slant=italic")
+      (set-face-font 'doom-modeline "IBM Plex Sans-10:weight=Regular")
+
+      )
+  
   (progn
     (set-frame-font "IBM Plex Mono-17:weight=Regular")
     (set-face-font 'default "IBM Plex Mono-17:weight=Regular")
@@ -345,7 +354,79 @@
   (add-to-list 'auto-mode-alist '("\\.s\\(d7\\|7i\\)\\'" . seed7-mode))
   )
 
+
+(use-package mu4e-alert
+  :ensure t
+  :init
+  (setq mu4e-alert-interesting-mail-query
+    (concat
+     "flag:unread maildir:/Mailbox/[Mailbox].INBOX "
+     ;; "OR "
+     ;; "flag:unread maildir:/Gmail/INBOX"
+     ))
+  (mu4e-alert-enable-mode-line-display)
+  (defun tealeg-refresh-mu4e-alert-mode-line ()
+    (interactive)
+    (mu4e-alert-enable-mode-line-display)
+    )
+  (run-with-timer 0 60 'tealeg-refresh-mu4e-alert-mode-line)
+  )
+
+(use-package racket-mode
+  :ensure t)
+
 (use-package emacs
   :init
   (setq completion-cycle-threshold 3)
-  (setq corfu-auto-prefix 1))
+  (setq corfu-auto-prefix 1)
+
+  (when (eq system-type 'berkeley-unix)
+      (progn
+	(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e/")
+	(require 'mu4e)
+	(require 'smtpmail)
+	(require 'mu4e-contrib)
+
+	(add-to-list 'display-buffer-alist
+               `(,(regexp-quote mu4e-main-buffer-name)
+                 display-buffer-same-window))
+
+	(setq mu4e-maildir "~/Maildir"
+	      mu4e-get-mail-command "/usr/local/bin/offlineimap -o"
+	      mu4e-update-interval 300
+	      mu4e-index-cleanup t
+	      mu4e-attachment-dir "~/Downloads"
+	      mu4e-org-support t
+	      mu4e-use-fancy-chars t
+	      mu4e-confirm-quit t
+	      mu4e-change-filenames-when-moving t
+	      mu4e-compose-format-flowed t
+	      mail-user-agent 'mu4e-user-agent
+	      sendmail-program (executable-find "msmtp")
+	      message-send-mail-real-function 'message-send-mail-with-sendmail
+	      message-kill-buffer-on-exit t
+	      message-sendmail-f-is-evil t
+	      message-sendmail-extra-arguments '("--read-envelope-from")
+	      message-sendmail-envelope-from 'header
+	
+	      mu4e-sent-folder "/Mailbox/Sent"
+	      mu4e-drafts-folder "/Mailbox/Drafts"
+	      ;; smtpmail-default-smtp-server "smtp.mailbox.org"
+	      ;; smtpmail-smtp-server "smtp.mailbox.org"
+	      ;; smtpmail-smtp-service 587
+	      ;; smtpmail-smtp-user "tealeg@mailbox.org"
+	      
+	      )
+	(setq mu4e-contexts
+	      `( ,(make-mu4e-context
+		   :name "Mailbox"
+		   :match-func (lambda (msg) (when msg
+					       (string-prefix-p "/Mailbox" (mu4e-message-field msg :maildir))))
+		   :vars '(
+			   (mu4e-trash-folder . "/Mailbox/[Mailbox].Trash")
+			   (mu4e-refile-folder . "/Mailbox/[Mailbox].Archive")
+			   ))))))
+    
+  )
+
+
