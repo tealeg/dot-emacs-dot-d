@@ -44,42 +44,44 @@
 
 
 
-(use-package doom-themes
+(use-package vegetative-theme
   :ensure t
-  :config
-  ;; (load-theme 'doom-outrun-electric t nil)
-  ;; (load-theme 'doom-flatwhite t nil)
-  ;; (load-theme 'doom-feather-dark t nil)
-  (load-theme 'doom-challenger-deep t nil)
-
+  :config (load-theme 'vegetative t nil) 
   )
 
 (use-package doom-modeline
   :ensure t
-  :after doom-themes
   :config
-  (setq doom-modeline-hud t)
+  (setq doom-modeline-hud t
+	doom-modeline-hud-min-height 1
+	display-time-mode 1
+	doom-modeline-time t
+	doom-modeline-time-live-icon t 
+	doom-modeline-bar-width 8)
   :init
   (doom-modeline-mode 1))
 
+(use-package rainbow-mode
+  :ensure t)
+
 (use-package use-package-ensure-system-package)
 
-;; (use-package unicode-fonts
-;;   :ensure t
-;;   :config
-;;   (unicode-fonts-setup))
-
-
-(if (eq system-type 'berkeley-unix)
+(defun tealeg-configure-font (Frame)
+  "Configure font given initial non-daemon FRAME.
+Intended for `after-make-frame-functions'."
+  ;; Do stuff with FRAME...
+  (remove-hook 'after-make-frame-functions #'tealeg-configure-font)
+  (if (eq system-type 'berkeley-unix)
+    
     (progn
-      (set-frame-font "IBM Plex Mono-9:weight=Regular")
-      (set-face-font 'default "IBM Plex Mono-9:weight=Regular")
-      (set-face-font 'fixed-pitch "IBM Plex Mono-9:weight=Regular")
-      (set-face-font 'fixed-pitch-serif "IBM Plex Mono-9:weight=Regular")
-      (set-face-font 'variable-pitch "IBM Plex Sans-9:weight=Regular")
-      (set-face-font 'variable-pitch-text "IBM Plex Serif-9:weight=Regular")
-      (set-face-font 'font-lock-comment-face "IBM Plex Serif-9:bweight=Regular:slant=italic")
-      (set-face-font 'doom-modeline "IBM Plex Sans-10:weight=Regular")
+      (set-frame-font "IBM Plex Mono-11:weight=Regular")
+      (set-face-font 'default "IBM Plex Mono-11:weight=Regular")
+      (set-face-font 'fixed-pitch "IBM Plex Mono-11:weight=Regular")
+      (set-face-font 'fixed-pitch-serif "IBM Plex Mono-11:weight=Regular")
+      (set-face-font 'variable-pitch "IBM Plex Sans-11:weight=Regular")
+      (set-face-font 'variable-pitch-text "IBM Plex Serif-11:weight=Regular")
+      (set-face-font 'font-lock-comment-face "IBM Plex Serif-11:bweight=Regular:slant=italic")
+      (set-face-font 'doom-modeline "IBM Plex Sans-11:weight=Regular")
 
       )
   
@@ -93,6 +95,10 @@
     (set-face-font 'font-lock-comment-face "IBM Plex Serif-17:weight=Regular:slant=italic")))
 
 (setq line-spacing 0.1)
+
+)
+
+(add-hook 'after-make-frame-functions #'tealeg-configure-font)
 
 
 
