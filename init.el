@@ -46,8 +46,9 @@
 
 (use-package vegetative-theme
   :ensure t
-  :config (load-theme 'vegetative t nil) 
+  ;; :config (load-theme 'vegetative t nil) 
   )
+
 
 (use-package doom-modeline
   :ensure t
@@ -70,18 +71,18 @@
   "Configure font given initial non-daemon FRAME.
 Intended for `after-make-frame-functions'."
   ;; Do stuff with FRAME...
-  (remove-hook 'after-make-frame-functions #'tealeg-configure-font)
+
   (if (eq system-type 'berkeley-unix)
     
     (progn
-      (set-frame-font "IBM Plex Mono-11:weight=Regular")
-      (set-face-font 'default "IBM Plex Mono-11:weight=Regular")
-      (set-face-font 'fixed-pitch "IBM Plex Mono-11:weight=Regular")
-      (set-face-font 'fixed-pitch-serif "IBM Plex Mono-11:weight=Regular")
-      (set-face-font 'variable-pitch "IBM Plex Sans-11:weight=Regular")
-      (set-face-font 'variable-pitch-text "IBM Plex Serif-11:weight=Regular")
-      (set-face-font 'font-lock-comment-face "IBM Plex Serif-11:bweight=Regular:slant=italic")
-      (set-face-font 'doom-modeline "IBM Plex Sans-11:weight=Regular")
+      (set-frame-font "IBM Plex Mono-14:weight=Regular")
+      (set-face-font 'default "IBM Plex Mono-14:weight=Regular")
+      (set-face-font 'fixed-pitch "IBM Plex Mono-14:weight=Regular")
+      (set-face-font 'fixed-pitch-serif "IBM Plex Mono-14:weight=Regular")
+      (set-face-font 'variable-pitch "IBM Plex Sans-14:weight=Regular")
+      (set-face-font 'variable-pitch-text "IBM Plex Serif-14:weight=Regular")
+      (set-face-font 'font-lock-comment-face "IBM Plex Serif-14:bweight=Regular:slant=italic")
+      (set-face-font 'doom-modeline "IBM Plex Sans-14:weight=Regular")
 
       )
   
@@ -95,7 +96,7 @@ Intended for `after-make-frame-functions'."
     (set-face-font 'font-lock-comment-face "IBM Plex Serif-17:weight=Regular:slant=italic")))
 
 (setq line-spacing 0.1)
-
+  (remove-hook 'after-make-frame-functions #'tealeg-configure-font)
 )
 
 (add-hook 'after-make-frame-functions #'tealeg-configure-font)
@@ -385,6 +386,8 @@ Intended for `after-make-frame-functions'."
   :init
   (setq completion-cycle-threshold 3)
   (setq corfu-auto-prefix 1)
+
+  (load-theme 'modus-vivendi t nil)
 
   (when (eq system-type 'berkeley-unix)
       (progn
