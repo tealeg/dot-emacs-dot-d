@@ -13,6 +13,30 @@
   (menu-bar-mode 0) ;; Emacs Text Toolbar above
   )
 
+(when (eq system-type 'darwin)
+  (require 'info)
+  (setopt Info-additional-directory-list (list "/opt/homebrew/share/info"))
+  (add-to-list 'exec-path "/opt/homebrew/bin")
+  (add-to-list 'exec-path "/Users/geoffrey/bin")
+  (add-to-list 'exec-path "/Users/geoffrey/go/bin")
+  (add-to-list 'exec-path "/Users/geoffrey/.cargo/bin")
+  (add-to-list 'exec-path "/Users/geoffrey/.roswell/bin")
+  (add-to-list 'exec-path "/Users/geoffrey/.local/bin")
+  (add-to-list 'exec-path "/Users/geoffrey/src/3rdparty/plan9/bin")
+  
+  (setenv "GOPRIVATE" "github.com/toknapp/*")
+  (setenv "GOPROXY" "http://goproxy.upvest.io:8080")
+  (setenv "GONOSUMDB" "github.com/toknapp/*")
+  (setenv "GUILE_LOAD_PATH" "/opt/homebrew/share/guile/site/3.0")
+  (setenv "GUILE_LOAD_COMPILED_PATH" "/opt/homebrew/lib/guile/3.0/site-ccache")
+  (setenv "GUILE_SYSTEM_EXTENSIONS_PATH" "/opt/homebrew/lib/guile/3.0/extensions")
+  (setenv "PLAN9" "/Users/geoffrey/src/3rdparty/plan9")
+  
+
+  ;; MacOS's BSD derived ls is not "enough" for emacs GNUy habits ;-) 
+  (setq insert-directory-program "gls" dired-use-ls-dired t)
+  (setq dired-listing-switches "-al --group-directories-first"))
+
 (tool-bar-mode 0) ;; Close Emacs icon toolbar above
 (scroll-bar-mode 0) ;; Close scrollbar
 (set-fringe-mode 12) ;; increase fringe width
@@ -83,32 +107,43 @@
 Intended for `after-make-frame-functions'."
   ;; Do stuff with FRAME...
 
-  (if (eq system-type 'berkeley-unix)
-    
-    (progn
-      (set-frame-font "IBM Plex Mono-14:weight=Regular")
-      (set-face-font 'default "IBM Plex Mono-14:weight=Regular")
-      (set-face-font 'fixed-pitch "IBM Plex Mono-14:weight=Regular")
-      (set-face-font 'fixed-pitch-serif "IBM Plex Mono-14:weight=Regular")
-      (set-face-font 'variable-pitch "IBM Plex Sans-14:weight=Regular")
-      (set-face-font 'variable-pitch-text "IBM Plex Serif-14:weight=Regular")
-      (set-face-font 'font-lock-comment-face "IBM Plex Serif-14:bweight=Regular:slant=italic")
-      (set-face-font 'doom-modeline "IBM Plex Sans-14:weight=Regular")
+  (cond ((eq system-type 'berkeley-unix)
+	 (progn
+	   (set-frame-font "IBM Plex Mono-14:weight=Regular")
+	   (set-face-font 'default "IBM Plex Mono-14:weight=Regular")
+	   (set-face-font 'fixed-pitch "IBM Plex Mono-14:weight=Regular")
+	   (set-face-font 'fixed-pitch-serif "IBM Plex Mono-14:weight=Regular")
+	   (set-face-font 'variable-pitch "IBM Plex Sans-14:weight=Regular")
+	   (set-face-font 'variable-pitch-text "IBM Plex Serif-14:weight=Regular")
+	   (set-face-font 'font-lock-comment-face "IBM Plex Serif-14:bweight=Regular:slant=italic")
+	   (set-face-font 'doom-modeline "IBM Plex Sans-14:weight=Regular")
+	   
+	   ))
+	((eq system-type 'darwin)
+	 (progn
+	   (set-frame-font "IBM Plex Mono-18:weight=Regular")
+	   (set-face-font 'default "IBM Plex Mono-18:weight=Regular")
+	   (set-face-font 'fixed-pitch "IBM Plex Mono-18:weight=Regular")
+	   (set-face-font 'fixed-pitch-serif "IBM Plex Mono-18:weight=Regular")
+	   (set-face-font 'variable-pitch "IBM Plex Sans-18:weight=Regular")
+	   (set-face-font 'variable-pitch-text "IBM Plex Serif-18:weight=Regular")
+	   (set-face-font 'font-lock-comment-face "IBM Plex Serif-18:bweight=Regular:slant=italic")
+	   (set-face-font 'doom-modeline "IBM Plex Sans-18:weight=Regular")
+	   
+	   ))
+	(t 
+	 (progn
+	   (set-frame-font "IBM Plex Mono-19:weight=Regular")
+	   (set-face-font 'default "IBM Plex Mono-19:weight=Regular")
+	   (set-face-font 'fixed-pitch "IBM Plex Mono-19:weight=Regular")
+	   (set-face-font 'fixed-pitch-serif "IBM Plex Mono-19:weight=Regular")
+	   (set-face-font 'variable-pitch "IBM Plex Sans-19:weight=Regular")
+	   (set-face-font 'variable-pitch-text "IBM Plex Serif-19:weight=Regular")
+	   (set-face-font 'font-lock-comment-face "IBM Plex Serif-19:weight=Regular:slant=italic"))))
 
-      )
-  
-  (progn
-    (set-frame-font "IBM Plex Mono-19:weight=Regular")
-    (set-face-font 'default "IBM Plex Mono-19:weight=Regular")
-    (set-face-font 'fixed-pitch "IBM Plex Mono-19:weight=Regular")
-    (set-face-font 'fixed-pitch-serif "IBM Plex Mono-19:weight=Regular")
-    (set-face-font 'variable-pitch "IBM Plex Sans-19:weight=Regular")
-    (set-face-font 'variable-pitch-text "IBM Plex Serif-19:weight=Regular")
-    (set-face-font 'font-lock-comment-face "IBM Plex Serif-19:weight=Regular:slant=italic")))
-
-(setq line-spacing 0.1)
+  (setq line-spacing 0.1)
   (remove-hook 'after-make-frame-functions #'tealeg-configure-font)
-)
+  )
 
 (add-hook 'after-make-frame-functions #'tealeg-configure-font)
 
@@ -151,27 +186,6 @@ Intended for `after-make-frame-functions'."
 ;;   (when (memq window-system '(mac ns x))
 ;;     (exec-path-from-shell-initialize)))
 
-(when (eq system-type 'darwin)
-  (require 'info)
-  (setopt Info-additional-directory-list (list "/opt/homebrew/share/info"))
-  (add-to-list 'exec-path "/opt/homebrew/bin")
-  (add-to-list 'exec-path "/Users/geoffrey/bin")
-  (add-to-list 'exec-path "/Users/geoffrey/go/bin")
-  (add-to-list 'exec-path "/Users/geoffrey/.cargo/bin")
-  (add-to-list 'exec-path "/Users/geoffrey/.roswell/bin")
-  (add-to-list 'exec-path "/Users/geoffrey/.local/bin")
-  (add-to-list 'exec-path "/Users/geoffrey/src/3rdparty/plan9/bin")
-  
-  (setenv "GOPRIVATE" "github.com/toknapp/*")
-  (setenv "GOPROXY" "http://goproxy.upvest.io:8080")
-  (setenv "GONOSUMDB" "github.com/toknapp/*")
-  (setenv "GUILE_LOAD_PATH" "/opt/homebrew/share/guile/site/3.0")
-  (setenv "GUILE_LOAD_COMPILED_PATH" "/opt/homebrew/lib/guile/3.0/site-ccache")
-  (setenv "GUILE_SYSTEM_EXTENSIONS_PATH" "/opt/homebrew/lib/guile/3.0/extensions")
-  (setenv "PLAN9" "/Users/geoffrey/src/3rdparty/plan9")
-  (setenv "GPG_TTY" (shell-command-to-string "tty"))
-  (getenv "TTY")
-  )
 
 
 (use-package magit
@@ -213,7 +227,7 @@ Intended for `after-make-frame-functions'."
 
 (use-package org
   :ensure nil
- :init
+  :init
   (require 'org-agenda)
   (require 'org-habit)
   (require 'ox-md)
@@ -362,7 +376,7 @@ Intended for `after-make-frame-functions'."
   :custom
   (eglot-autoshutdown t) ;; Automatically stop after closing all projects buffer
   (eglot-report-progress nil);; Hide all eglot event buffers
-)
+  )
 ;; -  :config
 ;; -  (setq eglot-stay-out-of '(company)));; No other complementary backend options are changed
 
@@ -376,7 +390,7 @@ Intended for `after-make-frame-functions'."
   :init
   (global-corfu-mode t))
 
-  
+
 (use-package pel-ert
   :vc (:url "https://github.com/pierre-rouleau/pel" :main-file "pel-ert.el" :rev :newest)
   :ensure t)
@@ -391,25 +405,25 @@ Intended for `after-make-frame-functions'."
   )
 
 (unless (eq system-type 'darwin)
-(use-package mu4e-alert
-  :ensure t
-  :init
-  (setq mu4e-alert-interesting-mail-query
-    (concat
-     "flag:unread maildir:/Mailbox/[Mailbox].INBOX "
-     ;; "OR "
-     ;; "flag:unread maildir:/Gmail/INBOX"
-     ))
-  (mu4e-alert-enable-mode-line-display)
-  (defun tealeg-refresh-mu4e-alert-mode-line ()
-    (interactive)
+  (use-package mu4e-alert
+    :ensure t
+    :init
+    (setq mu4e-alert-interesting-mail-query
+	  (concat
+	   "flag:unread maildir:/Mailbox/[Mailbox].INBOX "
+	   ;; "OR "
+	   ;; "flag:unread maildir:/Gmail/INBOX"
+	   ))
     (mu4e-alert-enable-mode-line-display)
-    )
-  (run-with-timer 0 60 'tealeg-refresh-mu4e-alert-mode-line)
-  ))
+    (defun tealeg-refresh-mu4e-alert-mode-line ()
+      (interactive)
+      (mu4e-alert-enable-mode-line-display)
+      )
+    (run-with-timer 0 60 'tealeg-refresh-mu4e-alert-mode-line)
+    ))
 
 (use-package racket-mode
-    :ensure t)
+  :ensure t)
 
 (use-package fish-mode
   :ensure t)
@@ -423,55 +437,55 @@ Intended for `after-make-frame-functions'."
   (setq completion-cycle-threshold 3)
   (setq corfu-auto-prefix 1)
 
-  (load-theme 'modus-vivendi t nil)
+  (tealeg-configure-font nil)
 
   (when (eq system-type 'berkeley-unix)
-      (progn
-	(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e/")
-	(require 'mu4e)
-	(require 'smtpmail)
-	(require 'mu4e-contrib)
+    (progn
+      (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e/")
+      (require 'mu4e)
+      (require 'smtpmail)
+      (require 'mu4e-contrib)
 
-	(add-to-list 'display-buffer-alist
-               `(,(regexp-quote mu4e-main-buffer-name)
-                 display-buffer-same-window))
+      (add-to-list 'display-buffer-alist
+		   `(,(regexp-quote mu4e-main-buffer-name)
+                     display-buffer-same-window))
 
-	(setq mu4e-maildir "~/Maildir"
-	      mu4e-get-mail-command "/usr/local/bin/offlineimap -o"
-	      mu4e-update-interval 300
-	      mu4e-index-cleanup t
-	      mu4e-attachment-dir "~/Downloads"
-	      mu4e-org-support t
-	      mu4e-use-fancy-chars t
-	      mu4e-confirm-quit t
-	      mu4e-change-filenames-when-moving t
-	      mu4e-compose-format-flowed t
-	      mail-user-agent 'mu4e-user-agent
-	      sendmail-program (executable-find "msmtp")
-	      message-send-mail-real-function 'message-send-mail-with-sendmail
-	      message-kill-buffer-on-exit t
-	      message-sendmail-f-is-evil t
-	      message-sendmail-extra-arguments '("--read-envelope-from")
-	      message-sendmail-envelope-from 'header
-	
-	      mu4e-sent-folder "/Mailbox/Sent"
-	      mu4e-drafts-folder "/Mailbox/Drafts"
-	      ;; smtpmail-default-smtp-server "smtp.mailbox.org"
-	      ;; smtpmail-smtp-server "smtp.mailbox.org"
-	      ;; smtpmail-smtp-service 587
-	      ;; smtpmail-smtp-user "tealeg@mailbox.org"
-	      
-	      )
-	(setq mu4e-contexts
-	      `( ,(make-mu4e-context
-		   :name "Mailbox"
-		   :match-func (lambda (msg) (when msg
-					       (string-prefix-p "/Mailbox" (mu4e-message-field msg :maildir))))
-		   :vars '(
-			   (mu4e-trash-folder . "/Mailbox/[Mailbox].Trash")
-			   (mu4e-refile-folder . "/Mailbox/[Mailbox].Archive")
-			   ))))))
-    
+      (setq mu4e-maildir "~/Maildir"
+	    mu4e-get-mail-command "/usr/local/bin/offlineimap -o"
+	    mu4e-update-interval 300
+	    mu4e-index-cleanup t
+	    mu4e-attachment-dir "~/Downloads"
+	    mu4e-org-support t
+	    mu4e-use-fancy-chars t
+	    mu4e-confirm-quit t
+	    mu4e-change-filenames-when-moving t
+	    mu4e-compose-format-flowed t
+	    mail-user-agent 'mu4e-user-agent
+	    sendmail-program (executable-find "msmtp")
+	    message-send-mail-real-function 'message-send-mail-with-sendmail
+	    message-kill-buffer-on-exit t
+	    message-sendmail-f-is-evil t
+	    message-sendmail-extra-arguments '("--read-envelope-from")
+	    message-sendmail-envelope-from 'header
+	    
+	    mu4e-sent-folder "/Mailbox/Sent"
+	    mu4e-drafts-folder "/Mailbox/Drafts"
+	    ;; smtpmail-default-smtp-server "smtp.mailbox.org"
+	    ;; smtpmail-smtp-server "smtp.mailbox.org"
+	    ;; smtpmail-smtp-service 587
+	    ;; smtpmail-smtp-user "tealeg@mailbox.org"
+	    
+	    )
+      (setq mu4e-contexts
+	    `( ,(make-mu4e-context
+		 :name "Mailbox"
+		 :match-func (lambda (msg) (when msg
+					     (string-prefix-p "/Mailbox" (mu4e-message-field msg :maildir))))
+		 :vars '(
+			 (mu4e-trash-folder . "/Mailbox/[Mailbox].Trash")
+			 (mu4e-refile-folder . "/Mailbox/[Mailbox].Archive")
+			 ))))))
+  
   )
 
 
