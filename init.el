@@ -22,7 +22,7 @@
 (setq-default fringes-outside-margins nil)
 (setq-default indicate-buffer-boundaries nil)
 (setq-default indicate-empty-lines nil)
-(setq-default cursor-type 'bar)
+(setq-default cursor-type 'box)
 (setq scroll-conservatively 1000)
 (setq scroll-margin 3)
 (setq make-backup-files nil)
@@ -49,6 +49,17 @@
   ;; :config (load-theme 'vegetative t nil) 
   )
 
+(use-package doom-themes
+  :ensure t
+  :config
+  ;; (load-theme 'doom-outrun-electric t nil)
+  ;; (load-theme 'doom-flatwhite t nil)
+  (load-theme 'doom-earl-grey t nil)
+  )
+
+;; (use-package the-matrix-theme
+;;   :ensure t
+;;   :config (load-theme 'the-matrix t nil))
 
 (use-package doom-modeline
   :ensure t
@@ -87,13 +98,13 @@ Intended for `after-make-frame-functions'."
       )
   
   (progn
-    (set-frame-font "IBM Plex Mono-17:weight=Regular")
-    (set-face-font 'default "IBM Plex Mono-17:weight=Regular")
-    (set-face-font 'fixed-pitch "IBM Plex Mono-17:weight=Regular")
-    (set-face-font 'fixed-pitch-serif "IBM Plex Mono-17:weight=Regular")
-    (set-face-font 'variable-pitch "IBM Plex Sans-17:weight=Regular")
-    (set-face-font 'variable-pitch-text "IBM Plex Serif-17:weight=Regular")
-    (set-face-font 'font-lock-comment-face "IBM Plex Serif-17:weight=Regular:slant=italic")))
+    (set-frame-font "IBM Plex Mono-19:weight=Regular")
+    (set-face-font 'default "IBM Plex Mono-19:weight=Regular")
+    (set-face-font 'fixed-pitch "IBM Plex Mono-19:weight=Regular")
+    (set-face-font 'fixed-pitch-serif "IBM Plex Mono-19:weight=Regular")
+    (set-face-font 'variable-pitch "IBM Plex Sans-19:weight=Regular")
+    (set-face-font 'variable-pitch-text "IBM Plex Serif-19:weight=Regular")
+    (set-face-font 'font-lock-comment-face "IBM Plex Serif-19:weight=Regular:slant=italic")))
 
 (setq line-spacing 0.1)
   (remove-hook 'after-make-frame-functions #'tealeg-configure-font)
@@ -134,15 +145,33 @@ Intended for `after-make-frame-functions'."
   (spacious-padding-mode t))
 
 ;; Fix path
-(use-package exec-path-from-shell
-  :ensure t
-  :config
-  (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-initialize)))
+;; (use-package exec-path-from-shell
+;;   :ensure t
+;;   :config
+;;   (when (memq window-system '(mac ns x))
+;;     (exec-path-from-shell-initialize)))
 
 (when (eq system-type 'darwin)
   (require 'info)
-  (setopt Info-additional-directory-list (list "/opt/homebrew/share/info")))
+  (setopt Info-additional-directory-list (list "/opt/homebrew/share/info"))
+  (add-to-list 'exec-path "/opt/homebrew/bin")
+  (add-to-list 'exec-path "/Users/geoffrey/bin")
+  (add-to-list 'exec-path "/Users/geoffrey/go/bin")
+  (add-to-list 'exec-path "/Users/geoffrey/.cargo/bin")
+  (add-to-list 'exec-path "/Users/geoffrey/.roswell/bin")
+  (add-to-list 'exec-path "/Users/geoffrey/.local/bin")
+  (add-to-list 'exec-path "/Users/geoffrey/src/3rdparty/plan9/bin")
+  
+  (setenv "GOPRIVATE" "github.com/toknapp/*")
+  (setenv "GOPROXY" "http://goproxy.upvest.io:8080")
+  (setenv "GONOSUMDB" "github.com/toknapp/*")
+  (setenv "GUILE_LOAD_PATH" "/opt/homebrew/share/guile/site/3.0")
+  (setenv "GUILE_LOAD_COMPILED_PATH" "/opt/homebrew/lib/guile/3.0/site-ccache")
+  (setenv "GUILE_SYSTEM_EXTENSIONS_PATH" "/opt/homebrew/lib/guile/3.0/extensions")
+  (setenv "PLAN9" "/Users/geoffrey/src/3rdparty/plan9")
+  (setenv "GPG_TTY" (shell-command-to-string "tty"))
+  (getenv "TTY")
+  )
 
 
 (use-package magit
@@ -361,7 +390,7 @@ Intended for `after-make-frame-functions'."
   (add-to-list 'auto-mode-alist '("\\.s\\(d7\\|7i\\)\\'" . seed7-mode))
   )
 
-
+(unless (eq system-type 'darwin)
 (use-package mu4e-alert
   :ensure t
   :init
@@ -377,10 +406,17 @@ Intended for `after-make-frame-functions'."
     (mu4e-alert-enable-mode-line-display)
     )
   (run-with-timer 0 60 'tealeg-refresh-mu4e-alert-mode-line)
-  )
+  ))
 
 (use-package racket-mode
+    :ensure t)
+
+(use-package fish-mode
   :ensure t)
+
+(use-package fish-completion
+  :ensure t)
+
 
 (use-package emacs
   :init
