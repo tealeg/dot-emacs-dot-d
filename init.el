@@ -68,10 +68,10 @@
 
 
 
-(use-package vegetative-theme
-  :ensure t
-  ;; :config (load-theme 'vegetative t nil) 
-  )
+;; (use-package vegetative-theme
+;;   :ensure t
+;;   ;; :config (load-theme 'vegetative t nil) 
+;;   )
 
 (use-package doom-themes
   :ensure t
@@ -108,45 +108,43 @@ Intended for `after-make-frame-functions'."
   ;; Do stuff with FRAME...
 
   (cond ((eq system-type 'berkeley-unix)
-	 (progn
-	   (set-frame-font "IBM Plex Mono-14:weight=Regular")
-	   (set-face-font 'default "IBM Plex Mono-14:weight=Regular")
-	   (set-face-font 'fixed-pitch "IBM Plex Mono-14:weight=Regular")
-	   (set-face-font 'fixed-pitch-serif "IBM Plex Mono-14:weight=Regular")
-	   (set-face-font 'variable-pitch "IBM Plex Sans-14:weight=Regular")
-	   (set-face-font 'variable-pitch-text "IBM Plex Serif-14:weight=Regular")
-	   (set-face-font 'font-lock-comment-face "IBM Plex Serif-14:bweight=Regular:slant=italic")
-	   (set-face-font 'doom-modeline "IBM Plex Sans-14:weight=Regular")
-	   
-	   ))
+	  (progn
+	    (set-frame-font "IBM Plex Mono-14:weight=Regular")
+	    (set-face-font 'default "IBM Plex Mono-14:weight=Regular")
+	    (set-face-font 'fixed-pitch "IBM Plex Mono-14:weight=Regular")
+	    (set-face-font 'fixed-pitch-serif "IBM Plex Mono-14:weight=Regular")
+	    (set-face-font 'variable-pitch "IBM Plex Sans-14:weight=Regular")
+	    (set-face-font 'variable-pitch-text "IBM Plex Serif-14:weight=Regular")
+	    (set-face-font 'font-lock-comment-face "IBM Plex Serif-14:bweight=Regular:slant=italic")
+	    (set-face-font 'doom-modeline "IBM Plex Sans-14:weight=Regular")
+	    
+	    ))
 	((eq system-type 'darwin)
 	 (progn
-	   (set-frame-font "IBM Plex Mono-18:weight=Regular")
-	   (set-face-font 'default "IBM Plex Mono-18:weight=Regular")
-	   (set-face-font 'fixed-pitch "IBM Plex Mono-18:weight=Regular")
-	   (set-face-font 'fixed-pitch-serif "IBM Plex Mono-18:weight=Regular")
-	   (set-face-font 'variable-pitch "IBM Plex Sans-18:weight=Regular")
-	   (set-face-font 'variable-pitch-text "IBM Plex Serif-18:weight=Regular")
-	   (set-face-font 'font-lock-comment-face "IBM Plex Serif-18:bweight=Regular:slant=italic")
-	   (set-face-font 'doom-modeline "IBM Plex Sans-18:weight=Regular")
-	   
-	   ))
-	(t 
+	    (set-frame-font "IBM Plex Mono-17:weight=Regular")
+	    (set-face-font 'default "IBM Plex Mono-17:weight=Regular")
+	    (set-face-font 'fixed-pitch "IBM Plex Mono-17:weight=Regular")
+	    (set-face-font 'fixed-pitch-serif "IBM Plex Mono-17:weight=Regular")
+	    (set-face-font 'variable-pitch "IBM Plex Sans-17:weight=Regular")
+	    (set-face-font 'variable-pitch-text "IBM Plex Serif-17:weight=Regular")
+	    (set-face-font 'font-lock-comment-face "IBM Plex Serif-17:weight=Regular:slant=italic")))
+	((eq system-type 'gnu/linux)
 	 (progn
-	   (set-frame-font "IBM Plex Mono-19:weight=Regular")
-	   (set-face-font 'default "IBM Plex Mono-19:weight=Regular")
-	   (set-face-font 'fixed-pitch "IBM Plex Mono-19:weight=Regular")
-	   (set-face-font 'fixed-pitch-serif "IBM Plex Mono-19:weight=Regular")
-	   (set-face-font 'variable-pitch "IBM Plex Sans-19:weight=Regular")
-	   (set-face-font 'variable-pitch-text "IBM Plex Serif-19:weight=Regular")
-	   (set-face-font 'font-lock-comment-face "IBM Plex Serif-19:weight=Regular:slant=italic"))))
+	   ;; Family! Simple, dark != >= 
+	   (set-frame-font "FiraCode Nerd Font-13:weight=Regular")
+	   (set-face-font 'default "FiraCode Nerd Font-13:weight=Regular")
+	   (set-face-font 'fixed-pitch "FiraCode Nerd Font-13:weight=Regular")
+	    (set-face-font 'fixed-pitch-serif "FiraCode Nerd Font-13:weight=Regular")
+	    (set-face-font 'variable-pitch "Fira Sans-13:weight=Regular")
+	    (set-face-font 'variable-pitch-text "Fira Sans-13:weight=Regular")
+	    (set-face-font 'font-lock-comment-face "Fira Sans-13:weight=Regular:slant=italic")
+	    (set-face-font 'doom-modeline "Fira Sans-13:weight=Regular")))
+	 )
+	(setq line-spacing 0.1)
+	)
 
-  (setq line-spacing 0.1)
-  (remove-hook 'after-make-frame-functions #'tealeg-configure-font)
-  )
 
 (add-hook 'after-make-frame-functions #'tealeg-configure-font)
-
 
 
 (if (eq system-type 'darwin)
@@ -224,6 +222,8 @@ Intended for `after-make-frame-functions'."
   (require 'info)
   (setopt Info-additional-directory-list (list "/opt/homebrew/share/info")))
 
+(use-package gotest
+  :ensure t)
 
 (use-package org
   :ensure nil
@@ -404,6 +404,7 @@ Intended for `after-make-frame-functions'."
   (add-to-list 'auto-mode-alist '("\\.s\\(d7\\|7i\\)\\'" . seed7-mode))
   )
 
+
 (unless (eq system-type 'darwin)
   (use-package mu4e-alert
     :ensure t
@@ -414,22 +415,71 @@ Intended for `after-make-frame-functions'."
 	   ;; "OR "
 	   ;; "flag:unread maildir:/Gmail/INBOX"
 	   ))
+  (mu4e-alert-enable-mode-line-display)
+  (defun tealeg-refresh-mu4e-alert-mode-line ()
+    (interactive)
     (mu4e-alert-enable-mode-line-display)
     (defun tealeg-refresh-mu4e-alert-mode-line ()
       (interactive)
       (mu4e-alert-enable-mode-line-display)
       )
     (run-with-timer 0 60 'tealeg-refresh-mu4e-alert-mode-line)
-    ))
+    )))
+
+(use-package all-the-icons
+  :ensure t
+  :init (all-the-icons-install-fonts))
 
 (use-package racket-mode
+  :ensure t
+  :config
+  (defun tealeg/racket-mode-helper-f ()
+    (prettify-symbols-mode 1))
+
+  (add-hook 'racket-mode-hook #'tealeg/racket-mode-helper-f))
+
+(use-package flycheck
   :ensure t)
+
 
 (use-package fish-mode
   :ensure t)
 
 (use-package fish-completion
   :ensure t)
+
+(use-package idris-mode
+  :ensure t
+  :after flycheck)
+
+
+(use-package ligature
+  :config
+  ;; Enable the "www" ligature in every possible major mode
+  (ligature-set-ligatures 't '("www"))
+  ;; Enable traditional ligature support in eww-mode, if the
+  ;; `variable-pitch' face supports it
+  (ligature-set-ligatures 'eww-mode '("ff" "fi" "ffi"))
+  ;; Enable all Cascadia Code ligatures in programming modes
+  (ligature-set-ligatures
+   'prog-mode
+   '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
+     ":::" "::=" "=:=" "===" "==>" "=!=" "=>>" "=<<" "=/=" "!=="
+     "!!." ">=>" ">>=" ">>>" ">>-" ">->" "->>" "-->" "---" "-<<"
+     "<~~" "<~>" "<*>" "<||" "<|>" "<$>" "<==" "<=>" "<=<" "<->"
+     "<--" "<-<" "<<=" "<<-" "<<<" "<+>" "</>" "###" "#_(" "..<"
+     "..." "+++" "/==" "///" "_|_" "www" "&&" "^=" "~~" "~@" "~="
+     "~>" "~-" "**" "*>" "*/" "||" "|}" "|]" "|=" "|>" "|-" "{|"
+     "[|" "]#" "::" ":=" ":>" ":<" "$>" "==" "=>" "!=" "!!" ">:"
+     ">=" ">>" ">-" "-~" "-|" "->" "--" "-<" "<~" "<*" "<|" "<:"
+     "<$" "<=" "<>" "<-" "<<" "<+" "</" "#{" "#[" "#:" "#=" "#!"
+     "##" "#(" "#?" "#_" "%%" ".=" ".-" ".." ".?" "+>" "++" "?:"
+     "?=" "?." "??" ";;" "/*" "/=" "/>" "//" "__" "~~" "(*" "*)"
+     "\\\\" "://"))
+  ;; Enables ligature checks globally in all buffers.  You can also do it
+  ;; per mode with `ligature-mode'.
+  (global-ligature-mode t)
+  )
 
 
 (use-package emacs
@@ -439,53 +489,108 @@ Intended for `after-make-frame-functions'."
 
   (tealeg-configure-font nil)
 
+
   (when (eq system-type 'berkeley-unix)
-    (progn
-      (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e/")
-      (require 'mu4e)
-      (require 'smtpmail)
-      (require 'mu4e-contrib)
+;;     (progn
+;;       (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e/")
+;;       (require 'mu4e)
+;;       (require 'smtpmail)
+;;       (require 'mu4e-contrib)
 
-      (add-to-list 'display-buffer-alist
-		   `(,(regexp-quote mu4e-main-buffer-name)
-                     display-buffer-same-window))
+;;       (add-to-list 'display-buffer-alist
+;; 		   `(,(regexp-quote mu4e-main-buffer-name)
+;;                      display-buffer-same-window))
 
-      (setq mu4e-maildir "~/Maildir"
-	    mu4e-get-mail-command "/usr/local/bin/offlineimap -o"
-	    mu4e-update-interval 300
-	    mu4e-index-cleanup t
-	    mu4e-attachment-dir "~/Downloads"
-	    mu4e-org-support t
-	    mu4e-use-fancy-chars t
-	    mu4e-confirm-quit t
-	    mu4e-change-filenames-when-moving t
-	    mu4e-compose-format-flowed t
-	    mail-user-agent 'mu4e-user-agent
-	    sendmail-program (executable-find "msmtp")
-	    message-send-mail-real-function 'message-send-mail-with-sendmail
-	    message-kill-buffer-on-exit t
-	    message-sendmail-f-is-evil t
-	    message-sendmail-extra-arguments '("--read-envelope-from")
-	    message-sendmail-envelope-from 'header
+;;       (setq mu4e-maildir "~/Maildir"
+;; 	    mu4e-get-mail-command "/usr/local/bin/offlineimap -o"
+;; 	    mu4e-update-interval 300
+;; 	    mu4e-index-cleanup t
+;; 	    mu4e-attachment-dir "~/Downloads"
+;; 	    mu4e-org-support t
+;; 	    mu4e-use-fancy-chars t
+;; 	    mu4e-confirm-quit t
+;; 	    mu4e-change-filenames-when-moving t
+;; 	    mu4e-compose-format-flowed t
+;; 	    mail-user-agent 'mu4e-user-agent
+;; 	    sendmail-program (executable-find "msmtp")
+;; 	    message-send-mail-real-function 'message-send-mail-with-sendmail
+;; 	    message-kill-buffer-on-exit t
+;; 	    message-sendmail-f-is-evil t
+;; 	    message-sendmail-extra-arguments '("--read-envelope-from")
+;; 	    message-sendmail-envelope-from 'header
 	    
-	    mu4e-sent-folder "/Mailbox/Sent"
-	    mu4e-drafts-folder "/Mailbox/Drafts"
-	    ;; smtpmail-default-smtp-server "smtp.mailbox.org"
-	    ;; smtpmail-smtp-server "smtp.mailbox.org"
-	    ;; smtpmail-smtp-service 587
-	    ;; smtpmail-smtp-user "tealeg@mailbox.org"
+;; 	    mu4e-sent-folder "/Mailbox/Sent"
+;; 	    mu4e-drafts-folder "/Mailbox/Drafts"
+;; 	    ;; smtpmail-default-smtp-server "smtp.mailbox.org"
+;; 	    ;; smtpmail-smtp-server "smtp.mailbox.org"
+;; 	    ;; smtpmail-smtp-service 587
+;; 	    ;; smtpmail-smtp-user "tealeg@mailbox.org"
 	    
-	    )
-      (setq mu4e-contexts
-	    `( ,(make-mu4e-context
-		 :name "Mailbox"
-		 :match-func (lambda (msg) (when msg
-					     (string-prefix-p "/Mailbox" (mu4e-message-field msg :maildir))))
-		 :vars '(
-			 (mu4e-trash-folder . "/Mailbox/[Mailbox].Trash")
-			 (mu4e-refile-folder . "/Mailbox/[Mailbox].Archive")
-			 ))))))
+;; 	    )
+;;       (setq mu4e-contexts
+;; 	    `( ,(make-mu4e-context
+;; 		 :name "Mailbox"
+;; 		 :match-func (lambda (msg) (when msg
+;; 					     (string-prefix-p "/Mailbox" (mu4e-message-field msg :maildir))))
+;; 		 :vars '(
+;; 			 (mu4e-trash-folder . "/Mailbox/[Mailbox].Trash")
+;; 			 (mu4e-refile-folder . "/Mailbox/[Mailbox].Archive")
+;; 			 ))))))
   
+;; =======
+  (defun tealeg/emacs-lisp-mode-helper-f ()
+    (prettify-symbols-mode 1))
+
+  (add-hook 'emacs-lisp-mode-hook #'tealeg/emacs-lisp-mode-helper-f)
+      
+  
+  (when (eq system-type 'berkeley-unix) (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e/"))
+  (when (eq system-type 'gnu/linux) (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e/"))
+  
+  (require 'mu4e)
+  (require 'smtpmail)
+  (require 'mu4e-contrib)
+  
+
+  (add-to-list 'display-buffer-alist
+               `(,(regexp-quote mu4e-main-buffer-name)
+                 display-buffer-same-window))
+
+  (setq mu4e-maildir "~/Maildir"
+	mu4e-get-mail-command "offlineimap -o"
+	mu4e-update-interval 300
+	mu4e-index-cleanup t
+	mu4e-attachment-dir "~/Downloads"
+	mu4e-org-support t
+	mu4e-use-fancy-chars t
+	mu4e-confirm-quit t
+	mu4e-change-filenames-when-moving t
+	mu4e-compose-format-flowed t
+	mail-user-agent 'mu4e-user-agent
+	sendmail-program (executable-find "msmtp")
+	message-send-mail-real-function 'message-send-mail-with-sendmail
+	message-kill-buffer-on-exit t
+	message-sendmail-f-is-evil t
+	message-sendmail-extra-arguments '("--read-envelope-from")
+	message-sendmail-envelope-from 'header
+	
+	mu4e-sent-folder "/Mailbox/Sent"
+	mu4e-drafts-folder "/Mailbox/Drafts"
+	;; smtpmail-default-smtp-server "smtp.mailbox.org"
+	;; smtpmail-smtp-server "smtp.mailbox.org"
+	;; smtpmail-smtp-service 587
+	;; smtpmail-smtp-user "tealeg@mailbox.org"
+	
+	)
+  (setq mu4e-contexts
+	`( ,(make-mu4e-context
+	     :name "Mailbox"
+	     :match-func (lambda (msg) (when msg
+					 (string-prefix-p "/Mailbox" (mu4e-message-field msg :maildir))))
+	     :vars '(
+		     (mu4e-trash-folder . "/Mailbox/[Mailbox].Trash")
+		     (mu4e-refile-folder . "/Mailbox/[Mailbox].Archive")
+		     ))))
   )
 
 
