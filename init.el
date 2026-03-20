@@ -78,7 +78,8 @@
   :config
   ;; (load-theme 'doom-outrun-electric t nil)
   ;; (load-theme 'doom-flatwhite t nil)
-  (load-theme 'doom-earl-grey t nil)
+  ;; (load-theme 'doom-earl-grey t nil)
+  (load-theme 'doom-rouge t nil)
   )
 
 ;; (use-package the-matrix-theme
@@ -130,7 +131,7 @@ Intended for `after-make-frame-functions'."
 	    (set-face-font 'font-lock-comment-face "IBM Plex Serif-17:weight=Regular:slant=italic")))
 	((eq system-type 'gnu/linux)
 	 (progn
-	   ;; Family! Simple, dark != >= 
+	   ;; Family! Simple, dark != >=
 	   (set-frame-font "FiraCode Nerd Font-13:weight=Regular")
 	   (set-face-font 'default "FiraCode Nerd Font-13:weight=Regular")
 	   (set-face-font 'fixed-pitch "FiraCode Nerd Font-13:weight=Regular")
@@ -405,30 +406,11 @@ Intended for `after-make-frame-functions'."
   )
 
 
-(unless (eq system-type 'darwin)
-  (use-package mu4e-alert
-    :ensure t
-    :init
-    (setq mu4e-alert-interesting-mail-query
-	  (concat
-	   "flag:unread maildir:/Mailbox/[Mailbox].INBOX "
-	   ;; "OR "
-	   ;; "flag:unread maildir:/Gmail/INBOX"
-	   ))
-  (mu4e-alert-enable-mode-line-display)
-  (defun tealeg-refresh-mu4e-alert-mode-line ()
-    (interactive)
-    (mu4e-alert-enable-mode-line-display)
-    (defun tealeg-refresh-mu4e-alert-mode-line ()
-      (interactive)
-      (mu4e-alert-enable-mode-line-display)
-      )
-    (run-with-timer 0 60 'tealeg-refresh-mu4e-alert-mode-line)
-    )))
 
-(use-package all-the-icons
+(use-package all-the-icons-nerd-fonts
   :ensure t
-  :init (all-the-icons-install-fonts))
+  :init (unless (file-exists-p "~/.fonts/fontawesome.ttf")
+		 (all-the-icons-install-fonts)))
 
 (use-package racket-mode
   :ensure t
@@ -481,6 +463,29 @@ Intended for `after-make-frame-functions'."
   (global-ligature-mode t)
   )
 
+(use-package haskell-ts-mode
+  :ensure t)
+
+  ;; (unless (eq system-type 'darwin)
+;;   (use-package mu4e-alert
+;;     :ensure t
+;;     :init
+;;     (setq mu4e-alert-interesting-mail-query
+;; 	  (concat
+;; 	   "flag:unread maildir:/Mailbox/[Mailbox].INBOX "
+;; 	   ;; "OR "
+;; 	   ;; "flag:unread maildir:/Gmail/INBOX"
+;; 	   ))
+;;   (mu4e-alert-enable-mode-line-display)
+;;   (defun tealeg-refresh-mu4e-alert-mode-line ()
+;;     (interactive)
+;;     (mu4e-alert-enable-mode-line-display)
+;;     (defun tealeg-refresh-mu4e-alert-mode-line ()
+;;       (interactive)
+;;       (mu4e-alert-enable-mode-line-display)
+;;       )
+;;     (run-with-timer 0 60 'tealeg-refresh-mu4e-alert-mode-line)
+;;     )))
 
 (use-package emacs
   :init
@@ -490,7 +495,7 @@ Intended for `after-make-frame-functions'."
   (tealeg-configure-font nil)
 
 
-  (when (eq system-type 'berkeley-unix)
+  ;; (when (eq system-type 'berkeley-unix)
 ;;     (progn
 ;;       (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e/")
 ;;       (require 'mu4e)
@@ -547,50 +552,52 @@ Intended for `after-make-frame-functions'."
   (when (eq system-type 'berkeley-unix) (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e/"))
   (when (eq system-type 'gnu/linux) (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e/"))
   
-  (require 'mu4e)
-  (require 'smtpmail)
-  (require 'mu4e-contrib)
+  ;; (require 'mu4e)
+  ;; (require 'smtpmail)
+  ;; (require 'mu4e-contrib)
   
 
-  (add-to-list 'display-buffer-alist
-               `(,(regexp-quote mu4e-main-buffer-name)
-                 display-buffer-same-window))
+  ;; (add-to-list 'display-buffer-alist
+  ;;              `(,(regexp-quote mu4e-main-buffer-name)
+  ;;                display-buffer-same-window))
 
-  (setq mu4e-maildir "~/Maildir"
-	mu4e-get-mail-command "offlineimap -o"
-	mu4e-update-interval 300
-	mu4e-index-cleanup t
-	mu4e-attachment-dir "~/Downloads"
-	mu4e-org-support t
-	mu4e-use-fancy-chars t
-	mu4e-confirm-quit t
-	mu4e-change-filenames-when-moving t
-	mu4e-compose-format-flowed t
-	mail-user-agent 'mu4e-user-agent
-	sendmail-program (executable-find "msmtp")
-	message-send-mail-real-function 'message-send-mail-with-sendmail
-	message-kill-buffer-on-exit t
-	message-sendmail-f-is-evil t
-	message-sendmail-extra-arguments '("--read-envelope-from")
-	message-sendmail-envelope-from 'header
+  ;; (setq mu4e-maildir "~/Maildir"
+  ;; 	mu4e-get-mail-command "offlineimap -o"
+  ;; 	mu4e-update-interval 300
+  ;; 	mu4e-index-cleanup t
+  ;; 	mu4e-attachment-dir "~/Downloads"
+  ;; 	mu4e-org-support t
+  ;; 	mu4e-use-fancy-chars t
+  ;; 	mu4e-confirm-quit t
+  ;; 	mu4e-change-filenames-when-moving t
+  ;; 	mu4e-compose-format-flowed t
+  ;; 	mail-user-agent 'mu4e-user-agent
+  ;; 	sendmail-program (executable-find "msmtp")
+  ;; 	message-send-mail-real-function 'message-send-mail-with-sendmail
+  ;; 	message-kill-buffer-on-exit t
+  ;; 	message-sendmail-f-is-evil t
+  ;; 	message-sendmail-extra-arguments '("--read-envelope-from")
+  ;; 	message-sendmail-envelope-from 'header
 	
-	mu4e-sent-folder "/Mailbox/Sent"
-	mu4e-drafts-folder "/Mailbox/Drafts"
-	;; smtpmail-default-smtp-server "smtp.mailbox.org"
-	;; smtpmail-smtp-server "smtp.mailbox.org"
-	;; smtpmail-smtp-service 587
-	;; smtpmail-smtp-user "tealeg@mailbox.org"
+  ;; 	mu4e-sent-folder "/Mailbox/Sent"
+  ;; 	mu4e-drafts-folder "/Mailbox/Drafts"
+  ;; 	;; smtpmail-default-smtp-server "smtp.mailbox.org"
+  ;; 	;; smtpmail-smtp-server "smtp.mailbox.org"
+  ;; 	;; smtpmail-smtp-service 587
+  ;; 	;; smtpmail-smtp-user "tealeg@mailbox.org"
 	
-	)
-  (setq mu4e-contexts
-	`( ,(make-mu4e-context
-	     :name "Mailbox"
-	     :match-func (lambda (msg) (when msg
-					 (string-prefix-p "/Mailbox" (mu4e-message-field msg :maildir))))
-	     :vars '(
-		     (mu4e-trash-folder . "/Mailbox/[Mailbox].Trash")
-		     (mu4e-refile-folder . "/Mailbox/[Mailbox].Archive")
-		     ))))
+  ;; 	)
+  ;; (setq mu4e-contexts
+  ;; 	`( ,(make-mu4e-context
+  ;; 	     :name "Mailbox"
+  ;; 	     :match-func (lambda (msg) (when msg
+  ;; 					 (string-prefix-p "/Mailbox" (mu4e-message-field msg :maildir))))
+  ;; 	     :vars '(
+  ;; 		     (mu4e-trash-folder . "/Mailbox/[Mailbox].Trash")
+  ;; 		     (mu4e-refile-folder . "/Mailbox/[Mailbox].Archive")
+  ;; 		     ))))
+
+
   )
 
 
