@@ -79,8 +79,12 @@
   ;; (load-theme 'doom-outrun-electric t nil)
   ;; (load-theme 'doom-flatwhite t nil)
   ;; (load-theme 'doom-earl-grey t nil)
-  (load-theme 'doom-rouge t nil)
+  ;; (load-theme 'doom-rouge t nil)
   )
+
+(use-package almost-mono-themes
+  :ensure t
+  :config (load-theme 'almost-mono-cream t nil))
 
 ;; (use-package the-matrix-theme
 ;;   :ensure t
