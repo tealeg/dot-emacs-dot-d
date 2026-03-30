@@ -41,7 +41,7 @@
 (scroll-bar-mode 0) ;; Close scrollbar
 (set-fringe-mode 12) ;; increase fringe width
 (show-paren-mode t)
-(display-battery-mode 1)
+(display-battery-mode (or (not (eq system-type 'haiku)) -1))
 
 (setq-default fringes-outside-margins nil)
 (setq-default indicate-buffer-boundaries nil)
@@ -67,72 +67,75 @@
       delete-by-moving-to-trash t) ;; Emacs moves to the recycling bin when deleting files
 
 
-
-(use-package doric-themes
+(unless (eq system-type 'haiku)
+  (use-package doric-themes
   :ensure t
   :config (load-theme 'doric-wind t nil))
 
 
-(use-package doom-modeline
-  :ensure t
-  :config
-  (setq doom-modeline-hud t
-	doom-modeline-hud-min-height 1
-	display-time-mode 1
-	doom-modeline-time t
-	doom-modeline-time-live-icon t 
-	doom-modeline-bar-width 8)
-  :init
-  (doom-modeline-mode 1))
+  (use-package doom-modeline
+    :ensure t
+    :config
+    (setq doom-modeline-hud t
+	  doom-modeline-hud-min-height 1
+	  display-time-mode 1
+	  doom-modeline-time t
+	  doom-modeline-time-live-icon t 
+	  doom-modeline-bar-width 8)
+    :init
+    (doom-modeline-mode 1))
+
+  (defun tealeg-configure-font (Frame)
+    "Configure font given initial non-daemon FRAME.
+Intended for `after-make-frame-functions'."
+    ;; Do stuff with FRAME...
+
+    (cond ((eq system-type 'berkeley-unix)
+	   (progn
+	     (set-frame-font "IBM Plex Mono-14:weight=Regular")
+	     (set-face-font 'default "IBM Plex Mono-14:weight=Regular")
+	     (set-face-font 'fixed-pitch "IBM Plex Mono-14:weight=Regular")
+	     (set-face-font 'fixed-pitch-serif "IBM Plex Mono-14:weight=Regular")
+	     (set-face-font 'variable-pitch "IBM Plex Sans-14:weight=Regular")
+	     (set-face-font 'variable-pitch-text "IBM Plex Serif-14:weight=Regular")
+	     (set-face-font 'font-lock-comment-face "IBM Plex Serif-14:bweight=Regular:slant=italic")
+	     (set-face-font 'doom-modeline "IBM Plex Sans-14:weight=Regular")
+	     
+	     ))
+	  ((eq system-type 'darwin)
+	   (progn
+	     (set-frame-font "IBM Plex Mono-17:weight=Regular")
+	     (set-face-font 'default "IBM Plex Mono-17:weight=Regular")
+	     (set-face-font 'fixed-pitch "IBM Plex Mono-17:weight=Regular")
+	     (set-face-font 'fixed-pitch-serif "IBM Plex Mono-17:weight=Regular")
+	     (set-face-font 'variable-pitch "IBM Plex Sans-17:weight=Regular")
+	     (set-face-font 'variable-pitch-text "IBM Plex Serif-17:weight=Regular")
+	     (set-face-font 'font-lock-comment-face "IBM Plex Serif-17:weight=Regular:slant=italic")))
+	  ((eq system-type 'gnu/linux)
+	   (progn
+	     ;; Family! Simple, dark != >=
+	     (set-frame-font "FiraCode Nerd Font-13:weight=Regular")
+	     (set-face-font 'default "FiraCode Nerd Font-13:weight=Regular")
+	     (set-face-font 'fixed-pitch "FiraCode Nerd Font-13:weight=Regular")
+	     (set-face-font 'fixed-pitch-serif "FiraCode Nerd Font-13:weight=Regular")
+	     (set-face-font 'variable-pitch "Fira Sans-13:weight=Regular")
+	     (set-face-font 'variable-pitch-text "Fira Sans-13:weight=Regular")
+	     (set-face-font 'font-lock-comment-face "Fira Sans-13:weight=Regular:slant=italic")
+	     (set-face-font 'doom-modeline "Fira Sans-13:weight=Regular")))
+	  )
+    (setq line-spacing 0.1)
+    )
+
+
+  (add-hook 'after-make-frame-functions #'tealeg-configure-font)
+
+  )
+
 
 (Use-package rainbow-mode
   :ensure t)
 
 (use-package use-package-ensure-system-package)
-
-(defun tealeg-configure-font (Frame)
-  "Configure font given initial non-daemon FRAME.
-Intended for `after-make-frame-functions'."
-  ;; Do stuff with FRAME...
-
-  (cond ((eq system-type 'berkeley-unix)
-	  (progn
-	    (set-frame-font "Fira Code-14:weight=Regular")
-	    (set-face-font 'default "Fira Code-14:weight=Regular")
-	    (set-face-font 'fixed-pitch "Fira Code-14:weight=Regular")
-	    (set-face-font 'fixed-pitch-serif "Fira Code-14:weight=Regular")
-	    (set-face-font 'variable-pitch "Fira Sans-14:weight=Regular")
-	    (set-face-font 'variable-pitch-text "Fira Serif-14:weight=Regular")
-	    (set-face-font 'font-lock-comment-face "Fira Serif-14:bweight=Regular:slant=italic")
-	    (set-face-font 'doom-modeline "Fira Sans-14:weight=Regular")
-	    
-	    ))
-	((eq system-type 'darwin)
-	 (progn
-	    (set-frame-font "IBM Plex Mono-17:weight=Regular")
-	    (set-face-font 'default "IBM Plex Mono-17:weight=Regular")
-	    (set-face-font 'fixed-pitch "IBM Plex Mono-17:weight=Regular")
-	    (set-face-font 'fixed-pitch-serif "IBM Plex Mono-17:weight=Regular")
-	    (set-face-font 'variable-pitch "IBM Plex Sans-17:weight=Regular")
-	    (set-face-font 'variable-pitch-text "IBM Plex Serif-17:weight=Regular")
-	    (set-face-font 'font-lock-comment-face "IBM Plex Serif-17:weight=Regular:slant=italic")))
-	((eq system-type 'gnu/linux)
-	 (progn
-	   ;; Family! Simple, dark != >=
-	   (set-frame-font "FiraCode Nerd Font-13:weight=Regular")
-	   (set-face-font 'default "FiraCode Nerd Font-13:weight=Regular")
-	   (set-face-font 'fixed-pitch "FiraCode Nerd Font-13:weight=Regular")
-	    (set-face-font 'fixed-pitch-serif "FiraCode Nerd Font-13:weight=Regular")
-	    (set-face-font 'variable-pitch "Fira Sans-13:weight=Regular")
-	    (set-face-font 'variable-pitch-text "Fira Sans-13:weight=Regular")
-	    (set-face-font 'font-lock-comment-face "Fira Sans-13:weight=Regular:slant=italic")
-	    (set-face-font 'doom-modeline "Fira Sans-13:weight=Regular")))
-	 )
-	(setq line-spacing 0.1)
-	)
-
-
-(add-hook 'after-make-frame-functions #'tealeg-configure-font)
 
 
 (if (eq system-type 'darwin)
@@ -381,8 +384,12 @@ Intended for `after-make-frame-functions'."
 
 (use-package all-the-icons-nerd-fonts
   :ensure t
-  :init (unless (file-exists-p "~/.fonts/fontawesome.ttf")
-		 (all-the-icons-install-fonts)))
+  :init
+  (let ((fpath (cond ((eq system-type 'haiku) "/system/non-packaged/data/fonts/fontawesome.ttf")
+		     (t "~/.fonts/fontawesome.ttf"))))
+    (unless (file-exists-p fpath)
+      (all-the-icons-install-fonts)))
+  )
 
 (use-package mermaid-ts-mode
   :ensure t)
@@ -453,7 +460,8 @@ Intended for `after-make-frame-functions'."
   (setq completion-cycle-threshold 3)
   (setq corfu-auto-prefix 1)
 
-  (tealeg-configure-font nil)
+  (unless (eq system-type 'haiku)
+    (tealeg-configure-font nil))
 
 
   (defun tealeg/emacs-lisp-mode-helper-f ()
