@@ -68,27 +68,10 @@
 
 
 
-;; (use-package vegetative-theme
-;;   :ensure t
-;;   ;; :config (load-theme 'vegetative t nil) 
-;;   )
-
-(use-package doom-themes
+(use-package doric-themes
   :ensure t
-  :config
-  ;; (load-theme 'doom-outrun-electric t nil)
-  ;; (load-theme 'doom-flatwhite t nil)
-  ;; (load-theme 'doom-earl-grey t nil)
-  ;; (load-theme 'doom-rouge t nil)
-  )
+  :config (load-theme 'doric-wind t nil))
 
-(use-package almost-mono-themes
-  :ensure t
-  :config (load-theme 'almost-mono-cream t nil))
-
-;; (use-package the-matrix-theme
-;;   :ensure t
-;;   :config (load-theme 'the-matrix t nil))
 
 (use-package doom-modeline
   :ensure t
@@ -102,7 +85,7 @@
   :init
   (doom-modeline-mode 1))
 
-(use-package rainbow-mode
+(Use-package rainbow-mode
   :ensure t)
 
 (use-package use-package-ensure-system-package)
@@ -114,14 +97,14 @@ Intended for `after-make-frame-functions'."
 
   (cond ((eq system-type 'berkeley-unix)
 	  (progn
-	    (set-frame-font "IBM Plex Mono-14:weight=Regular")
-	    (set-face-font 'default "IBM Plex Mono-14:weight=Regular")
-	    (set-face-font 'fixed-pitch "IBM Plex Mono-14:weight=Regular")
-	    (set-face-font 'fixed-pitch-serif "IBM Plex Mono-14:weight=Regular")
-	    (set-face-font 'variable-pitch "IBM Plex Sans-14:weight=Regular")
-	    (set-face-font 'variable-pitch-text "IBM Plex Serif-14:weight=Regular")
-	    (set-face-font 'font-lock-comment-face "IBM Plex Serif-14:bweight=Regular:slant=italic")
-	    (set-face-font 'doom-modeline "IBM Plex Sans-14:weight=Regular")
+	    (set-frame-font "Fira Code-14:weight=Regular")
+	    (set-face-font 'default "Fira Code-14:weight=Regular")
+	    (set-face-font 'fixed-pitch "Fira Code-14:weight=Regular")
+	    (set-face-font 'fixed-pitch-serif "Fira Code-14:weight=Regular")
+	    (set-face-font 'variable-pitch "Fira Sans-14:weight=Regular")
+	    (set-face-font 'variable-pitch-text "Fira Serif-14:weight=Regular")
+	    (set-face-font 'font-lock-comment-face "Fira Serif-14:bweight=Regular:slant=italic")
+	    (set-face-font 'doom-modeline "Fira Sans-14:weight=Regular")
 	    
 	    ))
 	((eq system-type 'darwin)
@@ -175,20 +158,6 @@ Intended for `after-make-frame-functions'."
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                          ("nongnu" . "https://elpa.nongnu.org/nongnu/")
                          ("melpa" . "https://melpa.org/packages/")))
-
-
-(use-package spacious-padding
-  :ensure t
-  :config
-  (spacious-padding-mode t))
-
-;; Fix path
-;; (use-package exec-path-from-shell
-;;   :ensure t
-;;   :config
-;;   (when (memq window-system '(mac ns x))
-;;     (exec-path-from-shell-initialize)))
-
 
 
 (use-package magit
