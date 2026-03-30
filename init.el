@@ -132,7 +132,7 @@ Intended for `after-make-frame-functions'."
   )
 
 
-(Use-package rainbow-mode
+(use-package rainbow-mode
   :ensure t)
 
 (use-package use-package-ensure-system-package)
